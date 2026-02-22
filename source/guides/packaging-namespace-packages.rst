@@ -159,8 +159,8 @@ Legacy namespace packages
 
 These two methods, that were used to create namespace packages prior to :pep:`420`,
 are now considered to be obsolete and should not be used unless you need compatibility
-with packages already using this method. Also, :doc:`pkg_resources <setuptools:pkg_resources>`
-has been deprecated.
+with packages already using this method. Also, `pkg_resources
+<https://setuptools.pypa.io/en/latest/pkg_resources.html>`_ has been deprecated.
 
 To migrate an existing package, all packages sharing the namespace must be migrated simultaneously.
 
