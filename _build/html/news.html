@@ -1,0 +1,740 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Contribute to this guide" href="contribute.html" />
+
+    <link rel="shortcut icon" href="_static/py.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
+        <title>News - Python Packaging User Guide</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Python Packaging User Guide</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">Python Packaging User Guide</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of Python Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow.html">The Packaging Flow</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/installing-packages.html">Installing Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/managing-dependencies.html">Managing Application Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/packaging-projects.html">Packaging Python Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="guides/index.html">Guides</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="guides/section-install.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-using-pip-and-virtual-environments.html">Install packages in a virtual environment using pip and venv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-using-virtualenv.html">Installing packages using virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-stand-alone-command-line-tools.html">Installing stand alone command line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-using-linux-tools.html">Installing pip/setuptools/wheel with Linux Package Managers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-scientific-packages.html">Installing scientific packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="guides/section-build-and-publish.html">Building and Publishing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Building and Publishing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="guides/writing-pyproject-toml.html">Writing your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/distributing-packages-using-setuptools.html">Packaging and distributing projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/dropping-older-python-versions.html">Dropping support for older Python versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/packaging-binary-extensions.html">Packaging binary extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/packaging-namespace-packages.html">Packaging namespace packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/creating-command-line-tools.html">Creating and packaging command-line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/creating-and-discovering-plugins.html">Creating and discovering plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/using-testpypi.html">Using TestPyPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/making-a-pypi-friendly-readme.html">Making a PyPI-friendly README</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows.html">Publishing package distribution releases using GitHub Actions CI/CD workflows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/modernize-setup-py-project.html">How to modernize a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> based project?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/licensing-examples-and-user-scenarios.html">Licensing examples and user scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="guides/section-hosting.html">Hosting</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Hosting</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="guides/index-mirrors-and-caches.html">Package index mirrors and caches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/hosting-your-own-index.html">Hosting your own simple repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guides/tool-recommendations.html">Tool recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/analyzing-pypi-package-downloads.html">Analyzing PyPI package downloads</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="discussions/index.html">Discussions</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Discussions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/deploying-python-applications.html">Deploying Python applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/pip-vs-easy-install.html">pip vs easy_install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/install-requires-vs-requirements.html">install_requires vs requirements files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/distribution-package-vs-import-package.html">Distribution package vs. import package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/package-formats.html">Package Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/src-layout-vs-flat-layout.html">src layout vs flat layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/setup-py-deprecated.html">Is <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> deprecated?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/single-source-version.html">Single-sourcing the Project Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/downstream-packaging.html">Supporting downstream packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="specifications/index.html">PyPA specifications</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of PyPA specifications</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-distribution-metadata.html">Package Distribution Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Package Distribution Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/name-normalization.html">Names and normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/core-metadata.html">Core metadata specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/version-specifiers.html">Version specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/dependency-specifiers.html">Dependency specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/pyproject-toml.html"><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/dependency-groups.html">Dependency Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/inline-script-metadata.html">Inline script metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/platform-compatibility-tags.html">Platform compatibility tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/well-known-project-urls.html">Well-known Project URLs in Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/glob-patterns.html"><code class="docutils literal notranslate"><span class="pre">glob</span></code> patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/license-expression.html">License Expression</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-installation-metadata.html">Package Installation Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Package Installation Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/recording-installed-packages.html">Recording installed projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/entry-points.html">Entry points specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/direct-url.html">Recording the Direct URL Origin of installed distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/direct-url-data-structure.html">Direct URL Data Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/virtual-environments.html">Python Virtual Environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/externally-managed-environments.html">Externally Managed Environments</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-distribution-formats.html">Package Distribution File Formats</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Package Distribution File Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/source-distribution-format.html">Source distribution format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/binary-distribution-format.html">Binary distribution format</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-package-indices.html">Package Index Interfaces</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Package Index Interfaces</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/pypirc.html">The <code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/simple-repository-api.html">Simple repository API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/file-yanking.html">File Yanking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/index-hosted-attestations.html">Index hosted attestations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/project-status-markers.html">Project Status Markers</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-python-description-formats.html">Python Description Formats</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Python Description Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="specifications/build-details/index.html"><code class="file docutils literal notranslate"><span class="pre">build-details.json</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of build-details.json</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="specifications/build-details/v1.0.html">v1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-reproducible-environments.html">Reproducible Environments</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Reproducible Environments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/pylock-toml.html"><code class="docutils literal notranslate"><span class="pre">pylock.toml</span></code> Specification</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specifications/schemas/index.html">PyPA schemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="key_projects.html">Project Summaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">How to Get Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contribute to this guide</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">News</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/blob/main/source/news.rst?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/edit/main/source/news.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="news">
+<h1>News<a class="headerlink" href="#news" title="Link to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This document is not currently updated. Previously, the document
+highlighted changes in Python packaging.</p>
+</div>
+<section id="september-2019">
+<h2>September 2019<a class="headerlink" href="#september-2019" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added a guide about publishing dists via GitHub Actions. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/647">PR #647</a>)</p></li>
+</ul>
+</section>
+<section id="august-2019">
+<h2>August 2019<a class="headerlink" href="#august-2019" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Updated to use <code class="file docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span></code> when installing pipx. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/631">PR #631</a>)</p></li>
+</ul>
+</section>
+<section id="july-2019">
+<h2>July 2019<a class="headerlink" href="#july-2019" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Marked all PEP numbers with the :pep: role. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/629">PR #629</a>)</p></li>
+<li><p>Upgraded Sphinx version and removed pypa.io intersphinx. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/625">PR #625</a>)</p></li>
+<li><p>Mentioned <code class="file docutils literal notranslate"><span class="pre">find_namespace_packages</span></code>. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/622">PR #622</a>)</p></li>
+<li><p>Updated directory layout examples for consistency. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/611">PR #611</a>)</p></li>
+<li><p>Updated Bandersnatch link to GitHub. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/623">PR #623</a>)</p></li>
+</ul>
+</section>
+<section id="june-2019">
+<h2>June 2019<a class="headerlink" href="#june-2019" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Fixed some typos. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/620">PR #620</a>)</p></li>
+</ul>
+</section>
+<section id="may-2019">
+<h2>May 2019<a class="headerlink" href="#may-2019" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added <code class="file docutils literal notranslate"><span class="pre">python_requires</span></code> usage to packaging tutorial. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/613">PR #613</a>)</p></li>
+<li><p>Added a MANIFEST.in guide page. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/609">PR #609</a>)</p></li>
+</ul>
+</section>
+<section id="april-2019">
+<h2>April 2019<a class="headerlink" href="#april-2019" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added a mention for <code class="file docutils literal notranslate"><span class="pre">shiv</span></code> in the key projects section. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/608">PR #608</a>)</p></li>
+<li><p>Reduced emphasis on virtualenv. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/606">PR #606</a>)</p></li>
+</ul>
+</section>
+<section id="march-2019">
+<h2>March 2019<a class="headerlink" href="#march-2019" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Moved single-sourcing guide version option to Python 3. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/605">PR #605</a>)</p></li>
+<li><p>Covered RTD details for contributing. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/600">PR #600</a>)</p></li>
+</ul>
+</section>
+<section id="february-2019">
+<h2>February 2019<a class="headerlink" href="#february-2019" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Elaborate upon the differences between the tutorial and the real packaging process. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/602">PR #602</a>)</p></li>
+<li><p>Added instructions to install Python CLI applications. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/594">PR #594</a>)</p></li>
+</ul>
+</section>
+<section id="january-2019">
+<h2>January 2019<a class="headerlink" href="#january-2019" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added <code class="file docutils literal notranslate"><span class="pre">--no-deps</span></code> to the packaging tutorial. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/593">PR #593</a>)</p></li>
+<li><p>Updated Sphinx and Nox. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/591">PR #591</a>)</p></li>
+<li><p>Referenced Twine from Python3. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/581">PR #581</a>)</p></li>
+</ul>
+</section>
+<section id="december-2018">
+<h2>December 2018<a class="headerlink" href="#december-2018" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>No programmers in the office!</p></li>
+</ul>
+</section>
+<section id="november-2018">
+<h2>November 2018<a class="headerlink" href="#november-2018" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Removed landing page link to PyPI migration guide. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/575">PR #575</a>)</p></li>
+<li><p>Changed bumpversion to bump2version. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/572">PR #572</a>)</p></li>
+<li><p>Added single-sourcing package version example. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/573">PR #573</a>)</p></li>
+<li><p>Added a guide for creating documentation. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/568">PR #568</a>)</p></li>
+</ul>
+</section>
+<section id="october-2018">
+<h2>October 2018<a class="headerlink" href="#october-2018" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Updated Nox package name. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/566">PR #566</a>)</p></li>
+<li><p>Mentioned Sphinx extensions in guides. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/562">PR #562</a>)</p></li>
+</ul>
+</section>
+<section id="september-2018">
+<h2>September 2018<a class="headerlink" href="#september-2018" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added a section on checking RST markup. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/554">PR #554</a>)</p></li>
+<li><p>Updated user installs page. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/558">PR #558</a>)</p></li>
+<li><p>Updated Google BigQuery urls. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/556">PR #556</a>)</p></li>
+<li><p>Replaced tar command with working command. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/552">PR #552</a>)</p></li>
+<li><p>Changed to double quotes in the pip install SomeProject==1.4. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/550">PR #550</a>)</p></li>
+</ul>
+</section>
+<section id="august-2018">
+<h2>August 2018<a class="headerlink" href="#august-2018" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Removed the recommendation to store passwords in cleartext. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/546">PR #546</a>)</p></li>
+<li><p>Moved the Overview to a task based lead in along with the others. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/540">PR #540</a>)</p></li>
+<li><p>Updated Python version supported by virtualenv. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/538">PR #538</a>)</p></li>
+<li><p>Added outline/rough draft of new Overview page. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/519">PR #519</a>)</p></li>
+</ul>
+</section>
+<section id="july-2018">
+<h2>July 2018<a class="headerlink" href="#july-2018" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Improved binary extension docs. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/531">PR #531</a>)</p></li>
+<li><p>Added scikit-build to key projects. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/530">PR #530</a>)</p></li>
+</ul>
+</section>
+<section id="june-2018">
+<h2>June 2018<a class="headerlink" href="#june-2018" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Fixed categories of interop PEP for pypa.io. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/527">PR #527</a>)</p></li>
+<li><p>Updated Markdown descriptions explanation. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/522">PR #522</a>)</p></li>
+</ul>
+</section>
+<section id="may-2018">
+<h2>May 2018<a class="headerlink" href="#may-2018" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Noted issues with Provides-Dist and Obsoletes-Dist. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/513">PR #513</a>)</p></li>
+<li><p>Removed outdated warning about Python version mixing with Pipenv. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/501">PR #501</a>)</p></li>
+<li><p>Simplified packaging tutorial. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/498">PR #498</a>)</p></li>
+<li><p>Updated Windows users instructions for clarity. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/493">PR #493</a>)</p></li>
+<li><p>Updated the license section description for completeness. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/492">PR #492</a>)</p></li>
+<li><p>Added specification-style document to contributing section. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/489">PR #489</a>)</p></li>
+<li><p>Added documentation types to contributing guide. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/485">PR #485</a>)</p></li>
+</ul>
+</section>
+<section id="april-2018">
+<h2>April 2018<a class="headerlink" href="#april-2018" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added README guide. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/461">PR #461</a>)</p></li>
+<li><p>Updated instructions and status for PyPI launch. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/475">PR #475</a>)</p></li>
+<li><p>Added instructions for Warehouse. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/471">PR #471</a>)</p></li>
+<li><p>Removed GPG references from publishing tutorial. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/466">PR #466</a>)</p></li>
+<li><p>Added ‘What’s in which Python 3.4–3.6?’. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/468">PR #468</a>)</p></li>
+<li><p>Added a guide for phasing out Python versions. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/459">PR #459</a>)</p></li>
+<li><p>Made default Description-Content-Type variant GFM. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/462">PR #462</a>)</p></li>
+</ul>
+</section>
+<section id="march-2018">
+<h2>March 2018<a class="headerlink" href="#march-2018" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Updated “installing scientific packages”. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/455">PR #455</a>)</p></li>
+<li><p>Added <code class="file docutils literal notranslate"><span class="pre">long_description_content_type</span></code> to follow PEP 556. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/457">PR #457</a>)</p></li>
+<li><p>Clarified a long description classifier on pypi.org. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/456">PR #456</a>)</p></li>
+<li><p>Updated Core Metadata spec to follow PEP 556. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/412">PR #412</a>)</p></li>
+</ul>
+</section>
+<section id="february-2018">
+<h2>February 2018<a class="headerlink" href="#february-2018" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added python3-venv and python3-pip to Debian installation instructions. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/445">PR #445</a>)</p></li>
+<li><p>Updated PyPI migration info. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/439">PR #439</a>)</p></li>
+<li><p>Added a warning about managing multiple versions with pipenv. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/430">PR #430</a>)</p></li>
+<li><p>Added example of multiple emails to Core Metadata. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/429">PR #429</a>)</p></li>
+<li><p>Added explanation of “legacy” in test.pypi.org/legacy. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/426">PR #426</a>)</p></li>
+</ul>
+</section>
+<section id="january-2018">
+<h2>January 2018<a class="headerlink" href="#january-2018" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added a link to PyPI’s list of classifiers. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/425">PR #425</a>)</p></li>
+<li><p>Updated README.rst explanation. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/419">PR #419</a>)</p></li>
+</ul>
+</section>
+<section id="december-2017">
+<h2>December 2017<a class="headerlink" href="#december-2017" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Replaced <code class="file docutils literal notranslate"><span class="pre">~</span></code> with <code class="file docutils literal notranslate"><span class="pre">$HOME</span></code> in guides and tutorials.  (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/418">PR #418</a>)</p></li>
+<li><p>Noted which fields can be used with environment markers. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/416">PR #416</a>)</p></li>
+<li><p>Updated Requires-Python section. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/414">PR #414</a>)</p></li>
+<li><p>Added news page. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/404">PR #404</a>)</p></li>
+</ul>
+</section>
+<section id="november-2017">
+<h2>November 2017<a class="headerlink" href="#november-2017" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Introduced a new dependency management tutorial based on Pipenv. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/402">PR #402</a>)</p></li>
+<li><p>Updated the <em>Single Sourcing Package Version</em> tutorial to reflect pip’s current
+strategy. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/400">PR #400</a>)</p></li>
+<li><p>Added documentation about the <code class="docutils literal notranslate"><span class="pre">py_modules</span></code> argument to <code class="docutils literal notranslate"><span class="pre">setup</span></code>. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/398">PR #398</a>)</p></li>
+<li><p>Simplified the wording for the <code class="file docutils literal notranslate"><span class="pre">manifest.in</span></code> section. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/395">PR #395</a>)</p></li>
+</ul>
+</section>
+<section id="october-2017">
+<h2>October 2017<a class="headerlink" href="#october-2017" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added a specification for the <code class="file docutils literal notranslate"><span class="pre">entry_points.txt</span></code> file. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/398">PR #398</a>)</p></li>
+<li><p>Created a new guide for managing packages using <code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/385">PR #385</a>)</p></li>
+<li><p>Split the specifications page into multiple pages. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/386">PR #386</a>)</p></li>
+</ul>
+</section>
+<section id="september-2017">
+<h2>September 2017<a class="headerlink" href="#september-2017" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Encouraged using <code class="docutils literal notranslate"><span class="pre">readme_renderer</span></code> to validate <code class="file docutils literal notranslate"><span class="pre">README.rst</span></code>.
+(<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/379">PR #379</a>)</p></li>
+<li><p>Recommended using the <code class="docutils literal notranslate"><span class="pre">--user-base</span></code> option. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/374">PR #374</a>)</p></li>
+</ul>
+</section>
+<section id="august-2017">
+<h2>August 2017<a class="headerlink" href="#august-2017" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added a new, experimental tutorial on installing packages using <code class="docutils literal notranslate"><span class="pre">Pipenv</span></code>. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/369">PR #369</a>)</p></li>
+<li><p>Added a new guide on how to use <code class="docutils literal notranslate"><span class="pre">TestPyPI</span></code>. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/366">PR #366</a>)</p></li>
+<li><p>Added <code class="file docutils literal notranslate"><span class="pre">pypi.org</span></code> as a term. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/365">PR #365</a>)</p></li>
+</ul>
+</section>
+<section id="july-2017">
+<h2>July 2017<a class="headerlink" href="#july-2017" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">flit</span></code> to the key projects list. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/358">PR #358</a>)</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">enscons</span></code> to the list of key projects. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/357">PR #357</a>)</p></li>
+<li><p>Updated this guide’s <code class="docutils literal notranslate"><span class="pre">readme</span></code> with instructions on how to build the guide locally. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/356">PR #356</a>)</p></li>
+<li><p>Made the new <code class="docutils literal notranslate"><span class="pre">TestPyPI</span></code> URL more visible, adding note to homepage about pypi.org. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/354">PR #354</a>)</p></li>
+<li><p>Added a note about the removal of the explicit registration API. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/347">PR #347</a>)</p></li>
+</ul>
+</section>
+<section id="june-2017">
+<h2>June 2017<a class="headerlink" href="#june-2017" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added a document on migrating uploads to <code class="file docutils literal notranslate"><span class="pre">PyPI.org</span></code>. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/339">PR #339</a>)</p></li>
+<li><p>Added documentation for <code class="docutils literal notranslate"><span class="pre">python_requires</span></code>. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/338">PR #338</a>)</p></li>
+<li><p>Added a note about PyPI migration in the <em>Tool Recommendations</em> tutorial. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/335">PR #335</a>)</p></li>
+<li><p>Added a note that <code class="file docutils literal notranslate"><span class="pre">manifest.in</span></code> does not affect wheels. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/332">PR #332</a>)</p></li>
+<li><p>Added a license section to the distributing guide. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/331">PR #331</a>)</p></li>
+<li><p>Expanded the section on the <code class="docutils literal notranslate"><span class="pre">name</span></code> argument. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/329">PR #329</a>)</p></li>
+<li><p>Adjusted the landing page. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/327">PR #327</a>, <a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/326">PR #326</a>, <a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/324">PR #324</a>)</p></li>
+<li><p>Updated to Sphinx 1.6.2. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/323">PR #323</a>)</p></li>
+<li><p>Switched to the PyPA theme. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/305">PR #305</a>)</p></li>
+<li><p>Re-organized the documentation into the new structure. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/318">PR #318</a>)</p></li>
+</ul>
+</section>
+<section id="may-2017">
+<h2>May 2017<a class="headerlink" href="#may-2017" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added documentation for the <code class="docutils literal notranslate"><span class="pre">Description-Content-Type</span></code> field. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/258">PR #258</a>)</p></li>
+<li><p>Added contributor and style guide. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/307">PR #307</a>)</p></li>
+<li><p>Documented <code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">easy_install</span></code>’s differences for per-project indexes. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/233">PR #233</a>)</p></li>
+</ul>
+</section>
+<section id="april-2017">
+<h2>April 2017<a class="headerlink" href="#april-2017" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added travis configuration for testing pull requests. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/300">PR #300</a>)</p></li>
+<li><p>Mentioned the requirement of the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> package for creating wheels (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/299">PR #299</a>)</p></li>
+<li><p>Removed the <code class="docutils literal notranslate"><span class="pre">twine</span> <span class="pre">register</span></code> reference in the <em>Distributing Packages</em> tutorial. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/271">PR #271</a>)</p></li>
+<li><p>Added a topic on plugin discovery. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/294">PR #294</a>, <a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/296">PR #296</a>)</p></li>
+<li><p>Added a topic on namespace packages. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/290">PR #290</a>)</p></li>
+<li><p>Added documentation explaining prominently how to install <code class="docutils literal notranslate"><span class="pre">pip</span></code> in <code class="docutils literal notranslate"><span class="pre">/usr/local</span></code>. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/230">PR #230</a>)</p></li>
+<li><p>Updated development mode documentation to mention that order of local packages matters. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/208">PR #208</a>)</p></li>
+<li><p>Convert readthedocs link for their <code class="docutils literal notranslate"><span class="pre">.org</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">.io</span></code> migration for hosted projects (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/239">PR #239</a>)</p></li>
+<li><p>Swapped order of <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> arguments for the upload command, as order
+is significant. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/260">PR #260</a>)</p></li>
+<li><p>Explained how to install from unsupported sources using a helper application. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/289">PR #289</a>)</p></li>
+</ul>
+</section>
+<section id="march-2017">
+<h2>March 2017<a class="headerlink" href="#march-2017" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Covered <code class="docutils literal notranslate"><span class="pre">manylinux1</span></code> in <em>Platform Wheels</em>. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/283">PR #283</a>)</p></li>
+</ul>
+</section>
+<section id="february-2017">
+<h2>February 2017<a class="headerlink" href="#february-2017" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0518/"><strong>PEP 518</strong></a>. (<a class="reference external" href="https://github.com/pypa/packaging.python.org/pull/281">PR #281</a>)</p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="contribute.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Contribute to this guide</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2013–2020, PyPA
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            <div class="last-updated">
+              Last updated on Feb 21, 2026</div>
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">News</a><ul>
+<li><a class="reference internal" href="#september-2019">September 2019</a></li>
+<li><a class="reference internal" href="#august-2019">August 2019</a></li>
+<li><a class="reference internal" href="#july-2019">July 2019</a></li>
+<li><a class="reference internal" href="#june-2019">June 2019</a></li>
+<li><a class="reference internal" href="#may-2019">May 2019</a></li>
+<li><a class="reference internal" href="#april-2019">April 2019</a></li>
+<li><a class="reference internal" href="#march-2019">March 2019</a></li>
+<li><a class="reference internal" href="#february-2019">February 2019</a></li>
+<li><a class="reference internal" href="#january-2019">January 2019</a></li>
+<li><a class="reference internal" href="#december-2018">December 2018</a></li>
+<li><a class="reference internal" href="#november-2018">November 2018</a></li>
+<li><a class="reference internal" href="#october-2018">October 2018</a></li>
+<li><a class="reference internal" href="#september-2018">September 2018</a></li>
+<li><a class="reference internal" href="#august-2018">August 2018</a></li>
+<li><a class="reference internal" href="#july-2018">July 2018</a></li>
+<li><a class="reference internal" href="#june-2018">June 2018</a></li>
+<li><a class="reference internal" href="#may-2018">May 2018</a></li>
+<li><a class="reference internal" href="#april-2018">April 2018</a></li>
+<li><a class="reference internal" href="#march-2018">March 2018</a></li>
+<li><a class="reference internal" href="#february-2018">February 2018</a></li>
+<li><a class="reference internal" href="#january-2018">January 2018</a></li>
+<li><a class="reference internal" href="#december-2017">December 2017</a></li>
+<li><a class="reference internal" href="#november-2017">November 2017</a></li>
+<li><a class="reference internal" href="#october-2017">October 2017</a></li>
+<li><a class="reference internal" href="#september-2017">September 2017</a></li>
+<li><a class="reference internal" href="#august-2017">August 2017</a></li>
+<li><a class="reference internal" href="#july-2017">July 2017</a></li>
+<li><a class="reference internal" href="#june-2017">June 2017</a></li>
+<li><a class="reference internal" href="#may-2017">May 2017</a></li>
+<li><a class="reference internal" href="#april-2017">April 2017</a></li>
+<li><a class="reference internal" href="#march-2017">March 2017</a></li>
+<li><a class="reference internal" href="#february-2017">February 2017</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="_static/tabs.js?v=3ee01567"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=cb5fb026"></script>
+    </body>
+</html>

@@ -1,0 +1,588 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Creating and discovering plugins" href="creating-and-discovering-plugins.html" /><link rel="prev" title="Packaging namespace packages" href="packaging-namespace-packages.html" />
+
+    <link rel="shortcut icon" href="../_static/py.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
+        <title>Creating and packaging command-line tools - Python Packaging User Guide</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Python Packaging User Guide</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">Python Packaging User Guide</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview of Python Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow.html">The Packaging Flow</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/installing-packages.html">Installing Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/managing-dependencies.html">Managing Application Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/packaging-projects.html">Packaging Python Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Guides</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-install.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="installing-using-pip-and-virtual-environments.html">Install packages in a virtual environment using pip and venv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installing-using-virtualenv.html">Installing packages using virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installing-stand-alone-command-line-tools.html">Installing stand alone command line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installing-using-linux-tools.html">Installing pip/setuptools/wheel with Linux Package Managers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installing-scientific-packages.html">Installing scientific packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="section-build-and-publish.html">Building and Publishing</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Building and Publishing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="writing-pyproject-toml.html">Writing your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributing-packages-using-setuptools.html">Packaging and distributing projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dropping-older-python-versions.html">Dropping support for older Python versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="packaging-binary-extensions.html">Packaging binary extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="packaging-namespace-packages.html">Packaging namespace packages</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Creating and packaging command-line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-and-discovering-plugins.html">Creating and discovering plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using-testpypi.html">Using TestPyPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="making-a-pypi-friendly-readme.html">Making a PyPI-friendly README</a></li>
+<li class="toctree-l3"><a class="reference internal" href="publishing-package-distribution-releases-using-github-actions-ci-cd-workflows.html">Publishing package distribution releases using GitHub Actions CI/CD workflows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modernize-setup-py-project.html">How to modernize a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> based project?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="licensing-examples-and-user-scenarios.html">Licensing examples and user scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-hosting.html">Hosting</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Hosting</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="index-mirrors-and-caches.html">Package index mirrors and caches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hosting-your-own-index.html">Hosting your own simple repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tool-recommendations.html">Tool recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analyzing-pypi-package-downloads.html">Analyzing PyPI package downloads</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussions/index.html">Discussions</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Discussions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/deploying-python-applications.html">Deploying Python applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/pip-vs-easy-install.html">pip vs easy_install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/install-requires-vs-requirements.html">install_requires vs requirements files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/distribution-package-vs-import-package.html">Distribution package vs. import package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/package-formats.html">Package Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/src-layout-vs-flat-layout.html">src layout vs flat layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/setup-py-deprecated.html">Is <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> deprecated?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/single-source-version.html">Single-sourcing the Project Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/downstream-packaging.html">Supporting downstream packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../specifications/index.html">PyPA specifications</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of PyPA specifications</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specifications/section-distribution-metadata.html">Package Distribution Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Package Distribution Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/name-normalization.html">Names and normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/core-metadata.html">Core metadata specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/version-specifiers.html">Version specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/dependency-specifiers.html">Dependency specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/pyproject-toml.html"><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/dependency-groups.html">Dependency Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/inline-script-metadata.html">Inline script metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/platform-compatibility-tags.html">Platform compatibility tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/well-known-project-urls.html">Well-known Project URLs in Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/glob-patterns.html"><code class="docutils literal notranslate"><span class="pre">glob</span></code> patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/license-expression.html">License Expression</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specifications/section-installation-metadata.html">Package Installation Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Package Installation Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/recording-installed-packages.html">Recording installed projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/entry-points.html">Entry points specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/direct-url.html">Recording the Direct URL Origin of installed distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/direct-url-data-structure.html">Direct URL Data Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/virtual-environments.html">Python Virtual Environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/externally-managed-environments.html">Externally Managed Environments</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specifications/section-distribution-formats.html">Package Distribution File Formats</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Package Distribution File Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/source-distribution-format.html">Source distribution format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/binary-distribution-format.html">Binary distribution format</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specifications/section-package-indices.html">Package Index Interfaces</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Package Index Interfaces</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/pypirc.html">The <code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/simple-repository-api.html">Simple repository API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/file-yanking.html">File Yanking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/index-hosted-attestations.html">Index hosted attestations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/project-status-markers.html">Project Status Markers</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specifications/section-python-description-formats.html">Python Description Formats</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Python Description Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../specifications/build-details/index.html"><code class="file docutils literal notranslate"><span class="pre">build-details.json</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of build-details.json</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../specifications/build-details/v1.0.html">v1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specifications/section-reproducible-environments.html">Reproducible Environments</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Reproducible Environments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/pylock-toml.html"><code class="docutils literal notranslate"><span class="pre">pylock.toml</span></code> Specification</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../specifications/schemas/index.html">PyPA schemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../key_projects.html">Project Summaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">How to Get Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute to this guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/blob/main/source/guides/creating-command-line-tools.rst?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/edit/main/source/guides/creating-command-line-tools.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="creating-and-packaging-command-line-tools">
+<span id="creating-command-line-tools"></span><h1>Creating and packaging command-line tools<a class="headerlink" href="#creating-and-packaging-command-line-tools" title="Link to this heading">¶</a></h1>
+<p>This guide will walk you through creating and packaging a standalone command-line application
+that can be installed with <a class="reference internal" href="../key_projects.html#pipx"><span class="std std-ref">pipx</span></a>, a tool for creating and managing <a class="reference internal" href="../glossary.html#term-Virtual-Environment"><span class="xref std std-term">Python Virtual Environments</span></a>
+and exposing the executable scripts of packages (and available manual pages) for use on the command-line.</p>
+<section id="creating-the-package">
+<h2>Creating the package<a class="headerlink" href="#creating-the-package" title="Link to this heading">¶</a></h2>
+<p>First of all, create a source tree for the <a class="reference internal" href="../glossary.html#term-Project"><span class="xref std std-term">project</span></a>. For the sake of an example, we’ll
+build a simple tool outputting a greeting (a string) for a person based on arguments given on the command-line.</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Advise on the optimal structure of a Python package in another guide or discussion and link to it here.</p>
+</div>
+<p>This project will adhere to <a class="reference internal" href="../discussions/src-layout-vs-flat-layout.html#src-layout-vs-flat-layout"><span class="std std-ref">src-layout</span></a> and in the end be alike this file tree,
+with the top-level folder and package name <code class="docutils literal notranslate"><span class="pre">greetings</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.
+├── pyproject.toml
+└── src
+    └── greetings
+        ├── cli.py
+        ├── greet.py
+        ├── __init__.py
+        └── __main__.py
+</pre></div>
+</div>
+<p>The actual code responsible for the tool’s functionality will be stored in the file <code class="file docutils literal notranslate"><span class="pre">greet.py</span></code>,
+named after the main module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">typer</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Annotated</span>
+
+
+<span class="k">def</span> <span class="nf">greet</span><span class="p">(</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Argument</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">&quot;The (last, if --title is given) name of the person to greet&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">&quot;The preferred title of the person to greet&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">doctor</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">&quot;Whether the person is a doctor (MD or PhD)&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">count</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">&quot;Number of times to greet the person&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">):</span>
+    <span class="n">greeting</span> <span class="o">=</span> <span class="s2">&quot;Greetings, &quot;</span>
+    <span class="k">if</span> <span class="n">doctor</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Dr.&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">title</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;friend&quot;</span>
+    <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+        <span class="n">greeting</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2"> &quot;</span>
+    <span class="n">greeting</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">greeting</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above function receives several keyword arguments that determine how the greeting to output is constructed.
+Now, construct the command-line interface to provision it with the same, which is done
+in <code class="file docutils literal notranslate"><span class="pre">cli.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">typer</span>
+
+<span class="kn">from</span> <span class="nn">.greet</span> <span class="kn">import</span> <span class="n">greet</span>
+
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
+<span class="n">app</span><span class="o">.</span><span class="n">command</span><span class="p">()(</span><span class="n">greet</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The command-line interface is built with <a class="reference external" href="https://typer.tiangolo.com/">typer</a>, an easy-to-use CLI parser based on Python type hints. It provides
+auto-completion and nicely styled command-line help out of the box. Another option would be <a class="reference external" href="https://docs.python.org/3/library/argparse.html#module-argparse" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">argparse</span></code></a>,
+a command-line parser which is included in Python’s standard library. It is sufficient for most needs, but requires
+a lot of code, usually in <code class="docutils literal notranslate"><span class="pre">cli.py</span></code>, to function properly. Alternatively, <a class="reference external" href="https://docopt.readthedocs.io/en/latest/">docopt</a> makes it possible to create CLI
+interfaces based solely on docstrings; advanced users are encouraged to make use of <a class="reference external" href="https://click.palletsprojects.com/">click</a> (on which <code class="docutils literal notranslate"><span class="pre">typer</span></code> is based).</p>
+<p>Now, add an empty <code class="file docutils literal notranslate"><span class="pre">__init__.py</span></code> file, to define the project as a regular <a class="reference internal" href="../glossary.html#term-Import-Package"><span class="xref std std-term">import package</span></a>.</p>
+<p>The file <code class="file docutils literal notranslate"><span class="pre">__main__.py</span></code> marks the main entry point for the application when running it via <a class="reference external" href="https://docs.python.org/3/library/runpy.html#module-runpy" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">runpy</span></code></a>
+(i.e. <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">greetings</span></code>, which works immediately with flat layout, but requires installation of the package with src layout),
+so initialize the command-line interface here:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">greetings.cli</span> <span class="kn">import</span> <span class="n">app</span>
+    <span class="n">app</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In order to enable calling the command-line interface directly from the <a class="reference internal" href="../glossary.html#term-Project-Source-Tree"><span class="xref std std-term">source tree</span></a>,
+i.e. as <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">src/greetings</span></code>, a certain hack could be placed in this file; read more at
+<a class="reference internal" href="../discussions/src-layout-vs-flat-layout.html#running-cli-from-source-src-layout"><span class="std std-ref">Running a command-line interface from source with src-layout</span></a>.</p>
+</div>
+<section id="pyproject-toml">
+<h3><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code><a class="headerlink" href="#pyproject-toml" title="Link to this heading">¶</a></h3>
+<p>The project’s <a class="reference internal" href="../glossary.html#term-Pyproject-Metadata"><span class="xref std std-term">metadata</span></a> is placed in <a class="reference internal" href="../glossary.html#term-pyproject.toml"><span class="xref std std-term">pyproject.toml</span></a>. The <a class="reference internal" href="../glossary.html#term-Pyproject-Metadata-Key"><span class="xref std std-term">pyproject metadata keys</span></a> and the <code class="docutils literal notranslate"><span class="pre">[build-system]</span></code> table may be filled in as described in <a class="reference internal" href="writing-pyproject-toml.html#writing-pyproject-toml"><span class="std std-ref">Writing your pyproject.toml</span></a>, adding a dependency
+on <code class="docutils literal notranslate"><span class="pre">typer</span></code> (this tutorial uses version <em>0.12.3</em>).</p>
+<p>For the project to be recognised as a command-line tool, additionally a <code class="docutils literal notranslate"><span class="pre">console_scripts</span></code> <a class="reference internal" href="../specifications/entry-points.html#entry-points"><span class="std std-ref">entry point</span></a> (see <a class="reference internal" href="writing-pyproject-toml.html#console-scripts"><span class="std std-ref">Creating executable scripts</span></a>) needs to be added as a <a class="reference internal" href="../glossary.html#term-Pyproject-Metadata-Subkey"><span class="xref std std-term">subkey</span></a>:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project.scripts]</span>
+<span class="n">greet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;greetings.cli:app&quot;</span>
+</pre></div>
+</div>
+<p>Now, the project’s source tree is ready to be transformed into a <a class="reference internal" href="../glossary.html#term-Distribution-Package"><span class="xref std std-term">distribution package</span></a>,
+which makes it installable.</p>
+</section>
+</section>
+<section id="installing-the-package-with-pipx">
+<h2>Installing the package with <code class="docutils literal notranslate"><span class="pre">pipx</span></code><a class="headerlink" href="#installing-the-package-with-pipx" title="Link to this heading">¶</a></h2>
+<p>After installing <code class="docutils literal notranslate"><span class="pre">pipx</span></code> as described in <a class="reference internal" href="installing-stand-alone-command-line-tools.html#installing-stand-alone-command-line-tools"><span class="std std-ref">Installing stand alone command line tools</span></a>, install your project:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>path/to/greetings/
+<span class="gp">$ </span>pipx<span class="w"> </span>install<span class="w"> </span>.
+</pre></div>
+</div>
+<p>This will expose the executable script we defined as an entry point and make the command <code class="docutils literal notranslate"><span class="pre">greet</span></code> available.
+Let’s test it:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>greet
+<span class="go">Greetings, friend!</span>
+<span class="gp">$ </span>greet<span class="w"> </span>--doctor<span class="w"> </span>Brennan
+<span class="go">Greetings, Dr. Brennan!</span>
+<span class="gp">$ </span>greet<span class="w"> </span>--title<span class="w"> </span>Ms.<span class="w"> </span>Parks
+<span class="go">Greetings, Ms. Parks!</span>
+<span class="gp">$ </span>greet<span class="w"> </span>--title<span class="w"> </span>Mr.
+<span class="go">Greetings, Mr. mr!</span>
+</pre></div>
+</div>
+<p>Since this example uses <code class="docutils literal notranslate"><span class="pre">typer</span></code>, you could now also get an overview of the program’s usage by calling it with
+the <code class="docutils literal notranslate"><span class="pre">--help</span></code> option, or configure completions via the <code class="docutils literal notranslate"><span class="pre">--install-completion</span></code> option.</p>
+<p>To just run the program without installing it permanently, use <code class="docutils literal notranslate"><span class="pre">pipx</span> <span class="pre">run</span></code>, which will create a temporary
+(but cached) virtual environment for it:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pipx<span class="w"> </span>run<span class="w"> </span>--spec<span class="w"> </span>.<span class="w"> </span>greet<span class="w"> </span>--doctor
+</pre></div>
+</div>
+<p>This syntax is a bit impractical, however; as the name of the entry point we defined above does not match the package name,
+we need to state explicitly which executable script to run (even though there is only one in existence).</p>
+<p>There is, however, a more practical solution to this problem, in the form of an entry point specific to <code class="docutils literal notranslate"><span class="pre">pipx</span> <span class="pre">run</span></code>.
+The same can be defined as follows in <code class="file docutils literal notranslate"><span class="pre">pyproject.toml</span></code>:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project.entry-points.</span><span class="s2">&quot;pipx.run&quot;</span><span class="k">]</span>
+<span class="n">greetings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;greetings.cli:app&quot;</span>
+</pre></div>
+</div>
+<p>Thanks to this entry point (which <em>must</em> match the package name), <code class="docutils literal notranslate"><span class="pre">pipx</span></code> will pick up the executable script as the
+default one and run it, which makes this command possible:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pipx<span class="w"> </span>run<span class="w"> </span>.<span class="w"> </span>--doctor
+</pre></div>
+</div>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">¶</a></h2>
+<p>You know by now how to package a command-line application written in Python. A further step could be to distribute your package,
+meaning uploading it to a <a class="reference internal" href="../glossary.html#term-Package-Index"><span class="xref std std-term">package index</span></a>, most commonly <a class="reference internal" href="../glossary.html#term-Python-Package-Index-PyPI"><span class="xref std std-term">PyPI</span></a>. To do that, follow the instructions at <a class="reference internal" href="distributing-packages-using-setuptools.html#packaging-your-project"><span class="std std-ref">Packaging your project</span></a>. And once you’re done, don’t forget to <a class="reference internal" href="analyzing-pypi-package-downloads.html#analyzing-pypi-package-downloads"><span class="std std-ref">do some research</span></a> on how your package is received!</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="creating-and-discovering-plugins.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Creating and discovering plugins</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="packaging-namespace-packages.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Packaging namespace packages</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2013–2020, PyPA
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            <div class="last-updated">
+              Last updated on Feb 21, 2026</div>
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Creating and packaging command-line tools</a><ul>
+<li><a class="reference internal" href="#creating-the-package">Creating the package</a><ul>
+<li><a class="reference internal" href="#pyproject-toml"><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installing-the-package-with-pipx">Installing the package with <code class="docutils literal notranslate"><span class="pre">pipx</span></code></a></li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=cb5fb026"></script>
+    </body>
+</html>

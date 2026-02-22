@@ -1,0 +1,696 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="How to Get Support" href="support.html" /><link rel="prev" title="Project Summaries" href="key_projects.html" />
+
+    <link rel="shortcut icon" href="_static/py.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
+        <title>Glossary - Python Packaging User Guide</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Python Packaging User Guide</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">Python Packaging User Guide</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of Python Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow.html">The Packaging Flow</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/installing-packages.html">Installing Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/managing-dependencies.html">Managing Application Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/packaging-projects.html">Packaging Python Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="guides/index.html">Guides</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="guides/section-install.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-using-pip-and-virtual-environments.html">Install packages in a virtual environment using pip and venv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-using-virtualenv.html">Installing packages using virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-stand-alone-command-line-tools.html">Installing stand alone command line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-using-linux-tools.html">Installing pip/setuptools/wheel with Linux Package Managers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-scientific-packages.html">Installing scientific packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="guides/section-build-and-publish.html">Building and Publishing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Building and Publishing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="guides/writing-pyproject-toml.html">Writing your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/distributing-packages-using-setuptools.html">Packaging and distributing projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/dropping-older-python-versions.html">Dropping support for older Python versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/packaging-binary-extensions.html">Packaging binary extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/packaging-namespace-packages.html">Packaging namespace packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/creating-command-line-tools.html">Creating and packaging command-line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/creating-and-discovering-plugins.html">Creating and discovering plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/using-testpypi.html">Using TestPyPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/making-a-pypi-friendly-readme.html">Making a PyPI-friendly README</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows.html">Publishing package distribution releases using GitHub Actions CI/CD workflows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/modernize-setup-py-project.html">How to modernize a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> based project?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/licensing-examples-and-user-scenarios.html">Licensing examples and user scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="guides/section-hosting.html">Hosting</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Hosting</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="guides/index-mirrors-and-caches.html">Package index mirrors and caches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/hosting-your-own-index.html">Hosting your own simple repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guides/tool-recommendations.html">Tool recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/analyzing-pypi-package-downloads.html">Analyzing PyPI package downloads</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="discussions/index.html">Discussions</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Discussions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/deploying-python-applications.html">Deploying Python applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/pip-vs-easy-install.html">pip vs easy_install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/install-requires-vs-requirements.html">install_requires vs requirements files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/distribution-package-vs-import-package.html">Distribution package vs. import package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/package-formats.html">Package Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/src-layout-vs-flat-layout.html">src layout vs flat layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/setup-py-deprecated.html">Is <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> deprecated?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/single-source-version.html">Single-sourcing the Project Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/downstream-packaging.html">Supporting downstream packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="specifications/index.html">PyPA specifications</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of PyPA specifications</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-distribution-metadata.html">Package Distribution Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Package Distribution Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/name-normalization.html">Names and normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/core-metadata.html">Core metadata specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/version-specifiers.html">Version specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/dependency-specifiers.html">Dependency specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/pyproject-toml.html"><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/dependency-groups.html">Dependency Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/inline-script-metadata.html">Inline script metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/platform-compatibility-tags.html">Platform compatibility tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/well-known-project-urls.html">Well-known Project URLs in Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/glob-patterns.html"><code class="docutils literal notranslate"><span class="pre">glob</span></code> patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/license-expression.html">License Expression</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-installation-metadata.html">Package Installation Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Package Installation Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/recording-installed-packages.html">Recording installed projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/entry-points.html">Entry points specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/direct-url.html">Recording the Direct URL Origin of installed distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/direct-url-data-structure.html">Direct URL Data Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/virtual-environments.html">Python Virtual Environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/externally-managed-environments.html">Externally Managed Environments</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-distribution-formats.html">Package Distribution File Formats</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Package Distribution File Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/source-distribution-format.html">Source distribution format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/binary-distribution-format.html">Binary distribution format</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-package-indices.html">Package Index Interfaces</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Package Index Interfaces</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/pypirc.html">The <code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/simple-repository-api.html">Simple repository API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/file-yanking.html">File Yanking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/index-hosted-attestations.html">Index hosted attestations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/project-status-markers.html">Project Status Markers</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-python-description-formats.html">Python Description Formats</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Python Description Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="specifications/build-details/index.html"><code class="file docutils literal notranslate"><span class="pre">build-details.json</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of build-details.json</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="specifications/build-details/v1.0.html">v1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-reproducible-environments.html">Reproducible Environments</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Reproducible Environments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/pylock-toml.html"><code class="docutils literal notranslate"><span class="pre">pylock.toml</span></code> Specification</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specifications/schemas/index.html">PyPA schemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="key_projects.html">Project Summaries</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">How to Get Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contribute to this guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">News</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/blob/main/source/glossary.rst?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/edit/main/source/glossary.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="glossary">
+<h1>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">¶</a></h1>
+<dl class="glossary">
+<dt id="term-Binary-Distribution">Binary Distribution<a class="headerlink" href="#term-Binary-Distribution" title="Link to this term">¶</a></dt><dd><p>A specific kind of <a class="reference internal" href="#term-Built-Distribution"><span class="xref std std-term">Built Distribution</span></a> that contains compiled
+extensions.</p>
+</dd>
+<dt id="term-Build-Backend">Build Backend<a class="headerlink" href="#term-Build-Backend" title="Link to this term">¶</a></dt><dd><p>A library that takes a source tree
+and builds a <a class="reference internal" href="#term-Source-Distribution-or-sdist"><span class="xref std std-term">source distribution</span></a> or
+<a class="reference internal" href="#term-Built-Distribution"><span class="xref std std-term">built distribution</span></a> from it.
+The build is delegated to the backend by a
+<a class="reference internal" href="#term-Build-Frontend"><span class="xref std std-term">frontend</span></a>.
+All backends offer a standardized interface.</p>
+<p>Examples of build backends are
+<a class="reference internal" href="key_projects.html#flit"><span class="std std-ref">flit’s flit-core</span></a>,
+<a class="reference internal" href="key_projects.html#hatch"><span class="std std-ref">hatch’s hatchling</span></a>,
+<a class="reference internal" href="key_projects.html#maturin"><span class="std std-ref">Maturin</span></a>,
+<a class="reference internal" href="key_projects.html#meson-python"><span class="std std-ref">meson-python</span></a>,
+<a class="reference internal" href="key_projects.html#scikit-build-core"><span class="std std-ref">scikit-build-core</span></a>,
+and <a class="reference internal" href="key_projects.html#setuptools"><span class="std std-ref">Setuptools</span></a>.</p>
+</dd>
+<dt id="term-Build-Frontend">Build Frontend<a class="headerlink" href="#term-Build-Frontend" title="Link to this term">¶</a></dt><dd><p>A tool that users might run
+that takes arbitrary source trees or
+<a class="reference internal" href="#term-Source-Distribution-or-sdist"><span class="xref std std-term">source distributions</span></a>
+and builds source distributions or <a class="reference internal" href="#term-Wheel"><span class="xref std std-term">wheels</span></a> from them.
+The actual building is delegated to each source tree’s
+<a class="reference internal" href="#term-Build-Backend"><span class="xref std std-term">build backend</span></a>.</p>
+<p>Examples of build frontends are <a class="reference internal" href="key_projects.html#pip"><span class="std std-ref">pip</span></a> and <a class="reference internal" href="key_projects.html#build"><span class="std std-ref">build</span></a>.</p>
+</dd>
+<dt id="term-Built-Distribution">Built Distribution<a class="headerlink" href="#term-Built-Distribution" title="Link to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-Distribution-Package"><span class="xref std std-term">Distribution</span></a> format containing files
+and metadata that only need to be moved to the correct location on the
+target system, to be installed. <a class="reference internal" href="#term-Wheel"><span class="xref std std-term">Wheel</span></a> is such a format, whereas
+<a class="reference internal" href="#term-Source-Distribution-or-sdist"><span class="xref std std-term">Source Distribution</span></a> is not, in that it requires a build step before it can be
+installed.  This format does not imply that Python files have to be
+precompiled (<a class="reference internal" href="#term-Wheel"><span class="xref std std-term">Wheel</span></a> intentionally does not include compiled
+Python files). See <a class="reference internal" href="discussions/package-formats.html#package-formats"><span class="std std-ref">Package Formats</span></a> for more information.</p>
+</dd>
+<dt id="term-Built-Metadata">Built Metadata<a class="headerlink" href="#term-Built-Metadata" title="Link to this term">¶</a></dt><dd><p>The concrete form <a class="reference internal" href="#term-Core-Metadata"><span class="xref std std-term">Core Metadata</span></a> takes
+when included inside an installed <a class="reference internal" href="#term-Project"><span class="xref std std-term">Project</span></a> (<code class="docutils literal notranslate"><span class="pre">METADATA</span></code> file)
+or a <a class="reference internal" href="#term-Distribution-Archive"><span class="xref std std-term">Distribution Archive</span></a>
+(<code class="docutils literal notranslate"><span class="pre">PKG-INFO</span></code> in a
+<a class="reference internal" href="#term-Source-Distribution-or-sdist"><span class="xref std std-term">Sdist</span></a>
+and <code class="docutils literal notranslate"><span class="pre">METADATA</span></code> in a <a class="reference internal" href="#term-Wheel"><span class="xref std std-term">Wheel</span></a>).</p>
+</dd>
+<dt id="term-Core-Metadata">Core Metadata<a class="headerlink" href="#term-Core-Metadata" title="Link to this term">¶</a></dt><dd><p>The <a class="reference internal" href="specifications/core-metadata.html#core-metadata"><span class="std std-ref">specification</span></a>
+and the set of <a class="reference internal" href="#term-Core-Metadata-Field"><span class="xref std std-term">Core Metadata Field</span></a>s it defines
+that describe key static attributes of
+a <a class="reference internal" href="#term-Distribution-Package"><span class="xref std std-term">Distribution Package</span></a> or <a class="reference internal" href="#term-Installed-Project"><span class="xref std std-term">Installed Project</span></a>.</p>
+</dd>
+<dt id="term-Core-Metadata-Field">Core Metadata Field<a class="headerlink" href="#term-Core-Metadata-Field" title="Link to this term">¶</a></dt><dd><p>A single key-value pair
+(or sequence of such with the same name, for multiple-use fields)
+defined in the <a class="reference internal" href="#term-Core-Metadata"><span class="xref std std-term">Core Metadata</span></a> spec
+and stored in the <a class="reference internal" href="#term-Built-Metadata"><span class="xref std std-term">Built Metadata</span></a>.
+Notably, distinct from a <a class="reference internal" href="#term-Pyproject-Metadata-Key"><span class="xref std std-term">Pyproject Metadata Key</span></a>.</p>
+</dd>
+<dt id="term-Distribution-Archive">Distribution Archive<a class="headerlink" href="#term-Distribution-Archive" title="Link to this term">¶</a></dt><dd><p>The physical distribution artifact (i.e. a file on disk)
+for a <a class="reference internal" href="#term-Distribution-Package"><span class="xref std std-term">Distribution Package</span></a>.</p>
+</dd>
+<dt id="term-Distribution-Package">Distribution Package<a class="headerlink" href="#term-Distribution-Package" title="Link to this term">¶</a></dt><dd><p>A versioned archive file that contains Python <a class="reference internal" href="#term-Import-Package"><span class="xref std std-term">packages</span></a>, <a class="reference internal" href="#term-Module"><span class="xref std std-term">modules</span></a>, and other resource files that are
+used to distribute a <a class="reference internal" href="#term-Release"><span class="xref std std-term">Release</span></a>. The archive file is what an
+end-user will download from the internet and install.</p>
+<p>A distribution package is more commonly referred to with the single
+words “package” or “distribution”, but this guide may use the expanded
+term when more clarity is needed to prevent confusion with an
+<a class="reference internal" href="#term-Import-Package"><span class="xref std std-term">Import Package</span></a> (which is also commonly called a “package”) or
+another kind of distribution (e.g. a Linux distribution or the Python
+language distribution), which are often referred to with the single term
+“distribution”. See <a class="reference internal" href="discussions/distribution-package-vs-import-package.html#distribution-package-vs-import-package"><span class="std std-ref">Distribution package vs. import package</span></a>
+for a breakdown of the differences.</p>
+</dd>
+<dt id="term-Egg">Egg<a class="headerlink" href="#term-Egg" title="Link to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-Built-Distribution"><span class="xref std std-term">Built Distribution</span></a> format introduced by <a class="reference internal" href="key_projects.html#setuptools"><span class="std std-ref">Setuptools</span></a>,
+which has been replaced by <a class="reference internal" href="#term-Wheel"><span class="xref std std-term">Wheel</span></a>.  For details, see
+<a class="reference internal" href="discussions/package-formats.html#egg-format"><span class="std std-ref">What about eggs?</span></a>.</p>
+</dd>
+<dt id="term-Extension-Module">Extension Module<a class="headerlink" href="#term-Extension-Module" title="Link to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-Module"><span class="xref std std-term">Module</span></a> written in the low-level language of the Python implementation:
+C/C++ for Python, Java for Jython. Typically contained in a single
+dynamically loadable pre-compiled file, e.g.  a shared object (.so) file
+for Python extensions on Unix, a DLL (given the .pyd extension) for
+Python extensions on Windows, or a Java class file for Jython
+extensions.</p>
+</dd>
+<dt id="term-Import-Package">Import Package<a class="headerlink" href="#term-Import-Package" title="Link to this term">¶</a></dt><dd><p>A Python module which can contain other modules or recursively, other
+packages.</p>
+<p>An import package is more commonly referred to with the single word
+“package”, but this guide will use the expanded term when more clarity
+is needed to prevent confusion with a <a class="reference internal" href="#term-Distribution-Package"><span class="xref std std-term">Distribution Package</span></a> which
+is also commonly called a “package”. See <a class="reference internal" href="discussions/distribution-package-vs-import-package.html#distribution-package-vs-import-package"><span class="std std-ref">Distribution package vs. import package</span></a>
+for a breakdown of the differences.</p>
+</dd>
+<dt id="term-Installed-Project">Installed Project<a class="headerlink" href="#term-Installed-Project" title="Link to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-Project"><span class="xref std std-term">Project</span></a> that is installed for use with
+a Python interpreter or <a class="reference internal" href="#term-Virtual-Environment"><span class="xref std std-term">Virtual Environment</span></a>,
+as described in the specification <a class="reference internal" href="specifications/recording-installed-packages.html#recording-installed-packages"><span class="std std-ref">Recording installed projects</span></a>.</p>
+</dd>
+<dt id="term-Known-Good-Set-KGS">Known Good Set (KGS)<a class="headerlink" href="#term-Known-Good-Set-KGS" title="Link to this term">¶</a></dt><dd><p>A set of distributions at specified versions which are compatible with
+each other. Typically a test suite will be run which passes all tests
+before a specific set of packages is declared a known good set. This
+term is commonly used by frameworks and toolkits which are comprised of
+multiple individual distributions.</p>
+</dd>
+<dt id="term-License-Classifier">License Classifier<a class="headerlink" href="#term-License-Classifier" title="Link to this term">¶</a></dt><dd><p>A PyPI Trove classifier
+(as <a class="reference internal" href="specifications/core-metadata.html#core-metadata-classifier"><span class="std std-ref">described</span></a>
+in the <a class="reference internal" href="#term-Core-Metadata"><span class="xref std std-term">Core Metadata</span></a> specification)
+which begins with <code class="docutils literal notranslate"><span class="pre">License</span> <span class="pre">::</span></code>.</p>
+</dd>
+<dt id="term-License-Expression">License Expression<a class="headerlink" href="#term-License-Expression" title="Link to this term">¶</a></dt><dt id="term-SPDX-Expression">SPDX Expression<a class="headerlink" href="#term-SPDX-Expression" title="Link to this term">¶</a></dt><dd><p>A string with valid SPDX license expression syntax,
+including one or more SPDX <a class="reference internal" href="#term-License-Identifier"><span class="xref std std-term">License Identifier</span></a>(s),
+which describes a <a class="reference internal" href="#term-Distribution-Archive"><span class="xref std std-term">Distribution Archive</span></a>’s license(s)
+and how they inter-relate.
+Examples:
+<code class="docutils literal notranslate"><span class="pre">GPL-3.0-or-later</span></code>,
+<code class="docutils literal notranslate"><span class="pre">MIT</span> <span class="pre">AND</span> <span class="pre">(Apache-2.0</span> <span class="pre">OR</span> <span class="pre">BSD-2-Clause)</span></code></p>
+</dd>
+<dt id="term-License-Identifier">License Identifier<a class="headerlink" href="#term-License-Identifier" title="Link to this term">¶</a></dt><dt id="term-SPDX-Identifier">SPDX Identifier<a class="headerlink" href="#term-SPDX-Identifier" title="Link to this term">¶</a></dt><dd><p>A valid SPDX short-form license identifier,
+originally specified in <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0639/"><strong>PEP 639</strong></a>.
+This includes all valid SPDX identifiers and
+the custom <code class="docutils literal notranslate"><span class="pre">LicenseRef-[idstring]</span></code> strings conforming to the
+SPDX specification.
+Examples:
+<code class="docutils literal notranslate"><span class="pre">MIT</span></code>,
+<code class="docutils literal notranslate"><span class="pre">GPL-3.0-only</span></code>,
+<code class="docutils literal notranslate"><span class="pre">LicenseRef-My-Custom-License</span></code></p>
+</dd>
+<dt id="term-Module">Module<a class="headerlink" href="#term-Module" title="Link to this term">¶</a></dt><dd><p>The basic unit of code reusability in Python, existing in one of two
+types: <a class="reference internal" href="#term-Pure-Module"><span class="xref std std-term">Pure Module</span></a>, or <a class="reference internal" href="#term-Extension-Module"><span class="xref std std-term">Extension Module</span></a>.</p>
+</dd>
+<dt id="term-Package-Index">Package Index<a class="headerlink" href="#term-Package-Index" title="Link to this term">¶</a></dt><dd><p>A repository of distributions with a web interface to automate
+<a class="reference internal" href="#term-Distribution-Package"><span class="xref std std-term">package</span></a> discovery and consumption.</p>
+</dd>
+<dt id="term-Per-Project-Index">Per Project Index<a class="headerlink" href="#term-Per-Project-Index" title="Link to this term">¶</a></dt><dd><p>A private or other non-canonical <a class="reference internal" href="#term-Package-Index"><span class="xref std std-term">Package Index</span></a> indicated by
+a specific <a class="reference internal" href="#term-Project"><span class="xref std std-term">Project</span></a> as the index preferred or required to
+resolve dependencies of that project.</p>
+</dd>
+<dt id="term-Project">Project<a class="headerlink" href="#term-Project" title="Link to this term">¶</a></dt><dd><p>A library, framework, script, plugin, application, or collection of data
+or other resources, or some combination thereof that is intended to be
+packaged into a <a class="reference internal" href="#term-Distribution-Package"><span class="xref std std-term">Distribution</span></a>.</p>
+<p>Since most projects create <a class="reference internal" href="#term-Distribution-Package"><span class="xref std std-term">Distributions</span></a>
+using either <span class="target" id="index-1"></span><a class="pep reference external" href="https://peps.python.org/pep-0518/"><strong>PEP 518</strong></a> <code class="docutils literal notranslate"><span class="pre">build-system</span></code>, <a class="reference internal" href="key_projects.html#distutils"><span class="std std-ref">distutils</span></a> or
+<a class="reference internal" href="key_projects.html#setuptools"><span class="std std-ref">Setuptools</span></a>, another practical way to define projects currently
+is something that contains a <a class="reference internal" href="#term-pyproject.toml"><span class="xref std std-term">pyproject.toml</span></a>, <a class="reference internal" href="#term-setup.py"><span class="xref std std-term">setup.py</span></a>,
+or <a class="reference internal" href="#term-setup.cfg"><span class="xref std std-term">setup.cfg</span></a> file at the root of the project source directory.</p>
+<p>Python projects must have unique names, which are registered on
+<a class="reference internal" href="#term-Python-Package-Index-PyPI"><span class="xref std std-term">PyPI</span></a>. Each project will then
+contain one or more <a class="reference internal" href="#term-Release"><span class="xref std std-term">Releases</span></a>, and each release may
+comprise one or more <a class="reference internal" href="#term-Distribution-Package"><span class="xref std std-term">distributions</span></a>.</p>
+<p>Note that there is a strong convention to name a project after the name
+of the package that is imported to run that project. However, this
+doesn’t have to hold true. It’s possible to install a distribution from
+the project ‘foo’ and have it provide a package importable only as
+‘bar’.</p>
+</dd>
+<dt id="term-Project-Root-Directory">Project Root Directory<a class="headerlink" href="#term-Project-Root-Directory" title="Link to this term">¶</a></dt><dd><p>The filesystem directory in which
+a <a class="reference internal" href="#term-Project"><span class="xref std std-term">Project</span></a>’s <a class="reference internal" href="#term-Project-Source-Tree"><span class="xref std std-term">source tree</span></a> is located.</p>
+</dd>
+<dt id="term-Project-Source-Tree">Project Source Tree<a class="headerlink" href="#term-Project-Source-Tree" title="Link to this term">¶</a></dt><dd><p>The on-disk format of a <a class="reference internal" href="#term-Project"><span class="xref std std-term">Project</span></a> used for development,
+containing its raw source code before being packaged
+into a
+<a class="reference internal" href="#term-Source-Distribution-or-sdist"><span class="xref std std-term">Source Distribution</span></a>
+or <a class="reference internal" href="#term-Built-Distribution"><span class="xref std std-term">Built Distribution</span></a>.</p>
+</dd>
+<dt id="term-Project-Source-Metadata">Project Source Metadata<a class="headerlink" href="#term-Project-Source-Metadata" title="Link to this term">¶</a></dt><dd><p>Metadata defined by the package author
+in a <a class="reference internal" href="#term-Project"><span class="xref std std-term">Project</span></a>’s <a class="reference internal" href="#term-Project-Source-Tree"><span class="xref std std-term">source tree</span></a>,
+to be transformed into <a class="reference internal" href="#term-Core-Metadata-Field"><span class="xref std std-term">Core Metadata field</span></a>s
+in the <a class="reference internal" href="#term-Built-Metadata"><span class="xref std std-term">Built Metadata</span></a>
+by the project’s <a class="reference internal" href="#term-Build-Backend"><span class="xref std std-term">build backend</span></a>.
+Can be written as <a class="reference internal" href="#term-Pyproject-Metadata"><span class="xref std std-term">Pyproject Metadata</span></a>,
+or in a tool-specific format
+(under the <code class="docutils literal notranslate"><span class="pre">[tool]</span></code> table in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>,
+or in a tool’s own configuration file).</p>
+</dd>
+<dt id="term-Pure-Module">Pure Module<a class="headerlink" href="#term-Pure-Module" title="Link to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-Module"><span class="xref std std-term">Module</span></a> written in Python and contained in a single <code class="docutils literal notranslate"><span class="pre">.py</span></code> file (and
+possibly associated <code class="docutils literal notranslate"><span class="pre">.pyc</span></code> and/or <code class="docutils literal notranslate"><span class="pre">.pyo</span></code> files).</p>
+</dd>
+<dt id="term-Pyproject-Metadata">Pyproject Metadata<a class="headerlink" href="#term-Pyproject-Metadata" title="Link to this term">¶</a></dt><dd><p>The <a class="reference internal" href="#term-Project-Source-Metadata"><span class="xref std std-term">Project Source Metadata</span></a> format
+defined by the <a class="reference internal" href="specifications/pyproject-toml.html#declaring-project-metadata"><span class="std std-ref">pyproject.toml specification</span></a> specification
+and originally introduced in <span class="target" id="index-2"></span><a class="pep reference external" href="https://peps.python.org/pep-0621/"><strong>PEP 621</strong></a>,
+stored as <a class="reference internal" href="#term-Pyproject-Metadata-Key"><span class="xref std std-term">Pyproject Metadata Key</span></a>s
+under the <code class="docutils literal notranslate"><span class="pre">[project]</span></code> table of a <a class="reference internal" href="#term-pyproject.toml"><span class="xref std std-term">pyproject.toml</span></a> file.
+Notably, <em>not</em> a tool-specific source metadata format
+under the <code class="docutils literal notranslate"><span class="pre">[tool]</span></code> table in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.</p>
+</dd>
+<dt id="term-Pyproject-Metadata-Key">Pyproject Metadata Key<a class="headerlink" href="#term-Pyproject-Metadata-Key" title="Link to this term">¶</a></dt><dd><p>A top-level TOML key in the <code class="docutils literal notranslate"><span class="pre">[project]</span></code> table in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>;
+part of the <a class="reference internal" href="#term-Pyproject-Metadata"><span class="xref std std-term">Pyproject Metadata</span></a>.
+Notably, distinct from a <a class="reference internal" href="#term-Core-Metadata-Field"><span class="xref std std-term">Core Metadata Field</span></a>.</p>
+</dd>
+<dt id="term-Pyproject-Metadata-Subkey">Pyproject Metadata Subkey<a class="headerlink" href="#term-Pyproject-Metadata-Subkey" title="Link to this term">¶</a></dt><dd><p>A second-level TOML key under a table-valued
+<a class="reference internal" href="#term-Pyproject-Metadata-Key"><span class="xref std std-term">Pyproject Metadata Key</span></a>.</p>
+</dd>
+<dt id="term-Python-Packaging-Authority-PyPA">Python Packaging Authority (PyPA)<a class="headerlink" href="#term-Python-Packaging-Authority-PyPA" title="Link to this term">¶</a></dt><dd><p>PyPA is a working group that maintains many of the relevant
+projects in Python packaging. They maintain a site at
+<a class="reference external" href="https://www.pypa.io/en/latest/" title="(in PyPA)"><span class="xref std std-doc">pypa.io</span></a>, host projects on <a class="reference external" href="https://github.com/pypa">GitHub</a>, and discuss issues on the
+<a class="reference external" href="https://mail.python.org/mailman3/lists/distutils-sig.python.org/">distutils-sig mailing list</a>
+and <a class="reference external" href="https://discuss.python.org/c/packaging">the Python Discourse forum</a>.</p>
+</dd>
+<dt id="term-Python-Package-Index-PyPI">Python Package Index (PyPI)<a class="headerlink" href="#term-Python-Package-Index-PyPI" title="Link to this term">¶</a></dt><dd><p><a class="reference external" href="https://pypi.org">PyPI</a> is the default <a class="reference internal" href="#term-Package-Index"><span class="xref std std-term">Package
+Index</span></a> for the Python community. It is open to all Python developers to
+consume and distribute their distributions.</p>
+</dd>
+<dt id="term-pypi.org">pypi.org<a class="headerlink" href="#term-pypi.org" title="Link to this term">¶</a></dt><dd><p><a class="reference external" href="https://pypi.org">pypi.org</a> is the domain name for the
+<a class="reference internal" href="#term-Python-Package-Index-PyPI"><span class="xref std std-term">Python Package Index (PyPI)</span></a>. It replaced the legacy index
+domain name, <code class="docutils literal notranslate"><span class="pre">pypi.python.org</span></code>, in 2017. It is powered by
+<a class="reference internal" href="key_projects.html#warehouse"><span class="std std-ref">Warehouse</span></a>.</p>
+</dd>
+<dt id="term-pyproject.toml">pyproject.toml<a class="headerlink" href="#term-pyproject.toml" title="Link to this term">¶</a></dt><dd><p>The tool-agnostic <a class="reference internal" href="#term-Project"><span class="xref std std-term">Project</span></a> specification file.
+Defined in <span class="target" id="index-3"></span><a class="pep reference external" href="https://peps.python.org/pep-0518/"><strong>PEP 518</strong></a>.</p>
+</dd>
+<dt id="term-Release">Release<a class="headerlink" href="#term-Release" title="Link to this term">¶</a></dt><dd><p>A snapshot of a <a class="reference internal" href="#term-Project"><span class="xref std std-term">Project</span></a> at a particular point in time, denoted
+by a version identifier.</p>
+<p>Making a release may entail the publishing of multiple
+<a class="reference internal" href="#term-Distribution-Package"><span class="xref std std-term">Distributions</span></a>.  For example, if version
+1.0 of a project was released, it could be available in both a source
+distribution format and a Windows installer distribution format.</p>
+</dd>
+<dt id="term-Requirement">Requirement<a class="headerlink" href="#term-Requirement" title="Link to this term">¶</a></dt><dd><p>A specification for a <a class="reference internal" href="#term-Distribution-Package"><span class="xref std std-term">package</span></a> to be
+installed.  <a class="reference internal" href="key_projects.html#pip"><span class="std std-ref">pip</span></a>, the <a class="reference internal" href="#term-Python-Packaging-Authority-PyPA"><span class="xref std std-term">PYPA</span></a> recommended installer, allows various forms of specification
+that can all be considered a “requirement”. For more information, see the
+<a class="reference external" href="https://pip.pypa.io/en/latest/cli/pip_install/#pip-install" title="(in pip v26.1)"><span>pip install</span></a> reference.</p>
+</dd>
+<dt id="term-Requirement-Specifier">Requirement Specifier<a class="headerlink" href="#term-Requirement-Specifier" title="Link to this term">¶</a></dt><dd><p>A format used by <a class="reference internal" href="key_projects.html#pip"><span class="std std-ref">pip</span></a> to install packages from a <a class="reference internal" href="#term-Package-Index"><span class="xref std std-term">Package
+Index</span></a>. For an EBNF diagram of the format, see <a class="reference internal" href="specifications/dependency-specifiers.html#dependency-specifiers"><span class="std std-ref">Dependency specifiers</span></a>.
+For example, “foo&gt;=1.3” is a
+requirement specifier, where “foo” is the project name, and the “&gt;=1.3”
+portion is the <a class="reference internal" href="#term-Version-Specifier"><span class="xref std std-term">Version Specifier</span></a></p>
+</dd>
+<dt id="term-Requirements-File">Requirements File<a class="headerlink" href="#term-Requirements-File" title="Link to this term">¶</a></dt><dd><p>A file containing a list of <a class="reference internal" href="#term-Requirement"><span class="xref std std-term">Requirements</span></a> that can
+be installed using <a class="reference internal" href="key_projects.html#pip"><span class="std std-ref">pip</span></a>. For more information, see the <a class="reference internal" href="key_projects.html#pip"><span class="std std-ref">pip</span></a>
+docs on <a class="reference external" href="https://pip.pypa.io/en/latest/user_guide/#requirements-files" title="(in pip v26.1)"><span>Requirements Files</span></a>.</p>
+</dd>
+<dt id="term-Root-License-Directory">Root License Directory<a class="headerlink" href="#term-Root-License-Directory" title="Link to this term">¶</a></dt><dt id="term-License-Directory">License Directory<a class="headerlink" href="#term-License-Directory" title="Link to this term">¶</a></dt><dd><p>The directory under which license files are stored in a
+<a class="reference internal" href="#term-Project-Source-Tree"><span class="xref std std-term">Project Source Tree</span></a>, <a class="reference internal" href="#term-Distribution-Archive"><span class="xref std std-term">Distribution Archive</span></a>
+or <a class="reference internal" href="#term-Installed-Project"><span class="xref std std-term">Installed Project</span></a>.
+For a <a class="reference internal" href="#term-Project-Source-Tree"><span class="xref std std-term">Project Source Tree</span></a> or
+<a class="reference internal" href="#term-Source-Distribution-or-sdist"><span class="xref std std-term">Source Distribution (or “sdist”)</span></a>, this is the
+<a class="reference internal" href="#term-Project-Root-Directory"><span class="xref std std-term">Project Root Directory</span></a>.
+For a <a class="reference internal" href="#term-Built-Distribution"><span class="xref std std-term">Built Distribution</span></a> or <a class="reference internal" href="#term-Installed-Project"><span class="xref std std-term">Installed Project</span></a>,
+this is the <code class="file docutils literal notranslate"><span class="pre">.dist-info/licenses/</span></code> directory of
+the wheel archive or project folder respectively.
+Also, the root directory that paths
+recorded in the <code class="docutils literal notranslate"><span class="pre">License-File</span></code>
+<a class="reference internal" href="#term-Core-Metadata-Field"><span class="xref std std-term">Core Metadata Field</span></a> are relative to.</p>
+</dd>
+<dt id="term-setup.py">setup.py<a class="headerlink" href="#term-setup.py" title="Link to this term">¶</a></dt><dt id="term-setup.cfg">setup.cfg<a class="headerlink" href="#term-setup.cfg" title="Link to this term">¶</a></dt><dd><p>The project specification files for <a class="reference internal" href="key_projects.html#distutils"><span class="std std-ref">distutils</span></a> and <a class="reference internal" href="key_projects.html#setuptools"><span class="std std-ref">Setuptools</span></a>.
+See also <a class="reference internal" href="#term-pyproject.toml"><span class="xref std std-term">pyproject.toml</span></a>.</p>
+</dd>
+<dt id="term-Source-Archive">Source Archive<a class="headerlink" href="#term-Source-Archive" title="Link to this term">¶</a></dt><dd><p>An archive containing the raw source code for a <a class="reference internal" href="#term-Release"><span class="xref std std-term">Release</span></a>, prior
+to creation of a <a class="reference internal" href="#term-Source-Distribution-or-sdist"><span class="xref std std-term">Source Distribution</span></a> or <a class="reference internal" href="#term-Built-Distribution"><span class="xref std std-term">Built Distribution</span></a>.</p>
+</dd>
+<dt id="term-Source-Distribution-or-sdist">Source Distribution (or “sdist”)<a class="headerlink" href="#term-Source-Distribution-or-sdist" title="Link to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-Distribution-Archive"><span class="xref std std-term">distribution</span></a> format (usually generated
+using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">build</span> <span class="pre">--sdist</span></code>) that provides metadata and the
+essential source files needed for installing by a tool like <a class="reference internal" href="key_projects.html#pip"><span class="std std-ref">pip</span></a>,
+or for generating a <a class="reference internal" href="#term-Built-Distribution"><span class="xref std std-term">Built Distribution</span></a>. See <a class="reference internal" href="discussions/package-formats.html#package-formats"><span class="std std-ref">Package Formats</span></a>
+for more information.</p>
+</dd>
+<dt id="term-System-Package">System Package<a class="headerlink" href="#term-System-Package" title="Link to this term">¶</a></dt><dd><p>A package provided in a format native to the operating system,
+e.g. an rpm or dpkg file.</p>
+</dd>
+<dt id="term-Version-Specifier">Version Specifier<a class="headerlink" href="#term-Version-Specifier" title="Link to this term">¶</a></dt><dd><p>The version component of a <a class="reference internal" href="#term-Requirement-Specifier"><span class="xref std std-term">Requirement Specifier</span></a>. For example,
+the “&gt;=1.3” portion of “foo&gt;=1.3”.  Read the <a class="reference internal" href="specifications/version-specifiers.html#version-specifiers"><span class="std std-ref">Version specifier specification</span></a> for a full description of the
+specifiers that Python packaging currently supports.  Support for this
+specification was implemented in <a class="reference internal" href="key_projects.html#setuptools"><span class="std std-ref">Setuptools</span></a> v8.0 and <a class="reference internal" href="key_projects.html#pip"><span class="std std-ref">pip</span></a> v6.0.</p>
+</dd>
+<dt id="term-Virtual-Environment">Virtual Environment<a class="headerlink" href="#term-Virtual-Environment" title="Link to this term">¶</a></dt><dd><p>An isolated Python environment that allows packages to be installed for
+use by a particular application, rather than being installed system
+wide. For more information, see the section on <a class="reference internal" href="tutorials/installing-packages.html#creating-and-using-virtual-environments"><span class="std std-ref">Creating Virtual Environments</span></a>.</p>
+</dd>
+<dt id="term-Wheel-Format">Wheel Format<a class="headerlink" href="#term-Wheel-Format" title="Link to this term">¶</a></dt><dt id="term-Wheel">Wheel<a class="headerlink" href="#term-Wheel" title="Link to this term">¶</a></dt><dd><p>The standard <a class="reference internal" href="#term-Built-Distribution"><span class="xref std std-term">Built Distribution</span></a> format
+originally introduced in <span class="target" id="index-4"></span><a class="pep reference external" href="https://peps.python.org/pep-0427/"><strong>PEP 427</strong></a>
+and defined by the <a class="reference internal" href="specifications/binary-distribution-format.html#binary-distribution-format"><span class="std std-ref">Binary distribution format</span></a> specification.
+See <a class="reference internal" href="discussions/package-formats.html#package-formats"><span class="std std-ref">Package Formats</span></a> for more information.
+Not to be confused with its reference implementation,
+the <a class="reference internal" href="#term-Wheel-Project"><span class="xref std std-term">Wheel Project</span></a>.</p>
+</dd>
+<dt id="term-Wheel-Project">Wheel Project<a class="headerlink" href="#term-Wheel-Project" title="Link to this term">¶</a></dt><dd><p>The PyPA reference implementation of the <a class="reference internal" href="#term-Wheel-Format"><span class="xref std std-term">Wheel Format</span></a>; see <a class="reference internal" href="key_projects.html#wheel"><span class="std std-ref">wheel</span></a>.</p>
+</dd>
+<dt id="term-Working-Set">Working Set<a class="headerlink" href="#term-Working-Set" title="Link to this term">¶</a></dt><dd><p>A collection of <a class="reference internal" href="#term-Distribution-Package"><span class="xref std std-term">distributions</span></a> available
+for importing. These are the distributions that are on the <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.path" title="(in Python v3.14)"><code class="xref any docutils literal notranslate"><span class="pre">sys.path</span></code></a>
+variable. At most, one <a class="reference internal" href="#term-Distribution-Package"><span class="xref std std-term">Distribution</span></a> for a
+project is possible in a working set.</p>
+</dd>
+</dl>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="support.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">How to Get Support</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="key_projects.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Project Summaries</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2013–2020, PyPA
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            <div class="last-updated">
+              Last updated on Feb 21, 2026</div>
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="_static/tabs.js?v=3ee01567"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=cb5fb026"></script>
+    </body>
+</html>

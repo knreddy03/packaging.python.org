@@ -1,0 +1,993 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Dependency Groups" href="dependency-groups.html" /><link rel="prev" title="Dependency specifiers" href="dependency-specifiers.html" />
+
+    <link rel="shortcut icon" href="../_static/py.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
+        <title>pyproject.toml specification - Python Packaging User Guide</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Python Packaging User Guide</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">Python Packaging User Guide</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview of Python Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow.html">The Packaging Flow</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/installing-packages.html">Installing Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/managing-dependencies.html">Managing Application Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/packaging-projects.html">Packaging Python Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../guides/index.html">Guides</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../guides/section-install.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-using-pip-and-virtual-environments.html">Install packages in a virtual environment using pip and venv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-using-virtualenv.html">Installing packages using virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-stand-alone-command-line-tools.html">Installing stand alone command line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-using-linux-tools.html">Installing pip/setuptools/wheel with Linux Package Managers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-scientific-packages.html">Installing scientific packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../guides/section-build-and-publish.html">Building and Publishing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Building and Publishing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/writing-pyproject-toml.html">Writing your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/distributing-packages-using-setuptools.html">Packaging and distributing projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/dropping-older-python-versions.html">Dropping support for older Python versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/packaging-binary-extensions.html">Packaging binary extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/packaging-namespace-packages.html">Packaging namespace packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/creating-command-line-tools.html">Creating and packaging command-line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/creating-and-discovering-plugins.html">Creating and discovering plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/using-testpypi.html">Using TestPyPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/making-a-pypi-friendly-readme.html">Making a PyPI-friendly README</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows.html">Publishing package distribution releases using GitHub Actions CI/CD workflows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/modernize-setup-py-project.html">How to modernize a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> based project?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/licensing-examples-and-user-scenarios.html">Licensing examples and user scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../guides/section-hosting.html">Hosting</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Hosting</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/index-mirrors-and-caches.html">Package index mirrors and caches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/hosting-your-own-index.html">Hosting your own simple repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/tool-recommendations.html">Tool recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/analyzing-pypi-package-downloads.html">Analyzing PyPI package downloads</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussions/index.html">Discussions</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Discussions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/deploying-python-applications.html">Deploying Python applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/pip-vs-easy-install.html">pip vs easy_install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/install-requires-vs-requirements.html">install_requires vs requirements files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/distribution-package-vs-import-package.html">Distribution package vs. import package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/package-formats.html">Package Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/src-layout-vs-flat-layout.html">src layout vs flat layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/setup-py-deprecated.html">Is <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> deprecated?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/single-source-version.html">Single-sourcing the Project Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/downstream-packaging.html">Supporting downstream packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">PyPA specifications</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of PyPA specifications</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="section-distribution-metadata.html">Package Distribution Metadata</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Package Distribution Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="name-normalization.html">Names and normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core-metadata.html">Core metadata specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="version-specifiers.html">Version specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dependency-specifiers.html">Dependency specifiers</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dependency-groups.html">Dependency Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inline-script-metadata.html">Inline script metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="platform-compatibility-tags.html">Platform compatibility tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="well-known-project-urls.html">Well-known Project URLs in Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glob-patterns.html"><code class="docutils literal notranslate"><span class="pre">glob</span></code> patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="license-expression.html">License Expression</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-installation-metadata.html">Package Installation Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Package Installation Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="recording-installed-packages.html">Recording installed projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="entry-points.html">Entry points specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="direct-url.html">Recording the Direct URL Origin of installed distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="direct-url-data-structure.html">Direct URL Data Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtual-environments.html">Python Virtual Environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="externally-managed-environments.html">Externally Managed Environments</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-distribution-formats.html">Package Distribution File Formats</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Package Distribution File Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="source-distribution-format.html">Source distribution format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="binary-distribution-format.html">Binary distribution format</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-package-indices.html">Package Index Interfaces</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Package Index Interfaces</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="pypirc.html">The <code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple-repository-api.html">Simple repository API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="file-yanking.html">File Yanking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index-hosted-attestations.html">Index hosted attestations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project-status-markers.html">Project Status Markers</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-python-description-formats.html">Python Description Formats</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Python Description Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="build-details/index.html"><code class="file docutils literal notranslate"><span class="pre">build-details.json</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of build-details.json</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="build-details/v1.0.html">v1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-reproducible-environments.html">Reproducible Environments</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Reproducible Environments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="pylock-toml.html"><code class="docutils literal notranslate"><span class="pre">pylock.toml</span></code> Specification</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="schemas/index.html">PyPA schemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../key_projects.html">Project Summaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">How to Get Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute to this guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/blob/main/source/specifications/pyproject-toml.rst?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/edit/main/source/specifications/pyproject-toml.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="pyproject-toml-specification">
+<span id="pyproject-toml-spec"></span><span id="declaring-project-metadata"></span><h1><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> specification<a class="headerlink" href="#pyproject-toml-specification" title="Link to this heading">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is a <strong>technical, formal specification</strong>. For a gentle,
+user-friendly guide to <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, see
+<a class="reference internal" href="../guides/writing-pyproject-toml.html#writing-pyproject-toml"><span class="std std-ref">Writing your pyproject.toml</span></a>.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file acts as a configuration file for packaging-related
+tools (as well as other tools).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This specification was originally defined in <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0518/"><strong>PEP 518</strong></a> and <span class="target" id="index-1"></span><a class="pep reference external" href="https://peps.python.org/pep-0621/"><strong>PEP 621</strong></a>.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file is written in <a class="reference external" href="https://toml.io">TOML</a>. Three
+tables are currently specified, namely
+<a class="reference internal" href="#pyproject-build-system-table"><span class="std std-ref">[build-system]</span></a>,
+<a class="reference internal" href="#pyproject-project-table"><span class="std std-ref">[project]</span></a> and
+<a class="reference internal" href="#pyproject-tool-table"><span class="std std-ref">[tool]</span></a>. Other tables are reserved for future
+use (tool-specific configuration should use the <code class="docutils literal notranslate"><span class="pre">[tool]</span></code> table).</p>
+<section id="declaring-build-system-dependencies-the-build-system-table">
+<span id="pyproject-build-system-table"></span><h2>Declaring build system dependencies: the <code class="docutils literal notranslate"><span class="pre">[build-system]</span></code> table<a class="headerlink" href="#declaring-build-system-dependencies-the-build-system-table" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">[build-system]</span></code> table declares any Python level dependencies that
+must be installed in order to run the project’s build system
+successfully.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">[build-system]</span></code> table is used to store build-related data.
+Initially, only one key of the table is valid and is mandatory
+for the table: <code class="docutils literal notranslate"><span class="pre">requires</span></code>. This key must have a value of a list
+of strings representing dependencies required to execute the
+build system. The strings in this list follow the <a class="reference internal" href="version-specifiers.html#version-specifiers"><span class="std std-ref">version specifier
+specification</span></a>.</p>
+<p>An example <code class="docutils literal notranslate"><span class="pre">[build-system]</span></code> table for a project built with
+<code class="docutils literal notranslate"><span class="pre">setuptools</span></code> is:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[build-system]</span>
+<span class="c1"># Minimum requirements for the build system to execute.</span>
+<span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;setuptools&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Build tools are expected to use the example configuration file above as
+their default semantics when a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file is not present.</p>
+<p>Tools should not require the existence of the <code class="docutils literal notranslate"><span class="pre">[build-system]</span></code> table.
+A <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file may be used to store configuration details
+other than build-related data and thus lack a <code class="docutils literal notranslate"><span class="pre">[build-system]</span></code> table
+legitimately. If the file exists but is lacking the <code class="docutils literal notranslate"><span class="pre">[build-system]</span></code>
+table then the default values as specified above should be used.
+If the table is specified but is missing required fields then the tool
+should consider it an error.</p>
+<p>Tools may choose to present an error to the user if the file exists,
+<code class="docutils literal notranslate"><span class="pre">[build-system]</span></code> table is missing, and there is no clear indication
+that the project should be built (e.g., no setup.py/setup.cfg or other
+build configuration files, and no <code class="docutils literal notranslate"><span class="pre">[project]</span></code> table).</p>
+<p>To provide a type-specific representation of the resulting data from
+the TOML file for illustrative purposes only, the following
+<a class="reference external" href="https://json-schema.org">JSON Schema</a> would match the data format:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;$schema&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://json-schema.org/schema#&quot;</span><span class="p">,</span>
+
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+
+<span class="w">    </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;build-system&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+
+<span class="w">            </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;requires&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;array&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;requires&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+
+<span class="w">        </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="declaring-project-metadata-the-project-table">
+<span id="pyproject-project-table"></span><h2>Declaring project metadata: the <code class="docutils literal notranslate"><span class="pre">[project]</span></code> table<a class="headerlink" href="#declaring-project-metadata-the-project-table" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">[project]</span></code> table specifies the project’s <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a>.</p>
+<p>There are two kinds of metadata: <em>static</em> and <em>dynamic</em>. Static
+metadata is specified in the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file directly and
+cannot be specified or changed by a tool (this includes data
+<em>referred</em> to by the metadata, e.g. the contents of files referenced
+by the metadata). Dynamic metadata is listed via the <code class="docutils literal notranslate"><span class="pre">dynamic</span></code> key
+(defined later in this specification) and represents metadata that a
+tool will later provide.</p>
+<p>The lack of a <code class="docutils literal notranslate"><span class="pre">[project]</span></code> table implicitly means the <a class="reference internal" href="../glossary.html#term-Build-Backend"><span class="xref std std-term">build backend</span></a>
+will dynamically provide all keys.</p>
+<p>The only keys required to be statically defined are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></li>
+</ul>
+<p>The keys which are required but may be specified <em>either</em> statically
+or listed as dynamic are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></li>
+</ul>
+<p>All other keys are considered optional and may be specified
+statically, listed as dynamic, or left unspecified.</p>
+<p>The complete list of keys allowed in the <code class="docutils literal notranslate"><span class="pre">[project]</span></code> table are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">authors</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">classifiers</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dependencies</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dynamic</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">entry-points</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gui-scripts</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import-names</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import-namespaces</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keywords</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">license</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">license-files</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">maintainers</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">optional-dependencies</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">readme</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">requires-python</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scripts</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urls</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></li>
+</ul>
+<section id="name">
+<span id="pyproject-toml-name"></span><h3><code class="docutils literal notranslate"><span class="pre">name</span></code><a class="headerlink" href="#name" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: string</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-name"><span class="std std-ref">Name</span></a></p></li>
+</ul>
+<p>The name of the project.</p>
+<p>Tools SHOULD <a class="reference internal" href="name-normalization.html#name-normalization"><span class="std std-ref">normalize</span></a> this name, as soon
+as it is read for internal consistency.</p>
+</section>
+<section id="version">
+<span id="pyproject-toml-version"></span><h3><code class="docutils literal notranslate"><span class="pre">version</span></code><a class="headerlink" href="#version" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: string</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-version"><span class="std std-ref">Version</span></a></p></li>
+</ul>
+<p>The version of the project, as defined in the
+<a class="reference internal" href="version-specifiers.html#version-specifiers"><span class="std std-ref">Version specifier specification</span></a>.</p>
+<p>Users SHOULD prefer to specify already-normalized versions.</p>
+</section>
+<section id="description">
+<span id="pyproject-toml-description"></span><h3><code class="docutils literal notranslate"><span class="pre">description</span></code><a class="headerlink" href="#description" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: string</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-summary"><span class="std std-ref">Summary</span></a></p></li>
+</ul>
+<p>The summary description of the project in one line. Tools MAY error
+if this includes multiple lines.</p>
+</section>
+<section id="readme">
+<span id="pyproject-toml-readme"></span><h3><code class="docutils literal notranslate"><span class="pre">readme</span></code><a class="headerlink" href="#readme" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: string or table</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-description"><span class="std std-ref">Description</span></a> and
+<a class="reference internal" href="core-metadata.html#core-metadata-description-content-type"><span class="std std-ref">Description-Content-Type</span></a></p></li>
+</ul>
+<p>The full description of the project (i.e. the README).</p>
+<p>The key accepts either a string or a table. If it is a string then
+it is a path relative to <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> to a text file containing
+the full description. Tools MUST assume the file’s encoding is UTF-8.
+If the file path ends in a case-insensitive <code class="docutils literal notranslate"><span class="pre">.md</span></code> suffix, then tools
+MUST assume the content-type is <code class="docutils literal notranslate"><span class="pre">text/markdown</span></code>. If the file path
+ends in a case-insensitive <code class="docutils literal notranslate"><span class="pre">.rst</span></code>, then tools MUST assume the
+content-type is <code class="docutils literal notranslate"><span class="pre">text/x-rst</span></code>. If a tool recognizes more extensions
+than this PEP, they MAY infer the content-type for the user without
+specifying this key as <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>. For all unrecognized suffixes
+when a content-type is not provided, tools MUST raise an error.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">readme</span></code> key may also take a table. The <code class="docutils literal notranslate"><span class="pre">file</span></code> key has a
+string value representing a path relative to <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> to a
+file containing the full description. The <code class="docutils literal notranslate"><span class="pre">text</span></code> key has a string
+value which is the full description. These keys are
+mutually-exclusive, thus tools MUST raise an error if the metadata
+specifies both keys.</p>
+<p>A table specified in the <code class="docutils literal notranslate"><span class="pre">readme</span></code> key also has a <code class="docutils literal notranslate"><span class="pre">content-type</span></code>
+key which takes a string specifying the content-type of the full
+description. A tool MUST raise an error if the metadata does not
+specify this key in the table. If the metadata does not specify the
+<code class="docutils literal notranslate"><span class="pre">charset</span></code> parameter, then it is assumed to be UTF-8. Tools MAY
+support other encodings if they choose to. Tools MAY support
+alternative content-types which they can transform to a content-type
+as supported by the <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a>. Otherwise
+tools MUST raise an error for unsupported content-types.</p>
+</section>
+<section id="requires-python">
+<span id="pyproject-toml-requires-python"></span><h3><code class="docutils literal notranslate"><span class="pre">requires-python</span></code><a class="headerlink" href="#requires-python" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: string</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-requires-python"><span class="std std-ref">Requires-Python</span></a></p></li>
+</ul>
+<p>The Python version requirements of the project.</p>
+</section>
+<section id="license">
+<span id="pyproject-toml-license"></span><h3><code class="docutils literal notranslate"><span class="pre">license</span></code><a class="headerlink" href="#license" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: string</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-license-expression"><span class="std std-ref">License-Expression</span></a></p></li>
+</ul>
+<p>Text string that is a valid SPDX
+<a class="reference internal" href="../glossary.html#term-License-Expression"><span class="xref std std-term">license expression</span></a>,
+as specified in <a class="reference internal" href="license-expression.html"><span class="doc">License Expression</span></a>.
+Tools SHOULD validate and perform case normalization of the expression.</p>
+<p>This key should <strong>only</strong> be specified if the license expression for any
+and all distribution files created by a build backend using the
+<code class="file docutils literal notranslate"><span class="pre">pyproject.toml</span></code> is the same as the one specified. If the license
+expression will differ then it should either be specified as dynamic or
+not set at all.</p>
+<section id="legacy-specification">
+<h4>Legacy specification<a class="headerlink" href="#legacy-specification" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: table</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-license"><span class="std std-ref">License</span></a></p></li>
+</ul>
+<p>The table may have one of two keys. The <code class="docutils literal notranslate"><span class="pre">file</span></code> key has a string
+value that is a file path relative to <code class="file docutils literal notranslate"><span class="pre">pyproject.toml</span></code> to the file
+which contains the license for the project. Tools MUST assume the
+file’s encoding is UTF-8. The <code class="docutils literal notranslate"><span class="pre">text</span></code> key has a string value which is
+the license of the project.  These keys are mutually exclusive, so a
+tool MUST raise an error if the metadata specifies both keys.</p>
+<p>The table subkeys were deprecated by <span class="target" id="index-2"></span><a class="pep reference external" href="https://peps.python.org/pep-0639/"><strong>PEP 639</strong></a> in favor of the string value.</p>
+</section>
+</section>
+<section id="license-files">
+<span id="pyproject-toml-license-files"></span><h3><code class="docutils literal notranslate"><span class="pre">license-files</span></code><a class="headerlink" href="#license-files" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: array of strings</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-license-file"><span class="std std-ref">License-File</span></a></p></li>
+</ul>
+<p>An array specifying paths in the project source tree relative to the project
+root directory (i.e. directory containing <code class="file docutils literal notranslate"><span class="pre">pyproject.toml</span></code> or legacy project
+configuration files, e.g. <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code>, <code class="file docutils literal notranslate"><span class="pre">setup.cfg</span></code>, etc.)
+to file(s) containing licenses and other legal notices to be
+distributed with the package.</p>
+<p>The strings MUST contain valid glob patterns, as specified in
+<a class="reference internal" href="glob-patterns.html"><span class="doc">glob patterns</span></a>.</p>
+<p>Patterns are relative to the directory containing <code class="file docutils literal notranslate"><span class="pre">pyproject.toml</span></code>,</p>
+<p>Tools MUST assume that license file content is valid UTF-8 encoded text,
+and SHOULD validate this and raise an error if it is not.</p>
+<p>Build tools:</p>
+<ul class="simple">
+<li><p>MUST include all files matched by a listed pattern in all distribution
+archives.</p></li>
+<li><p>MUST list each matched file path under a License-File field in the
+Core Metadata.</p></li>
+</ul>
+<p>If the <code class="docutils literal notranslate"><span class="pre">license-files</span></code> key is present and
+is set to a value of an empty array, then tools MUST NOT include any
+license files and MUST NOT raise an error.
+If the <code class="docutils literal notranslate"><span class="pre">license-files</span></code> key is not defined, tools can decide how to handle
+license files. For example they can choose not to include any files or use
+their own logic to discover the appropriate files in the distribution.</p>
+</section>
+<section id="authors-maintainers">
+<span id="pyproject-toml-maintainers"></span><span id="pyproject-toml-authors"></span><h3><code class="docutils literal notranslate"><span class="pre">authors</span></code>/<code class="docutils literal notranslate"><span class="pre">maintainers</span></code><a class="headerlink" href="#authors-maintainers" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: Array of inline tables with string keys and values</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-author"><span class="std std-ref">Author</span></a>,
+<a class="reference internal" href="core-metadata.html#core-metadata-author-email"><span class="std std-ref">Author-email</span></a>,
+<a class="reference internal" href="core-metadata.html#core-metadata-maintainer"><span class="std std-ref">Maintainer</span></a>, and
+<a class="reference internal" href="core-metadata.html#core-metadata-maintainer-email"><span class="std std-ref">Maintainer-email</span></a></p></li>
+</ul>
+<p>The people or organizations considered to be the “authors” of the
+project. The exact meaning is open to interpretation — it may list the
+original or primary authors, current maintainers, or owners of the
+package.</p>
+<p>The “maintainers” key is similar to “authors” in that its exact
+meaning is open to interpretation.</p>
+<p>These keys accept an array of tables with 2 keys: <code class="docutils literal notranslate"><span class="pre">name</span></code> and
+<code class="docutils literal notranslate"><span class="pre">email</span></code>. Both values must be strings. The <code class="docutils literal notranslate"><span class="pre">name</span></code> value MUST be a
+valid email name (i.e. whatever can be put as a name, before an email,
+in <span class="target" id="index-3"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc822.html"><strong>RFC 822</strong></a>) and not contain commas. The <code class="docutils literal notranslate"><span class="pre">email</span></code> value MUST be a
+valid email address. Both keys are optional, but at least one of the
+keys must be specified in the table.</p>
+<p>Using the data to fill in <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> is as
+follows:</p>
+<ol class="arabic simple">
+<li><p>If only <code class="docutils literal notranslate"><span class="pre">name</span></code> is provided, the value goes in
+<a class="reference internal" href="core-metadata.html#core-metadata-author"><span class="std std-ref">Author</span></a> or
+<a class="reference internal" href="core-metadata.html#core-metadata-maintainer"><span class="std std-ref">Maintainer</span></a> as appropriate.</p></li>
+<li><p>If only <code class="docutils literal notranslate"><span class="pre">email</span></code> is provided, the value goes in
+<a class="reference internal" href="core-metadata.html#core-metadata-author-email"><span class="std std-ref">Author-email</span></a> or
+<a class="reference internal" href="core-metadata.html#core-metadata-maintainer-email"><span class="std std-ref">Maintainer-email</span></a>
+as appropriate.</p></li>
+<li><p>If both <code class="docutils literal notranslate"><span class="pre">email</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code> are provided, the value goes in
+<a class="reference internal" href="core-metadata.html#core-metadata-author-email"><span class="std std-ref">Author-email</span></a> or
+<a class="reference internal" href="core-metadata.html#core-metadata-maintainer-email"><span class="std std-ref">Maintainer-email</span></a>
+as appropriate, with the format <code class="docutils literal notranslate"><span class="pre">{name}</span> <span class="pre">&lt;{email}&gt;</span></code>.</p></li>
+<li><p>Multiple values should be separated by commas.</p></li>
+</ol>
+</section>
+<section id="keywords">
+<span id="pyproject-toml-keywords"></span><h3><code class="docutils literal notranslate"><span class="pre">keywords</span></code><a class="headerlink" href="#keywords" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: array of strings</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-keywords"><span class="std std-ref">Keywords</span></a></p></li>
+</ul>
+<p>The keywords for the project.</p>
+</section>
+<section id="classifiers">
+<span id="pyproject-toml-classifiers"></span><h3><code class="docutils literal notranslate"><span class="pre">classifiers</span></code><a class="headerlink" href="#classifiers" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: array of strings</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-classifier"><span class="std std-ref">Classifier</span></a></p></li>
+</ul>
+<p>Trove classifiers which apply to the project.</p>
+<p>The use of <code class="docutils literal notranslate"><span class="pre">License</span> <span class="pre">::</span></code> classifiers is deprecated and tools MAY issue a
+warning informing users about that.
+Build tools MAY raise an error if both the <code class="docutils literal notranslate"><span class="pre">license</span></code> string value
+(translating to <code class="docutils literal notranslate"><span class="pre">License-Expression</span></code> metadata field) and the <code class="docutils literal notranslate"><span class="pre">License</span> <span class="pre">::</span></code>
+classifiers are used.</p>
+</section>
+<section id="urls">
+<span id="pyproject-toml-urls"></span><h3><code class="docutils literal notranslate"><span class="pre">urls</span></code><a class="headerlink" href="#urls" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: table with keys and values of strings</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-project-url"><span class="std std-ref">Project-URL</span></a></p></li>
+</ul>
+<p>A table of URLs where the key is the URL label and the value is the
+URL itself. See <a class="reference internal" href="well-known-project-urls.html#well-known-project-urls"><span class="std std-ref">Well-known Project URLs in Metadata</span></a> for normalization rules
+and well-known rules when processing metadata for presentation.</p>
+</section>
+<section id="entry-points">
+<span id="pyproject-toml-entry-points"></span><span id="pyproject-toml-gui-scripts"></span><span id="pyproject-toml-scripts"></span><h3>Entry points<a class="headerlink" href="#entry-points" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: table (<code class="docutils literal notranslate"><span class="pre">[project.scripts]</span></code>, <code class="docutils literal notranslate"><span class="pre">[project.gui-scripts]</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">[project.entry-points]</span></code>)</p></li>
+<li><p><a class="reference internal" href="entry-points.html#entry-points"><span class="std std-ref">Entry points specification</span></a></p></li>
+</ul>
+<p>There are three tables related to entry points. The
+<code class="docutils literal notranslate"><span class="pre">[project.scripts]</span></code> table corresponds to the <code class="docutils literal notranslate"><span class="pre">console_scripts</span></code>
+group in the <a class="reference internal" href="entry-points.html#entry-points"><span class="std std-ref">entry points specification</span></a>. The key
+of the table is the name of the entry point and the value is the
+object reference.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">[project.gui-scripts]</span></code> table corresponds to the <code class="docutils literal notranslate"><span class="pre">gui_scripts</span></code>
+group in the <a class="reference internal" href="entry-points.html#entry-points"><span class="std std-ref">entry points specification</span></a>. Its
+format is the same as <code class="docutils literal notranslate"><span class="pre">[project.scripts]</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">[project.entry-points]</span></code> table is a collection of tables. Each
+sub-table’s name is an entry point group. The key and value semantics
+are the same as <code class="docutils literal notranslate"><span class="pre">[project.scripts]</span></code>. Users MUST NOT create
+nested sub-tables but instead keep the entry point groups to only one
+level deep.</p>
+<p>Build back-ends MUST raise an error if the metadata defines a
+<code class="docutils literal notranslate"><span class="pre">[project.entry-points.console_scripts]</span></code> or
+<code class="docutils literal notranslate"><span class="pre">[project.entry-points.gui_scripts]</span></code> table, as they would
+be ambiguous in the face of <code class="docutils literal notranslate"><span class="pre">[project.scripts]</span></code> and
+<code class="docutils literal notranslate"><span class="pre">[project.gui-scripts]</span></code>, respectively.</p>
+</section>
+<section id="dependencies-optional-dependencies">
+<span id="pyproject-toml-optional-dependencies"></span><span id="pyproject-toml-dependencies"></span><h3><code class="docutils literal notranslate"><span class="pre">dependencies</span></code>/<code class="docutils literal notranslate"><span class="pre">optional-dependencies</span></code><a class="headerlink" href="#dependencies-optional-dependencies" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: Array of <span class="target" id="index-4"></span><a class="pep reference external" href="https://peps.python.org/pep-0508/"><strong>PEP 508</strong></a> strings (<code class="docutils literal notranslate"><span class="pre">dependencies</span></code>), and a
+table with values of arrays of <span class="target" id="index-5"></span><a class="pep reference external" href="https://peps.python.org/pep-0508/"><strong>PEP 508</strong></a> strings
+(<code class="docutils literal notranslate"><span class="pre">optional-dependencies</span></code>)</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-requires-dist"><span class="std std-ref">Requires-Dist</span></a> and
+<a class="reference internal" href="core-metadata.html#core-metadata-provides-extra"><span class="std std-ref">Provides-Extra</span></a></p></li>
+</ul>
+<p>The (optional) dependencies of the project.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">dependencies</span></code>, it is a key whose value is an array of strings.
+Each string represents a dependency of the project and MUST be
+formatted as a valid <span class="target" id="index-6"></span><a class="pep reference external" href="https://peps.python.org/pep-0508/"><strong>PEP 508</strong></a> string. Each string maps directly to
+a <a class="reference internal" href="core-metadata.html#core-metadata-requires-dist"><span class="std std-ref">Requires-Dist</span></a> entry.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">optional-dependencies</span></code>, it is a table where each key specifies
+an extra and whose value is an array of strings. The strings of the
+arrays must be valid <span class="target" id="index-7"></span><a class="pep reference external" href="https://peps.python.org/pep-0508/"><strong>PEP 508</strong></a> strings. The keys MUST be valid values
+for <a class="reference internal" href="core-metadata.html#core-metadata-provides-extra"><span class="std std-ref">Provides-Extra</span></a>. Each value
+in the array thus becomes a corresponding
+<a class="reference internal" href="core-metadata.html#core-metadata-requires-dist"><span class="std std-ref">Requires-Dist</span></a> entry for the
+matching <a class="reference internal" href="core-metadata.html#core-metadata-provides-extra"><span class="std std-ref">Provides-Extra</span></a>
+metadata.</p>
+</section>
+<section id="import-names">
+<span id="pyproject-toml-import-names"></span><h3><code class="docutils literal notranslate"><span class="pre">import-names</span></code><a class="headerlink" href="#import-names" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: array of strings</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-import-name"><span class="std std-ref">Import-Name</span></a></p></li>
+</ul>
+<p>An array of strings specifying the import names that the project exclusively
+provides when installed. Each string MUST be a valid Python identifier or can
+be empty. An import name MAY be followed by a semicolon and the term “private”
+(e.g. <code class="docutils literal notranslate"><span class="pre">&quot;;</span> <span class="pre">private&quot;</span></code>) with any amount of whitespace surrounding the semicolon.</p>
+<p>Projects SHOULD list all the shortest import names that are exclusively provided
+by the project. If any of the shortest names are dotted names, all intervening
+names from that name to the top-level name should also be listed appropriately
+in <code class="docutils literal notranslate"><span class="pre">import-names</span></code> and/or <code class="docutils literal notranslate"><span class="pre">import-namespaces</span></code>. For instance, a project which
+is a single package named spam with multiple submodules would only list
+<code class="docutils literal notranslate"><span class="pre">project.import-names</span> <span class="pre">=</span> <span class="pre">[&quot;spam&quot;]</span></code>. A project that lists <code class="docutils literal notranslate"><span class="pre">spam.bacon.eggs</span></code>
+would also need to account for <code class="docutils literal notranslate"><span class="pre">spam</span></code> and <code class="docutils literal notranslate"><span class="pre">spam.bacon</span></code> appropriately in
+<code class="docutils literal notranslate"><span class="pre">import-names</span></code> and <code class="docutils literal notranslate"><span class="pre">import-namespaces</span></code>. Listing all names acts as a check
+that the intent of the import names is as expected. As well, projects SHOULD
+list all import names, public or private, using the <code class="docutils literal notranslate"><span class="pre">;</span> <span class="pre">private</span></code> modifier as
+appropriate.</p>
+<p>If a project lists the same name in both <code class="docutils literal notranslate"><span class="pre">import-names</span></code> and
+<code class="docutils literal notranslate"><span class="pre">import-namespaces</span></code>, then tools MUST raise an error due to ambiguity.</p>
+<p>Projects MAY set <code class="docutils literal notranslate"><span class="pre">import-names</span></code> to an empty array to represent a project with
+no import names (i.e. there are no Python modules of any kind in the
+distribution file).</p>
+<p>Build back-ends MAY support dynamically calculating the value if the user
+declares the key in <code class="docutils literal notranslate"><span class="pre">project.dynamic</span></code>.</p>
+<p>Examples:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;pillow&quot;</span>
+<span class="n">import-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;PIL&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;myproject&quot;</span>
+<span class="n">import-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;mypackage&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;_private_module ; private&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="import-namespaces">
+<span id="pyproject-toml-import-namespaces"></span><h3><code class="docutils literal notranslate"><span class="pre">import-namespaces</span></code><a class="headerlink" href="#import-namespaces" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: array of strings</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-import-namespace"><span class="std std-ref">Import-Namespace</span></a></p></li>
+</ul>
+<p>An array of strings specifying the import names that the project provides when
+installed, but not exclusively. Each string MUST be a valid Python identifier.
+An import name MAY be followed by a semicolon and the term “private” (e.g.
+<code class="docutils literal notranslate"><span class="pre">&quot;;</span> <span class="pre">private&quot;</span></code>) with any amount of whitespace surrounding the semicolon. Note
+that unlike <code class="docutils literal notranslate"><span class="pre">import-names</span></code>, <code class="docutils literal notranslate"><span class="pre">import-namespaces</span></code> CANNOT be an empty array.</p>
+<p>Projects SHOULD list all the shortest import names that are exclusively provided
+by the project. If any of the shortest names are dotted names, all intervening
+names from that name to the top-level name should also be listed appropriately
+in <code class="docutils literal notranslate"><span class="pre">import-names</span></code> and/or <code class="docutils literal notranslate"><span class="pre">import-namespaces</span></code>.</p>
+<p>This field is used for namespace packages where multiple projects can contribute
+to the same import namespace. Projects all listing the same import name in
+<code class="docutils literal notranslate"><span class="pre">import-namespaces</span></code> can be installed together without shadowing each other.</p>
+<p>If a project lists the same name in both <code class="docutils literal notranslate"><span class="pre">import-names</span></code> and
+<code class="docutils literal notranslate"><span class="pre">import-namespaces</span></code>, then tools MUST raise an error due to ambiguity.</p>
+<p>Build back-ends MAY support dynamically calculating the value if the user
+declares the key in <code class="docutils literal notranslate"><span class="pre">project.dynamic</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;zope-interface&quot;</span>
+<span class="n">import-namespaces</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;zope&quot;</span><span class="p">]</span>
+<span class="n">import-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;zope.interface&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="dynamic">
+<span id="declaring-project-metadata-dynamic"></span><span id="pyproject-toml-dynamic"></span><h3><code class="docutils literal notranslate"><span class="pre">dynamic</span></code><a class="headerlink" href="#dynamic" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://toml.io">TOML</a> type: array of string</p></li>
+<li><p>Corresponding <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> field:
+<a class="reference internal" href="core-metadata.html#core-metadata-dynamic"><span class="std std-ref">Dynamic</span></a></p></li>
+</ul>
+<p>Specifies which keys listed by this PEP were intentionally
+unspecified so another tool can/will provide such metadata
+dynamically. This clearly delineates which metadata is purposefully
+unspecified and expected to stay unspecified compared to being
+provided via tooling later on.</p>
+<ul class="simple">
+<li><p>A build back-end MUST honour statically-specified metadata (which
+means the metadata did not list the key in <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>).</p></li>
+<li><p>A build back-end MUST raise an error if the metadata specifies
+<code class="docutils literal notranslate"><span class="pre">name</span></code> in <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>.</p></li>
+<li><p>If the <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> specification lists a
+field as “Required”, then the metadata MUST specify the key
+statically or list it in <code class="docutils literal notranslate"><span class="pre">dynamic</span></code> (build back-ends MUST raise an
+error otherwise, i.e. it should not be possible for a required key
+to not be listed somehow in the <code class="docutils literal notranslate"><span class="pre">[project]</span></code> table).</p></li>
+<li><p>If the <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">core metadata</span></a> specification lists a
+field as “Optional”, the metadata MAY list it in <code class="docutils literal notranslate"><span class="pre">dynamic</span></code> if the
+expectation is a build back-end will provide the data for the key
+later.</p></li>
+<li><p>Build back-ends MUST raise an error if the metadata specifies a
+key statically as well as being listed in <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>.</p></li>
+<li><p>If the metadata does not list a key in <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>, then a build
+back-end CANNOT fill in the requisite metadata on behalf of the user
+(i.e. <code class="docutils literal notranslate"><span class="pre">dynamic</span></code> is the only way to allow a tool to fill in
+metadata and the user must opt into the filling in).</p></li>
+<li><p>Build back-ends MUST raise an error if the metadata specifies a
+key in <code class="docutils literal notranslate"><span class="pre">dynamic</span></code> but the build back-end was unable to determine
+the data for it (omitting the data, if determined to be the accurate
+value, is acceptable).</p></li>
+</ul>
+</section>
+</section>
+<section id="arbitrary-tool-configuration-the-tool-table">
+<span id="pyproject-tool-table"></span><h2>Arbitrary tool configuration: the <code class="docutils literal notranslate"><span class="pre">[tool]</span></code> table<a class="headerlink" href="#arbitrary-tool-configuration-the-tool-table" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">[tool]</span></code> table is where any tool related to your Python
+project, not just build tools, can have users specify configuration
+data as long as they use a sub-table within <code class="docutils literal notranslate"><span class="pre">[tool]</span></code>, e.g. the
+<a class="reference external" href="https://pypi.python.org/pypi/flit">flit</a> tool would store its
+configuration in <code class="docutils literal notranslate"><span class="pre">[tool.flit]</span></code>.</p>
+<p>A mechanism is needed to allocate names within the <code class="docutils literal notranslate"><span class="pre">tool.*</span></code>
+namespace, to make sure that different projects do not attempt to use
+the same sub-table and collide. Our rule is that a project can use
+the subtable <code class="docutils literal notranslate"><span class="pre">tool.$NAME</span></code> if, and only if, they own the entry for
+<code class="docutils literal notranslate"><span class="pre">$NAME</span></code> in the Cheeseshop/PyPI.</p>
+</section>
+<section id="history">
+<h2>History<a class="headerlink" href="#history" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>May 2016: The initial specification of the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file, with just
+a <code class="docutils literal notranslate"><span class="pre">[build-system]</span></code> containing a <code class="docutils literal notranslate"><span class="pre">requires</span></code> key and a <code class="docutils literal notranslate"><span class="pre">[tool]</span></code> table, was
+approved through <span class="target" id="index-8"></span><a class="pep reference external" href="https://peps.python.org/pep-0518/"><strong>PEP 518</strong></a>.</p></li>
+<li><p>November 2020: The specification of the <code class="docutils literal notranslate"><span class="pre">[project]</span></code> table was approved
+through <span class="target" id="index-9"></span><a class="pep reference external" href="https://peps.python.org/pep-0621/"><strong>PEP 621</strong></a>.</p></li>
+<li><p>December 2024: The <code class="docutils literal notranslate"><span class="pre">license</span></code> key was redefined, the <code class="docutils literal notranslate"><span class="pre">license-files</span></code> key was
+added and <code class="docutils literal notranslate"><span class="pre">License::</span></code> classifiers were deprecated through <span class="target" id="index-10"></span><a class="pep reference external" href="https://peps.python.org/pep-0639/"><strong>PEP 639</strong></a>.</p></li>
+<li><p>September 2025: Clarity that the <code class="docutils literal notranslate"><span class="pre">license</span></code> key applies to all distribution
+files generated from the <code class="file docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file.</p></li>
+<li><p>October 2025: The <code class="docutils literal notranslate"><span class="pre">import-names</span></code> and <code class="docutils literal notranslate"><span class="pre">import-namespaces</span></code> keys were added
+through <span class="target" id="index-11"></span><a class="pep reference external" href="https://peps.python.org/pep-0794/"><strong>PEP 794</strong></a>.</p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="dependency-groups.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Dependency Groups</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="dependency-specifiers.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Dependency specifiers</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2013–2020, PyPA
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            <div class="last-updated">
+              Last updated on Feb 21, 2026</div>
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> specification</a><ul>
+<li><a class="reference internal" href="#declaring-build-system-dependencies-the-build-system-table">Declaring build system dependencies: the <code class="docutils literal notranslate"><span class="pre">[build-system]</span></code> table</a></li>
+<li><a class="reference internal" href="#declaring-project-metadata-the-project-table">Declaring project metadata: the <code class="docutils literal notranslate"><span class="pre">[project]</span></code> table</a><ul>
+<li><a class="reference internal" href="#name"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
+<li><a class="reference internal" href="#version"><code class="docutils literal notranslate"><span class="pre">version</span></code></a></li>
+<li><a class="reference internal" href="#description"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li><a class="reference internal" href="#readme"><code class="docutils literal notranslate"><span class="pre">readme</span></code></a></li>
+<li><a class="reference internal" href="#requires-python"><code class="docutils literal notranslate"><span class="pre">requires-python</span></code></a></li>
+<li><a class="reference internal" href="#license"><code class="docutils literal notranslate"><span class="pre">license</span></code></a><ul>
+<li><a class="reference internal" href="#legacy-specification">Legacy specification</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#license-files"><code class="docutils literal notranslate"><span class="pre">license-files</span></code></a></li>
+<li><a class="reference internal" href="#authors-maintainers"><code class="docutils literal notranslate"><span class="pre">authors</span></code>/<code class="docutils literal notranslate"><span class="pre">maintainers</span></code></a></li>
+<li><a class="reference internal" href="#keywords"><code class="docutils literal notranslate"><span class="pre">keywords</span></code></a></li>
+<li><a class="reference internal" href="#classifiers"><code class="docutils literal notranslate"><span class="pre">classifiers</span></code></a></li>
+<li><a class="reference internal" href="#urls"><code class="docutils literal notranslate"><span class="pre">urls</span></code></a></li>
+<li><a class="reference internal" href="#entry-points">Entry points</a></li>
+<li><a class="reference internal" href="#dependencies-optional-dependencies"><code class="docutils literal notranslate"><span class="pre">dependencies</span></code>/<code class="docutils literal notranslate"><span class="pre">optional-dependencies</span></code></a></li>
+<li><a class="reference internal" href="#import-names"><code class="docutils literal notranslate"><span class="pre">import-names</span></code></a></li>
+<li><a class="reference internal" href="#import-namespaces"><code class="docutils literal notranslate"><span class="pre">import-namespaces</span></code></a></li>
+<li><a class="reference internal" href="#dynamic"><code class="docutils literal notranslate"><span class="pre">dynamic</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#arbitrary-tool-configuration-the-tool-table">Arbitrary tool configuration: the <code class="docutils literal notranslate"><span class="pre">[tool]</span></code> table</a></li>
+<li><a class="reference internal" href="#history">History</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=cb5fb026"></script>
+    </body>
+</html>

@@ -1,0 +1,690 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Entry points specification" href="entry-points.html" /><link rel="prev" title="Package Installation Metadata" href="section-installation-metadata.html" />
+
+    <link rel="shortcut icon" href="../_static/py.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
+        <title>Recording installed projects - Python Packaging User Guide</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Python Packaging User Guide</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">Python Packaging User Guide</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview of Python Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow.html">The Packaging Flow</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/installing-packages.html">Installing Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/managing-dependencies.html">Managing Application Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/packaging-projects.html">Packaging Python Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../guides/index.html">Guides</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../guides/section-install.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-using-pip-and-virtual-environments.html">Install packages in a virtual environment using pip and venv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-using-virtualenv.html">Installing packages using virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-stand-alone-command-line-tools.html">Installing stand alone command line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-using-linux-tools.html">Installing pip/setuptools/wheel with Linux Package Managers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-scientific-packages.html">Installing scientific packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../guides/section-build-and-publish.html">Building and Publishing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Building and Publishing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/writing-pyproject-toml.html">Writing your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/distributing-packages-using-setuptools.html">Packaging and distributing projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/dropping-older-python-versions.html">Dropping support for older Python versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/packaging-binary-extensions.html">Packaging binary extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/packaging-namespace-packages.html">Packaging namespace packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/creating-command-line-tools.html">Creating and packaging command-line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/creating-and-discovering-plugins.html">Creating and discovering plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/using-testpypi.html">Using TestPyPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/making-a-pypi-friendly-readme.html">Making a PyPI-friendly README</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows.html">Publishing package distribution releases using GitHub Actions CI/CD workflows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/modernize-setup-py-project.html">How to modernize a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> based project?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/licensing-examples-and-user-scenarios.html">Licensing examples and user scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../guides/section-hosting.html">Hosting</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Hosting</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/index-mirrors-and-caches.html">Package index mirrors and caches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/hosting-your-own-index.html">Hosting your own simple repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/tool-recommendations.html">Tool recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/analyzing-pypi-package-downloads.html">Analyzing PyPI package downloads</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussions/index.html">Discussions</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Discussions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/deploying-python-applications.html">Deploying Python applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/pip-vs-easy-install.html">pip vs easy_install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/install-requires-vs-requirements.html">install_requires vs requirements files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/distribution-package-vs-import-package.html">Distribution package vs. import package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/package-formats.html">Package Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/src-layout-vs-flat-layout.html">src layout vs flat layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/setup-py-deprecated.html">Is <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> deprecated?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/single-source-version.html">Single-sourcing the Project Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/downstream-packaging.html">Supporting downstream packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">PyPA specifications</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of PyPA specifications</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-distribution-metadata.html">Package Distribution Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Package Distribution Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="name-normalization.html">Names and normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core-metadata.html">Core metadata specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="version-specifiers.html">Version specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dependency-specifiers.html">Dependency specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyproject-toml.html"><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dependency-groups.html">Dependency Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inline-script-metadata.html">Inline script metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="platform-compatibility-tags.html">Platform compatibility tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="well-known-project-urls.html">Well-known Project URLs in Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glob-patterns.html"><code class="docutils literal notranslate"><span class="pre">glob</span></code> patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="license-expression.html">License Expression</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="section-installation-metadata.html">Package Installation Metadata</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Package Installation Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Recording installed projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="entry-points.html">Entry points specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="direct-url.html">Recording the Direct URL Origin of installed distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="direct-url-data-structure.html">Direct URL Data Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtual-environments.html">Python Virtual Environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="externally-managed-environments.html">Externally Managed Environments</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-distribution-formats.html">Package Distribution File Formats</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Package Distribution File Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="source-distribution-format.html">Source distribution format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="binary-distribution-format.html">Binary distribution format</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-package-indices.html">Package Index Interfaces</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Package Index Interfaces</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="pypirc.html">The <code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple-repository-api.html">Simple repository API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="file-yanking.html">File Yanking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index-hosted-attestations.html">Index hosted attestations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project-status-markers.html">Project Status Markers</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-python-description-formats.html">Python Description Formats</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Python Description Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="build-details/index.html"><code class="file docutils literal notranslate"><span class="pre">build-details.json</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of build-details.json</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="build-details/v1.0.html">v1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-reproducible-environments.html">Reproducible Environments</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Reproducible Environments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="pylock-toml.html"><code class="docutils literal notranslate"><span class="pre">pylock.toml</span></code> Specification</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="schemas/index.html">PyPA schemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../key_projects.html">Project Summaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">How to Get Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute to this guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/blob/main/source/specifications/recording-installed-packages.rst?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/edit/main/source/specifications/recording-installed-packages.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="recording-installed-projects">
+<span id="recording-installed-packages"></span><h1>Recording installed projects<a class="headerlink" href="#recording-installed-projects" title="Link to this heading">¶</a></h1>
+<p>This document specifies a common format of recording information
+about Python <a class="reference internal" href="../glossary.html#term-Project"><span class="xref std std-term">projects</span></a> installed in an environment.
+A common metadata format allows tools to query, manage or uninstall projects,
+regardless of how they were installed.</p>
+<p>Almost all information is optional.
+This allows tools outside the Python ecosystem, such as Linux package managers,
+to integrate with Python tooling as much as possible.
+For example, even if an installer cannot easily provide a list of installed
+files in a format specific to Python tooling, it should still record the name
+and version of the installed project.</p>
+<section id="the-dist-info-directory">
+<h2>The .dist-info directory<a class="headerlink" href="#the-dist-info-directory" title="Link to this heading">¶</a></h2>
+<p>Each project installed from a distribution must, in addition to files,
+install a “<code class="docutils literal notranslate"><span class="pre">.dist-info</span></code>” directory located alongside importable modules and
+packages (commonly, the <code class="docutils literal notranslate"><span class="pre">site-packages</span></code> directory).</p>
+<p>This directory is named as <code class="docutils literal notranslate"><span class="pre">{name}-{version}.dist-info</span></code>, with <code class="docutils literal notranslate"><span class="pre">name</span></code> and
+<code class="docutils literal notranslate"><span class="pre">version</span></code> fields corresponding to <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">Core metadata specifications</span></a>. Both fields must be
+normalized (see the <a class="reference internal" href="name-normalization.html#name-normalization"><span class="std std-ref">name normalization specification</span></a>
+and the <a class="reference internal" href="version-specifiers.html#version-specifiers-normalization"><span class="std std-ref">version normalization specification</span></a>),
+and replace dash (<code class="docutils literal notranslate"><span class="pre">-</span></code>) characters with underscore (<code class="docutils literal notranslate"><span class="pre">_</span></code>) characters,
+so the <code class="docutils literal notranslate"><span class="pre">.dist-info</span></code> directory always has exactly one dash (<code class="docutils literal notranslate"><span class="pre">-</span></code>) character in
+its stem, separating the <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">version</span></code> fields.</p>
+<p>Historically, tools have failed to replace dot characters or normalize case in
+the <code class="docutils literal notranslate"><span class="pre">name</span></code> field, or not perform normalization in the <code class="docutils literal notranslate"><span class="pre">version</span></code> field.
+Tools consuming <code class="docutils literal notranslate"><span class="pre">.dist-info</span></code> directories should expect those fields to be
+unnormalized, and treat them as equivalent to their normalized counterparts.
+New tools that write <code class="docutils literal notranslate"><span class="pre">.dist-info</span></code> directories MUST normalize both <code class="docutils literal notranslate"><span class="pre">name</span></code>
+and <code class="docutils literal notranslate"><span class="pre">version</span></code> fields using the rules described above, and existing tools are
+encouraged to start normalizing those fields.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">.dist-info</span></code> directory’s name is formatted to unambiguously represent
+a distribution as a filesystem path. Tools presenting a distribution name
+to a user should avoid using the normalized name, and instead present the
+specified name (when needed prior to resolution to an installed package),
+or read the respective fields in Core Metadata, since values listed there
+are unescaped and accurately reflect the distribution. Libraries should
+provide API for such tools to consume, so tools can have access to the
+unnormalized name when displaying distribution information.</p>
+</div>
+<p>This <code class="docutils literal notranslate"><span class="pre">.dist-info</span></code> directory may contain the following files, described in
+detail below:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">METADATA</span></code>: contains project metadata</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RECORD</span></code>: records the list of installed files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INSTALLER</span></code>: records the name of the tool used to install the project.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">entry_points.txt</span></code>: see <a class="reference internal" href="entry-points.html#entry-points"><span class="std std-ref">Entry points specification</span></a> for details</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">direct_url.json</span></code>: see <a class="reference internal" href="direct-url.html#direct-url"><span class="std std-ref">Recording the Direct URL Origin of installed distributions</span></a> for details</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">METADATA</span></code> file is mandatory.
+All other files may be omitted at the installing tool’s discretion.
+Additional installer-specific files may be present.</p>
+<p>This <code class="file docutils literal notranslate"><span class="pre">.dist-info/</span></code> directory may contain the following directories, described in
+detail below:</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">licenses/</span></code>: contains license files.</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">sboms/</span></code>: contains Software Bill-of-Materials files (SBOMs).</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a class="reference internal" href="binary-distribution-format.html#binary-distribution-format"><span class="std std-ref">Binary distribution format</span></a> specification describes additional
+files that may appear in the <code class="docutils literal notranslate"><span class="pre">.dist-info</span></code> directory of a <a class="reference internal" href="../glossary.html#term-Wheel"><span class="xref std std-term">Wheel</span></a>.
+Such files may be copied to the <code class="docutils literal notranslate"><span class="pre">.dist-info</span></code> directory of an
+installed project.</p>
+</div>
+<p>The previous versions of this specification also specified a <code class="docutils literal notranslate"><span class="pre">REQUESTED</span></code>
+file. This file is now considered a tool-specific extension, but may be
+standardized again in the future. See <a class="reference external" href="https://www.python.org/dev/peps/pep-0376/#requested">PEP 376</a>
+for its original meaning.</p>
+</section>
+<section id="the-metadata-file">
+<h2>The METADATA file<a class="headerlink" href="#the-metadata-file" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">METADATA</span></code> file contains metadata as described in the <a class="reference internal" href="core-metadata.html#core-metadata"><span class="std std-ref">Core metadata specifications</span></a>
+specification, version 1.1 or greater.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">METADATA</span></code> file is mandatory.
+If it cannot be created, or if required core metadata is not available,
+installers must report an error and fail to install the project.</p>
+</section>
+<section id="the-record-file">
+<h2>The RECORD file<a class="headerlink" href="#the-record-file" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">RECORD</span></code> file holds the list of installed files.
+It is a CSV file containing one record (line) per installed file.</p>
+<p>The CSV dialect must be readable with the default <code class="docutils literal notranslate"><span class="pre">reader</span></code> of Python’s
+<code class="docutils literal notranslate"><span class="pre">csv</span></code> module:</p>
+<ul class="simple">
+<li><p>field delimiter: <code class="docutils literal notranslate"><span class="pre">,</span></code> (comma),</p></li>
+<li><p>quoting char: <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> (straight double quote),</p></li>
+<li><p>line terminator: either <code class="docutils literal notranslate"><span class="pre">\r\n</span></code> or <code class="docutils literal notranslate"><span class="pre">\n</span></code>.</p></li>
+</ul>
+<p>Each record is composed of three elements: the file’s <strong>path</strong>, the <strong>hash</strong>
+of the contents, and its <strong>size</strong>.</p>
+<p>The <em>path</em> may be either absolute, or relative to the directory containing
+the <code class="docutils literal notranslate"><span class="pre">.dist-info</span></code> directory (commonly, the <code class="docutils literal notranslate"><span class="pre">site-packages</span></code> directory).
+On Windows, directories may be separated either by forward- or backslashes
+(<code class="docutils literal notranslate"><span class="pre">/</span></code> or <code class="docutils literal notranslate"><span class="pre">\</span></code>).</p>
+<p>The <em>hash</em> is either an empty string or the name of a hash algorithm from
+<a class="reference external" href="https://docs.python.org/3/library/hashlib.html#hashlib.algorithms_guaranteed" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">hashlib.algorithms_guaranteed</span></code></a>, followed by the equals character <code class="docutils literal notranslate"><span class="pre">=</span></code> and
+the digest of the file’s contents, encoded with the urlsafe-base64-nopad
+encoding (<a class="reference external" href="https://docs.python.org/3/library/base64.html#base64.urlsafe_b64encode" title="(in Python v3.14)"><code class="xref py py-func docutils literal notranslate"><span class="pre">base64.urlsafe_b64encode(digest)</span></code></a> with trailing <code class="docutils literal notranslate"><span class="pre">=</span></code> removed).</p>
+<p>The <em>size</em> is either the empty string, or file’s size in bytes,
+as a base 10 integer.</p>
+<p>For any file, either or both of the <em>hash</em> and <em>size</em> fields may be left empty.
+Commonly, entries for <code class="docutils literal notranslate"><span class="pre">.pyc</span></code> files and the <code class="docutils literal notranslate"><span class="pre">RECORD</span></code> file itself have empty
+<em>hash</em> and <em>size</em>.
+For other files, leaving the information out is discouraged, as it
+prevents verifying the integrity of the installed project.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">RECORD</span></code> file is present, it must list all installed files of the
+project, except <code class="docutils literal notranslate"><span class="pre">.pyc</span></code> files corresponding to <code class="docutils literal notranslate"><span class="pre">.py</span></code> files listed in
+<code class="docutils literal notranslate"><span class="pre">RECORD</span></code>, which are optional.
+Notably, the contents of the <code class="docutils literal notranslate"><span class="pre">.dist-info</span></code> directory (including the <code class="docutils literal notranslate"><span class="pre">RECORD</span></code>
+file itself) must be listed.
+Directories should not be listed.</p>
+<p>To completely uninstall a package, a tool needs to remove all
+files listed in <code class="docutils literal notranslate"><span class="pre">RECORD</span></code>, all <code class="docutils literal notranslate"><span class="pre">.pyc</span></code> files (of all optimization levels)
+corresponding to removed <code class="docutils literal notranslate"><span class="pre">.py</span></code> files, and any directories emptied by
+the uninstallation.</p>
+<p>Here is an example snippet of a possible <code class="docutils literal notranslate"><span class="pre">RECORD</span></code> file:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/usr/bin/black,sha256=iFlOnL32lIa-RKk-MDihcbJ37wxmRbE4xk6eVYVTTeU,220
+../../../bin/blackd,sha256=lCadt4mcU-B67O1gkQVh7-vsKgLpx6ny1le34Jz6UVo,221
+__pycache__/black.cpython-38.pyc,,
+__pycache__/blackd.cpython-38.pyc,,
+black-19.10b0.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+black-19.10b0.dist-info/licenses/LICENSE,sha256=nAQo8MO0d5hQz1vZbhGqqK_HLUqG1KNiI9erouWNbgA,1080
+black-19.10b0.dist-info/METADATA,sha256=UN40nGoVVTSpvLrTBwNsXgZdZIwoKFSrrDDHP6B7-A0,58841
+black-19.10b0.dist-info/RECORD,,
+black.py,sha256=45IF72OgNfF8WpeNHnxV2QGfbCLubV5Xjl55cI65kYs,140161
+blackd.py,sha256=JCxaK4hLkMRwVfZMj8FRpRRYC0172-juKqbN22bISLE,6672
+blib2to3/__init__.py,sha256=9_8wL9Scv8_Cs8HJyJHGvx1vwXErsuvlsAqNZLcJQR0,8
+blib2to3/__pycache__/__init__.cpython-38.pyc,,
+blib2to3/__pycache__/pygram.cpython-38.pyc,sha256=zpXgX4FHDuoeIQKO_v0sRsB-RzQFsuoKoBYvraAdoJw,1512
+blib2to3/__pycache__/pytree.cpython-38.pyc,sha256=LYLplXtG578ZjaFeoVuoX8rmxHn-BMAamCOsJMU1b9I,24910
+blib2to3/pygram.py,sha256=mXpQPqHcamFwch0RkyJsb92Wd0kUP3TW7d-u9dWhCGY,2085
+blib2to3/pytree.py,sha256=RWj3IL4U-Ljhkn4laN0C3p7IRdfvT3aIRjTV-x9hK1c,28530
+</pre></div>
+</div>
+<p>If the <code class="docutils literal notranslate"><span class="pre">RECORD</span></code> file is missing, tools that rely on <code class="docutils literal notranslate"><span class="pre">.dist-info</span></code> must not
+attempt to uninstall or upgrade the package.
+(This restriction does not apply to tools that rely on other sources of information,
+such as system package managers in Linux distros.)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is <em>strongly discouraged</em> for an installed package to modify itself
+(e.g., store cache files under its namespace in <code class="docutils literal notranslate"><span class="pre">site-packages</span></code>).
+Changes inside <code class="docutils literal notranslate"><span class="pre">site-packages</span></code> should be left to specialized installer
+tools such as pip. If a package is nevertheless modified in this way,
+then the <code class="docutils literal notranslate"><span class="pre">RECORD</span></code> must be updated, otherwise uninstalling the package
+will leave unlisted files in place (possibly resulting in a zombie
+namespace package).</p>
+</div>
+</section>
+<section id="the-installer-file">
+<h2>The INSTALLER file<a class="headerlink" href="#the-installer-file" title="Link to this heading">¶</a></h2>
+<p>If present, <code class="docutils literal notranslate"><span class="pre">INSTALLER</span></code> is a single-line text file naming the tool used to
+install the project.
+If the installer is executable from the command line, <code class="docutils literal notranslate"><span class="pre">INSTALLER</span></code>
+should contain the command name.
+Otherwise, it should contain a printable ASCII string.</p>
+<p>The file can be terminated by zero or more ASCII whitespace characters.</p>
+<p>Here are examples of two possible <code class="docutils literal notranslate"><span class="pre">INSTALLER</span></code> files:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pip
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>MegaCorp Cloud Install-O-Matic
+</pre></div>
+</div>
+<p>This value should be used for informational purposes only.
+For example, if a tool is asked to uninstall a project but finds no <code class="docutils literal notranslate"><span class="pre">RECORD</span></code>
+file, it may suggest that the tool named in <code class="docutils literal notranslate"><span class="pre">INSTALLER</span></code> may be able to do the
+uninstallation.</p>
+</section>
+<section id="the-entry-points-txt-file">
+<h2>The entry_points.txt file<a class="headerlink" href="#the-entry-points-txt-file" title="Link to this heading">¶</a></h2>
+<p>This file MAY be created by installers to indicate when packages contain
+components intended for discovery and use by other code, including console
+scripts and other applications that the installer has made available for
+execution.</p>
+<p>Its detailed specification is at <a class="reference internal" href="entry-points.html#entry-points"><span class="std std-ref">Entry points specification</span></a>.</p>
+</section>
+<section id="the-direct-url-json-file">
+<h2>The direct_url.json file<a class="headerlink" href="#the-direct-url-json-file" title="Link to this heading">¶</a></h2>
+<p>This file MUST be created by installers when installing a distribution from a
+requirement specifying a direct URL reference (including a VCS URL).</p>
+<p>This file MUST NOT be created when installing a distribution from an other type
+of requirement (i.e. name plus version specifier).</p>
+<p>Its detailed specification is at <a class="reference internal" href="direct-url.html#direct-url"><span class="std std-ref">Recording the Direct URL Origin of installed distributions</span></a>.</p>
+</section>
+<section id="the-licenses-subdirectory">
+<h2>The <code class="file docutils literal notranslate"><span class="pre">licenses/</span></code> subdirectory<a class="headerlink" href="#the-licenses-subdirectory" title="Link to this heading">¶</a></h2>
+<p>If the metadata version is 2.4 or greater and one or more <code class="docutils literal notranslate"><span class="pre">License-File</span></code>
+fields is specified, the <code class="file docutils literal notranslate"><span class="pre">.dist-info/</span></code> directory MUST contain a <code class="file docutils literal notranslate"><span class="pre">licenses/</span></code>
+subdirectory which MUST contain the files listed in the <code class="docutils literal notranslate"><span class="pre">License-File</span></code> fields in
+the <code class="file docutils literal notranslate"><span class="pre">METADATA</span></code> file at their respective paths relative to the
+<code class="file docutils literal notranslate"><span class="pre">licenses/</span></code> directory.
+Any files in this directory MUST be copied from wheels by the install tools.</p>
+</section>
+<section id="the-sboms-subdirectory">
+<h2>The <code class="file docutils literal notranslate"><span class="pre">sboms/</span></code> subdirectory<a class="headerlink" href="#the-sboms-subdirectory" title="Link to this heading">¶</a></h2>
+<p>All files contained within the <code class="file docutils literal notranslate"><span class="pre">.dist-info/sboms/</span></code> directory MUST
+be Software Bill-of-Materials (SBOM) files that describe software contained
+within the installed package.
+Any files in this directory MUST be copied from wheels by the install tools.</p>
+</section>
+<section id="intentionally-preventing-changes-to-installed-packages">
+<h2>Intentionally preventing changes to installed packages<a class="headerlink" href="#intentionally-preventing-changes-to-installed-packages" title="Link to this heading">¶</a></h2>
+<p>In some cases (such as when needing to manage external dependencies in addition
+to Python ecosystem dependencies), it is desirable for a tool that installs
+packages into a Python environment to ensure that other tools are not used to
+uninstall or otherwise modify that installed package, as doing so may cause
+compatibility problems with the wider environment.</p>
+<p>To achieve this, affected tools should take the following steps:</p>
+<ul class="simple">
+<li><p>Rename or remove the <code class="docutils literal notranslate"><span class="pre">RECORD</span></code> file to prevent changes via other tools (e.g.
+appending a suffix to create a non-standard <code class="docutils literal notranslate"><span class="pre">RECORD.tool</span></code> file if the tool
+itself needs the information, or omitting the file entirely if the package
+contents are tracked and managed via other means)</p></li>
+<li><p>Write an <code class="docutils literal notranslate"><span class="pre">INSTALLER</span></code> file indicating the name of the tool that should be used
+to manage the package (this allows <code class="docutils literal notranslate"><span class="pre">RECORD</span></code>-aware tools to provide better
+error notices when asked to modify affected packages)</p></li>
+</ul>
+<p>Python runtime providers may also prevent inadvertent modification of platform
+provided packages by modifying the default Python package installation scheme
+to use a location other than that used by platform provided packages (while also
+ensuring both locations appear on the default Python import path).</p>
+<p>In some circumstances, it may be desirable to block even installation of
+additional packages via Python-specific tools. For these cases refer to
+<a class="reference internal" href="externally-managed-environments.html#externally-managed-environments"><span class="std std-ref">Externally Managed Environments</span></a></p>
+</section>
+<section id="history">
+<h2>History<a class="headerlink" href="#history" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>June 2009: The original version of this specification was approved through
+<span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0376/"><strong>PEP 376</strong></a>.  At the time, it was known as the <em>Database of Installed Python
+Distributions</em>.</p></li>
+<li><p>March 2020: The specification of the <code class="docutils literal notranslate"><span class="pre">direct_url.json</span></code> file was approved
+through <span class="target" id="index-1"></span><a class="pep reference external" href="https://peps.python.org/pep-0610/"><strong>PEP 610</strong></a>. It is only mentioned on this page; see <a class="reference internal" href="direct-url.html#direct-url"><span class="std std-ref">Recording the Direct URL Origin of installed distributions</span></a>
+for the full definition.</p></li>
+<li><p>September 2020: Various amendments and clarifications were approved through
+<span class="target" id="index-2"></span><a class="pep reference external" href="https://peps.python.org/pep-0627/"><strong>PEP 627</strong></a>.</p></li>
+<li><p>December 2024: The <code class="file docutils literal notranslate"><span class="pre">.dist-info/licenses/</span></code> directory was specified through
+<span class="target" id="index-3"></span><a class="pep reference external" href="https://peps.python.org/pep-0639/"><strong>PEP 639</strong></a>.</p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="entry-points.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Entry points specification</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="section-installation-metadata.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Package Installation Metadata</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2013–2020, PyPA
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            <div class="last-updated">
+              Last updated on Feb 21, 2026</div>
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Recording installed projects</a><ul>
+<li><a class="reference internal" href="#the-dist-info-directory">The .dist-info directory</a></li>
+<li><a class="reference internal" href="#the-metadata-file">The METADATA file</a></li>
+<li><a class="reference internal" href="#the-record-file">The RECORD file</a></li>
+<li><a class="reference internal" href="#the-installer-file">The INSTALLER file</a></li>
+<li><a class="reference internal" href="#the-entry-points-txt-file">The entry_points.txt file</a></li>
+<li><a class="reference internal" href="#the-direct-url-json-file">The direct_url.json file</a></li>
+<li><a class="reference internal" href="#the-licenses-subdirectory">The <code class="file docutils literal notranslate"><span class="pre">licenses/</span></code> subdirectory</a></li>
+<li><a class="reference internal" href="#the-sboms-subdirectory">The <code class="file docutils literal notranslate"><span class="pre">sboms/</span></code> subdirectory</a></li>
+<li><a class="reference internal" href="#intentionally-preventing-changes-to-installed-packages">Intentionally preventing changes to installed packages</a></li>
+<li><a class="reference internal" href="#history">History</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=cb5fb026"></script>
+    </body>
+</html>

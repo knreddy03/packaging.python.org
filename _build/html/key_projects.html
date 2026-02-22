@@ -1,0 +1,1126 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Glossary" href="glossary.html" /><link rel="prev" title="PyPA schemas" href="specifications/schemas/index.html" />
+
+    <link rel="shortcut icon" href="_static/py.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
+        <title>Project Summaries - Python Packaging User Guide</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Python Packaging User Guide</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">Python Packaging User Guide</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of Python Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow.html">The Packaging Flow</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/installing-packages.html">Installing Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/managing-dependencies.html">Managing Application Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/packaging-projects.html">Packaging Python Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="guides/index.html">Guides</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="guides/section-install.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-using-pip-and-virtual-environments.html">Install packages in a virtual environment using pip and venv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-using-virtualenv.html">Installing packages using virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-stand-alone-command-line-tools.html">Installing stand alone command line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-using-linux-tools.html">Installing pip/setuptools/wheel with Linux Package Managers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/installing-scientific-packages.html">Installing scientific packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="guides/section-build-and-publish.html">Building and Publishing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Building and Publishing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="guides/writing-pyproject-toml.html">Writing your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/distributing-packages-using-setuptools.html">Packaging and distributing projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/dropping-older-python-versions.html">Dropping support for older Python versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/packaging-binary-extensions.html">Packaging binary extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/packaging-namespace-packages.html">Packaging namespace packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/creating-command-line-tools.html">Creating and packaging command-line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/creating-and-discovering-plugins.html">Creating and discovering plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/using-testpypi.html">Using TestPyPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/making-a-pypi-friendly-readme.html">Making a PyPI-friendly README</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows.html">Publishing package distribution releases using GitHub Actions CI/CD workflows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/modernize-setup-py-project.html">How to modernize a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> based project?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/licensing-examples-and-user-scenarios.html">Licensing examples and user scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="guides/section-hosting.html">Hosting</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Hosting</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="guides/index-mirrors-and-caches.html">Package index mirrors and caches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/hosting-your-own-index.html">Hosting your own simple repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guides/tool-recommendations.html">Tool recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/analyzing-pypi-package-downloads.html">Analyzing PyPI package downloads</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="discussions/index.html">Discussions</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Discussions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/deploying-python-applications.html">Deploying Python applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/pip-vs-easy-install.html">pip vs easy_install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/install-requires-vs-requirements.html">install_requires vs requirements files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/distribution-package-vs-import-package.html">Distribution package vs. import package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/package-formats.html">Package Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/src-layout-vs-flat-layout.html">src layout vs flat layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/setup-py-deprecated.html">Is <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> deprecated?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/single-source-version.html">Single-sourcing the Project Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/downstream-packaging.html">Supporting downstream packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="specifications/index.html">PyPA specifications</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of PyPA specifications</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-distribution-metadata.html">Package Distribution Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Package Distribution Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/name-normalization.html">Names and normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/core-metadata.html">Core metadata specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/version-specifiers.html">Version specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/dependency-specifiers.html">Dependency specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/pyproject-toml.html"><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/dependency-groups.html">Dependency Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/inline-script-metadata.html">Inline script metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/platform-compatibility-tags.html">Platform compatibility tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/well-known-project-urls.html">Well-known Project URLs in Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/glob-patterns.html"><code class="docutils literal notranslate"><span class="pre">glob</span></code> patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/license-expression.html">License Expression</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-installation-metadata.html">Package Installation Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Package Installation Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/recording-installed-packages.html">Recording installed projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/entry-points.html">Entry points specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/direct-url.html">Recording the Direct URL Origin of installed distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/direct-url-data-structure.html">Direct URL Data Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/virtual-environments.html">Python Virtual Environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/externally-managed-environments.html">Externally Managed Environments</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-distribution-formats.html">Package Distribution File Formats</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Package Distribution File Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/source-distribution-format.html">Source distribution format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/binary-distribution-format.html">Binary distribution format</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-package-indices.html">Package Index Interfaces</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Package Index Interfaces</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/pypirc.html">The <code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/simple-repository-api.html">Simple repository API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/file-yanking.html">File Yanking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/index-hosted-attestations.html">Index hosted attestations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifications/project-status-markers.html">Project Status Markers</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-python-description-formats.html">Python Description Formats</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Python Description Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="specifications/build-details/index.html"><code class="file docutils literal notranslate"><span class="pre">build-details.json</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of build-details.json</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="specifications/build-details/v1.0.html">v1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="specifications/section-reproducible-environments.html">Reproducible Environments</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Reproducible Environments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="specifications/pylock-toml.html"><code class="docutils literal notranslate"><span class="pre">pylock.toml</span></code> Specification</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specifications/schemas/index.html">PyPA schemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Project Summaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">How to Get Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contribute to this guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">News</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/blob/main/source/key_projects.rst?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/edit/main/source/key_projects.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="project-summaries">
+<span id="projects"></span><h1>Project Summaries<a class="headerlink" href="#project-summaries" title="Link to this heading">¶</a></h1>
+<p>Summaries and links for the most relevant projects in the space of Python
+installation and packaging.</p>
+<section id="pypa-projects">
+<span id="id1"></span><h2>PyPA Projects<a class="headerlink" href="#pypa-projects" title="Link to this heading">¶</a></h2>
+<section id="bandersnatch">
+<span id="id2"></span><h3>bandersnatch<a class="headerlink" href="#bandersnatch" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://bandersnatch.readthedocs.io">Docs</a> |
+<a class="reference external" href="https://github.com/pypa/bandersnatch/issues">Issues</a> |
+<a class="reference external" href="https://github.com/pypa/bandersnatch">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/bandersnatch">PyPI</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">bandersnatch</span></code> is a PyPI mirroring client designed to efficiently
+create a complete mirror of the contents of PyPI. Organizations thus
+save bandwidth and latency on package downloads (especially in the
+context of automated tests) and to prevent heavily loading PyPI’s
+Content Delivery Network (CDN).
+Files can be served from a local directory or <a class="reference external" href="https://aws.amazon.com/s3/">AWS S3</a>.</p>
+</section>
+<section id="build">
+<span id="id3"></span><h3>build<a class="headerlink" href="#build" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://build.pypa.io/en/stable/index.html" title="(in build v1.4.0)"><code class="xref any docutils literal notranslate"><span class="pre">Docs</span></code></a> |
+<a class="reference external" href="https://github.com/pypa/build/issues">Issues</a> |
+<a class="reference external" href="https://github.com/pypa/build">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/build">PyPI</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">build</span></code> is a <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0517/"><strong>PEP 517</strong></a> compatible Python package builder. It provides a CLI to
+build packages, as well as a Python API.</p>
+</section>
+<section id="cibuildwheel">
+<span id="id4"></span><h3>cibuildwheel<a class="headerlink" href="#cibuildwheel" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://cibuildwheel.readthedocs.io/">Docs</a> |
+<a class="reference external" href="https://github.com/pypa/cibuildwheel/issues">Issues</a> |
+<a class="reference external" href="https://github.com/pypa/cibuildwheel">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/cibuildwheel">PyPI</a> |
+<a class="reference external" href="https://github.com/pypa/cibuildwheel/discussions">Discussions</a> |
+<a class="reference external" href="https://discord.com/invite/pypa">Discord #cibuildwheel</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">cibuildwheel</span></code> is a Python package that builds <a class="reference internal" href="glossary.html#term-Wheel"><span class="xref std std-term">wheels</span></a> for all common
+platforms and Python versions on most CI systems. Also see <a class="reference internal" href="#multibuild"><span class="std std-ref">multibuild</span></a>.</p>
+</section>
+<section id="distlib">
+<span id="id5"></span><h3>distlib<a class="headerlink" href="#distlib" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://distlib.readthedocs.io/en/latest/index.html" title="(in Distlib v0.4)"><span class="xref std std-doc">Docs</span></a> |
+<a class="reference external" href="https://github.com/pypa/distlib/issues">Issues</a> |
+<a class="reference external" href="https://github.com/pypa/distlib">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/distlib">PyPI</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">distlib</span></code> is a library which implements low-level functions that
+relate to packaging and distribution of Python software.  <code class="docutils literal notranslate"><span class="pre">distlib</span></code>
+implements several relevant PEPs (Python Enhancement Proposal
+standards) and is useful for developers of third-party packaging tools
+to make and upload binary and source <a class="reference internal" href="glossary.html#term-Distribution-Package"><span class="xref std std-term">distributions</span></a>, achieve interoperability, resolve
+dependencies, manage package resources, and do other similar
+functions.</p>
+<p>Unlike the stricter <a class="reference internal" href="#packaging"><span class="std std-ref">packaging</span></a> project (below), which
+specifically implements modern Python packaging interoperability
+standards, <code class="docutils literal notranslate"><span class="pre">distlib</span></code> also attempts to provide reasonable fallback
+behaviours when asked to handle legacy packages and metadata that
+predate the modern interoperability standards and fall into the subset
+of packages that are incompatible with those standards.</p>
+</section>
+<section id="distutils">
+<span id="id6"></span><h3>distutils<a class="headerlink" href="#distutils" title="Link to this heading">¶</a></h3>
+<p>The original Python packaging system, added to the standard library in
+Python 2.0 and removed in 3.12.</p>
+<p>Due to the challenges of maintaining a packaging system
+where feature updates are tightly coupled to language runtime updates,
+direct usage of <a class="reference internal" href="#distutils"><span class="std std-ref">distutils</span></a> has been actively discouraged, with
+<a class="reference internal" href="#setuptools"><span class="std std-ref">Setuptools</span></a> being the preferred replacement. <a class="reference internal" href="#setuptools"><span class="std std-ref">Setuptools</span></a>
+not only provides features that plain <a class="reference internal" href="#distutils"><span class="std std-ref">distutils</span></a> doesn’t offer
+(such as dependency declarations and entry point declarations), it
+also provides a consistent build interface and feature set across all
+supported Python versions.</p>
+<p>Consequently, <a class="reference internal" href="#distutils"><span class="std std-ref">distutils</span></a> was deprecated in Python 3.10 by <span class="target" id="index-1"></span><a class="pep reference external" href="https://peps.python.org/pep-0632/"><strong>PEP 632</strong></a> and
+has been <a class="reference external" href="https://docs.python.org/3/whatsnew/3.12.html" title="(in Python v3.14)"><span class="xref std std-doc">removed</span></a> from the standard library in
+Python 3.12.  Setuptools bundles the standalone copy of distutils, and it is
+injected even on Python &lt; 3.12 if you import setuptools first or use pip.</p>
+</section>
+<section id="flit">
+<span id="id7"></span><h3>flit<a class="headerlink" href="#flit" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://flit.readthedocs.io/en/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/pypa/flit/issues">Issues</a> |
+<a class="reference external" href="https://pypi.org/project/flit">PyPI</a></p>
+<p>Flit provides a simple way to create and upload pure Python packages and
+modules to PyPI.  It focuses on <a class="reference external" href="https://flit.readthedocs.io/en/latest/rationale.html">making the easy things easy</a>
+for packaging.  Flit can generate a configuration file to quickly set up a
+simple project, build source distributions and wheels, and upload them to PyPI.</p>
+<p>Flit uses <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> to configure a project. Flit does not rely on tools
+such as <a class="reference internal" href="#setuptools"><span class="std std-ref">Setuptools</span></a> to build distributions, or <a class="reference internal" href="#twine"><span class="std std-ref">twine</span></a> to upload them
+to PyPI. Flit requires Python 3, but you can use it to distribute modules for
+Python 2, so long as they can be imported on Python 3.</p>
+<p>The flit package is lifted by <a class="reference external" href="https://github.com/Carreau">Matthias Bussonnier</a> since October 2023 on the <a class="reference external" href="https://tidelift.com/lifter/search/pypi/flit">tidelift platform</a>, and funds sent to the PSF and
+earmarked for PyPA usage.</p>
+</section>
+<section id="hatch">
+<span id="id8"></span><h3>hatch<a class="headerlink" href="#hatch" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://hatch.pypa.io/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/pypa/hatch">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/hatch">PyPI</a></p>
+<p>Hatch is a unified command-line tool meant to conveniently manage
+dependencies and environment isolation for Python developers. Python
+package developers use Hatch and its <a class="reference internal" href="glossary.html#term-Build-Backend"><span class="xref std std-term">build backend</span></a> Hatchling to
+configure, version, specify dependencies for, and publish packages
+to PyPI. Its plugin system allows for easily extending functionality.</p>
+</section>
+<section id="packaging">
+<span id="id9"></span><h3>packaging<a class="headerlink" href="#packaging" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://packaging.pypa.io/en/latest/index.html" title="(in Packaging v26.1.dev3)"><span class="xref std std-doc">Docs</span></a> |
+<a class="reference external" href="https://github.com/pypa/packaging/issues">Issues</a> |
+<a class="reference external" href="https://github.com/pypa/packaging">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/packaging">PyPI</a></p>
+<p>Core utilities for Python packaging used by <a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a> and <a class="reference internal" href="#setuptools"><span class="std std-ref">Setuptools</span></a>.</p>
+<p>The core utilities in the packaging library handle version handling,
+specifiers, markers, requirements, tags, and similar attributes and
+tasks for Python packages. Most Python users rely on this library
+without needing to explicitly call it; developers of the other Python
+packaging, distribution, and installation tools listed here often use
+its functionality to parse, discover, and otherwise handle dependency
+attributes.</p>
+<p>This project specifically focuses on implementing the modern Python
+packaging interoperability standards defined at
+<a class="reference internal" href="specifications/index.html#packaging-specifications"><span class="std std-ref">PyPA specifications</span></a>, and will report errors for
+sufficiently old legacy packages that are incompatible with those
+standards. In contrast, the <a class="reference internal" href="#distlib"><span class="std std-ref">distlib</span></a> project is a more
+permissive library that attempts to provide a plausible reading of
+ambiguous metadata in cases where <a class="reference internal" href="#packaging"><span class="std std-ref">packaging</span></a> will instead report
+on error.</p>
+</section>
+<section id="pip">
+<span id="id10"></span><h3>pip<a class="headerlink" href="#pip" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://pip.pypa.io/">Docs</a> |
+<a class="reference external" href="https://github.com/pypa/pip/issues">Issues</a> |
+<a class="reference external" href="https://github.com/pypa/pip">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/pip/">PyPI</a></p>
+<p>The most popular tool for installing Python packages, and the one
+included with modern versions of Python.</p>
+<p>It provides the essential core features for finding, downloading, and
+installing packages from PyPI and other Python package indexes, and can be
+incorporated into a wide range of development workflows via its
+command-line interface (CLI).</p>
+</section>
+<section id="pipenv">
+<span id="id11"></span><h3>Pipenv<a class="headerlink" href="#pipenv" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://pipenv.pypa.io/en/latest/index.html" title="(in pipenv v2026.0.3)"><span class="xref std std-doc">Docs</span></a> |
+<a class="reference external" href="https://github.com/pypa/pipenv">Source</a> |
+<a class="reference external" href="https://github.com/pypa/pipenv/issues">Issues</a> |
+<a class="reference external" href="https://pypi.org/project/pipenv">PyPI</a></p>
+<p>Pipenv is a project that aims to bring the best of all packaging worlds to the
+Python world. It harnesses <a class="reference internal" href="#pipfile"><span class="std std-ref">Pipfile</span></a>, <a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a>, and <a class="reference internal" href="#virtualenv"><span class="std std-ref">virtualenv</span></a>
+into one single toolchain. It can autoimport <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> and also
+check for CVEs in <a class="reference internal" href="#pipfile">Pipfile</a> using <a class="reference external" href="https://pyup.io/safety">safety</a>.</p>
+<p>Pipenv aims to help users manage environments, dependencies, and
+imported packages on the command line. It also works well on Windows
+(which other tools often underserve), makes and checks file hashes,
+to ensure compliance with hash-locked dependency specifiers, and eases
+uninstallation of packages and dependencies.</p>
+</section>
+<section id="pipfile">
+<span id="id12"></span><h3>Pipfile<a class="headerlink" href="#pipfile" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/pypa/pipfile">Source</a></p>
+<p><code class="file docutils literal notranslate"><span class="pre">Pipfile</span></code> and its sister <code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> are a higher-level
+application-centric alternative to <a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a>’s lower-level
+<code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> file.</p>
+</section>
+<section id="pipx">
+<span id="id13"></span><h3>pipx<a class="headerlink" href="#pipx" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://pipx.pypa.io/">Docs</a> |
+<a class="reference external" href="https://github.com/pypa/pipx">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/pipx/">PyPI</a></p>
+<p>pipx is a tool to install and run Python command-line applications without
+causing dependency conflicts with other packages installed on the system.</p>
+</section>
+<section id="python-packaging-user-guide">
+<h3>Python Packaging User Guide<a class="headerlink" href="#python-packaging-user-guide" title="Link to this heading">¶</a></h3>
+<p><a class="reference internal" href="index.html"><span class="doc">Docs</span></a> |
+<a class="reference external" href="https://github.com/pypa/packaging.python.org/issues">Issues</a> |
+<a class="reference external" href="https://github.com/pypa/packaging.python.org">GitHub</a></p>
+<p>This guide!</p>
+</section>
+<section id="readme-renderer">
+<span id="id14"></span><h3>readme_renderer<a class="headerlink" href="#readme-renderer" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/pypa/readme_renderer/">GitHub and docs</a> |
+<a class="reference external" href="https://pypi.org/project/readme-renderer/">PyPI</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">readme_renderer</span></code> is a library that package developers use to render
+their user documentation (README) files into HTML from markup
+languages such as Markdown or reStructuredText. Developers call it on
+its own or via <a class="reference internal" href="#twine"><span class="std std-ref">twine</span></a>, as part of their release management
+process, to check that their package descriptions will properly
+display on PyPI.</p>
+</section>
+<section id="easy-install">
+<span id="setuptools"></span><span id="id15"></span><h3>Setuptools<a class="headerlink" href="#easy-install" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://setuptools.readthedocs.io/en/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/pypa/setuptools/issues">Issues</a> |
+<a class="reference external" href="https://github.com/pypa/setuptools">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/setuptools">PyPI</a></p>
+<p>Setuptools (which includes <code class="docutils literal notranslate"><span class="pre">easy_install</span></code>) is a collection of
+enhancements to the Python distutils that allow you to more easily
+build and distribute Python <a class="reference internal" href="glossary.html#term-Distribution-Package"><span class="xref std std-term">distributions</span></a>, especially ones that have dependencies on other packages.</p>
+</section>
+<section id="trove-classifiers">
+<span id="id16"></span><h3>trove-classifiers<a class="headerlink" href="#trove-classifiers" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/pypa/trove-classifiers/issues">Issues</a> | <a class="reference external" href="https://github.com/pypa/trove-classifiers">GitHub</a> | <a class="reference external" href="https://pypi.org/project/trove-classifiers/">PyPI</a></p>
+<p>trove-classifiers is the canonical source for <a class="reference external" href="https://pypi.org/classifiers/">classifiers on PyPI</a>, which project maintainers use to
+<a class="reference internal" href="specifications/core-metadata.html#core-metadata-classifier"><span class="std std-ref">systematically describe their projects</span></a>
+so that users can better find projects that match their needs on the PyPI.</p>
+<p>The trove-classifiers package contains a list of valid classifiers and
+deprecated classifiers (which are paired with the classifiers that replace
+them).  Use this package to validate classifiers used in packages intended for
+uploading to PyPI. As this list of classifiers is published as code, you
+can install and import it, giving you a more convenient workflow compared to
+referring to the <a class="reference external" href="https://pypi.org/classifiers/">list published on PyPI</a>. The
+<a class="reference external" href="https://github.com/pypa/trove-classifiers/issues">issue tracker</a> for the
+project hosts discussions on proposed classifiers and requests for new
+classifiers.</p>
+</section>
+<section id="twine">
+<span id="id17"></span><h3>twine<a class="headerlink" href="#twine" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://twine.readthedocs.io/en/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/pypa/twine/issues">Issues</a> |
+<a class="reference external" href="https://github.com/pypa/twine">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/twine">PyPI</a></p>
+<p>Twine is the primary tool developers use to upload packages to the
+Python Package Index or other Python package indexes. It is a
+command-line program that passes program files and metadata to a web
+API. Developers use it because it’s the official PyPI upload tool,
+it’s fast and secure, it’s maintained, and it reliably works.</p>
+</section>
+<section id="virtualenv">
+<span id="id18"></span><h3>virtualenv<a class="headerlink" href="#virtualenv" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://virtualenv.pypa.io/en/stable/index.html">Docs</a> |
+<a class="reference external" href="https://github.com/pypa/virtualenv/issues">Issues</a> |
+<a class="reference external" href="https://github.com/pypa/virtualenv">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/virtualenv/">PyPI</a></p>
+<p>virtualenv is a tool for creating isolated Python <a class="reference internal" href="glossary.html#term-Virtual-Environment"><span class="xref std std-term">Virtual Environments</span></a>, like <a class="reference internal" href="#venv"><span class="std std-ref">venv</span></a>. Unlike <a class="reference internal" href="#venv"><span class="std std-ref">venv</span></a>, virtualenv can
+create virtual environments for other versions of Python, which it locates
+using the PATH environment variable. It also provides convenient features for
+configuring, maintaining, duplicating, and troubleshooting virtual environments.
+For more information, see the section on <a class="reference internal" href="tutorials/installing-packages.html#creating-and-using-virtual-environments"><span class="std std-ref">Creating Virtual Environments</span></a>.</p>
+</section>
+<section id="warehouse">
+<span id="id19"></span><h3>Warehouse<a class="headerlink" href="#warehouse" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://warehouse.pypa.io/">Docs</a> |
+<a class="reference external" href="https://github.com/pypa/warehouse/issues">Issues</a> |
+<a class="reference external" href="https://github.com/pypa/warehouse">GitHub</a></p>
+<p>The current codebase powering the <a class="reference internal" href="glossary.html#term-Python-Package-Index-PyPI"><span class="xref std std-term">Python Package Index
+(PyPI)</span></a>. It is hosted at <a class="reference external" href="https://pypi.org/">pypi.org</a>. The default
+source for <a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a> downloads.</p>
+</section>
+<section id="wheel">
+<span id="id20"></span><h3>wheel<a class="headerlink" href="#wheel" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://wheel.readthedocs.io/en/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/pypa/wheel/issues">Issues</a> |
+<a class="reference external" href="https://github.com/pypa/wheel">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/wheel">PyPI</a></p>
+<p>Primarily, the wheel project offers the <code class="docutils literal notranslate"><span class="pre">bdist_wheel</span></code> <a class="reference internal" href="#setuptools"><span class="std std-ref">Setuptools</span></a> extension for
+creating <a class="reference internal" href="glossary.html#term-Wheel"><span class="xref std std-term">wheel distributions</span></a>.  Additionally, it offers its own
+command line utility for creating and installing wheels.</p>
+<p>See also <a class="reference external" href="https://github.com/pypa/auditwheel">auditwheel</a>, a tool
+that package developers use to check and fix Python packages they are
+making in the binary wheel format. It provides functionality to
+discover dependencies, check metadata for compliance, and repair the
+wheel and metadata to properly link and include external shared
+libraries in a package.</p>
+</section>
+</section>
+<section id="non-pypa-projects">
+<h2>Non-PyPA Projects<a class="headerlink" href="#non-pypa-projects" title="Link to this heading">¶</a></h2>
+<section id="buildout">
+<span id="id21"></span><h3>buildout<a class="headerlink" href="#buildout" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="http://www.buildout.org/en/latest/">Docs</a> |
+<a class="reference external" href="https://bugs.launchpad.net/zc.buildout">Issues</a> |
+<a class="reference external" href="https://pypi.org/project/zc.buildout">PyPI</a> |
+<a class="reference external" href="https://github.com/buildout/buildout/">GitHub</a></p>
+<p>Buildout is a Python-based build system for creating, assembling and deploying
+applications from multiple parts, some of which may be non-Python-based.  It
+lets you create a buildout configuration and reproduce the same software later.</p>
+</section>
+<section id="conda">
+<span id="id22"></span><h3>conda<a class="headerlink" href="#conda" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://docs.conda.io/en/latest/index.html" title="(in conda-docs)"><span class="xref std std-doc">Docs</span></a></p>
+<p>Conda is a package, dependency, and environment management system for any language — Python, R,
+Ruby, C/C++, Fortran, and more. It is written in Python and
+widely used in the Python scientific computing community, due to its support for non-Python
+compiled libraries and extensions. It is used as the basis of the <a class="reference external" href="https://docs.anaconda.com/anaconda/">Anaconda</a> Python distribution from Anaconda, Inc. It was originally
+aimed at the scientific community, but can also be used on its own, or with the
+<a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html" title="(in conda-docs)"><span class="xref std std-doc">miniconda</span></a>, <a class="reference external" href="https://github.com/conda-forge/miniforge">miniforge</a> or
+<a class="reference external" href="https://pixi.sh/">pixi</a> systems. It is available for Windows, Mac and Linux systems.</p>
+<p>Conda is a completely separate tool from <a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a>, virtualenv and wheel, but provides
+many of their combined features, such as package management, virtual environment
+management and deployment of binary extensions and other binary code.</p>
+<p>Conda does not install packages from PyPI – it can only manage packages built specifically
+for conda, which can be made available on a “conda channel”, such as those hosted on
+<a class="reference external" href="https://anaconda.org">anaconda.org</a>, or a local (e.g. intranet) package server.
+In addition to the “default” channels managed by <a class="reference external" href="https://www.anaconda.com/">Anaconda, Inc.</a>, there are a wide variety of packages from the community supported
+<a class="reference external" href="https://conda-forge.org/">conda-forge project</a></p>
+<p>Note that <a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a> can be installed into, and work side-by-side with conda
+for managing <a class="reference internal" href="glossary.html#term-Distribution-Package"><span class="xref std std-term">distributions</span></a> from PyPI. It is also possible
+to build conda packages from Python source packages using tools such as
+<a class="reference external" href="https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs-skeleton.html">conda skeleton</a>: a tool to automatically make conda packages from Python packages available on PyPI.</p>
+</section>
+<section id="devpi">
+<span id="id23"></span><h3>devpi<a class="headerlink" href="#devpi" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="http://doc.devpi.net/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/devpi/devpi/issues">Issues</a> |
+<a class="reference external" href="https://pypi.org/project/devpi">PyPI</a></p>
+<p>devpi features a powerful PyPI-compatible server and PyPI proxy cache
+with a complementary command line tool to drive packaging, testing and
+release activities with Python. devpi also provides a browsable and
+searchable web interface.
+devpi supports mirroring PyPI, multiple
+<a class="reference internal" href="glossary.html#term-Package-Index"><span class="xref std std-term">package indexes</span></a> with inheritance, syncing between
+these indexes, index replication and fail-over, and package upload.</p>
+</section>
+<section id="dumb-pypi">
+<span id="id24"></span><h3>dumb-pypi<a class="headerlink" href="#dumb-pypi" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/chriskuehl/dumb-pypi">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/dumb-pypi">PyPI</a></p>
+<p>dumb-pypi is a simple <a class="reference internal" href="glossary.html#term-Package-Index"><span class="xref std std-term">package index</span></a> static file site
+generator, which then must be hosted by a static file webserver to become the
+package index. It supports serving the hash, core-metadata, and yank-status.</p>
+</section>
+<section id="enscons">
+<span id="id25"></span><h3>enscons<a class="headerlink" href="#enscons" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/dholth/enscons">Source</a> |
+<a class="reference external" href="https://github.com/dholth/enscons/issues">Issues</a> |
+<a class="reference external" href="https://pypi.org/project/enscons">PyPI</a></p>
+<p>Enscons is a Python packaging tool based on <a class="reference external" href="https://scons.org/">SCons</a>. It builds
+<a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a>-compatible source distributions and wheels without using
+distutils or setuptools, including distributions with C
+extensions. Enscons has a different architecture and philosophy than
+<a class="reference internal" href="#distutils"><span class="std std-ref">distutils</span></a>. Rather than adding build features to a Python
+packaging system, enscons adds Python packaging to a general purpose
+build system. Enscons helps you to build sdists that can be
+automatically built by <a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a>, and wheels that are independent of
+enscons.</p>
+</section>
+<section id="flask-pypi-proxy">
+<span id="flaskpypiproxy"></span><h3>Flask-Pypi-Proxy<a class="headerlink" href="#flask-pypi-proxy" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://flask-pypi-proxy.readthedocs.io">Docs</a> |
+<a class="reference external" href="https://github.com/tzulberti/Flask-PyPi-Proxy">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/Flask-Pypi-Proxy/">PyPI</a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Not maintained, project archived</p>
+</div>
+<p>Flask-Pypi-Proxy is a <a class="reference internal" href="glossary.html#term-Package-Index"><span class="xref std std-term">package index</span></a> as a cached
+proxy for PyPI.</p>
+</section>
+<section id="hashdist">
+<span id="id26"></span><h3>Hashdist<a class="headerlink" href="#hashdist" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://hashdist.readthedocs.io/en/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/hashdist/hashdist/">GitHub</a></p>
+<p>Hashdist is a library for building non-root software
+distributions. Hashdist is trying to be “the Debian of choice for
+cases where Debian technology doesn’t work”. The best way for
+Pythonistas to think about Hashdist may be a more powerful hybrid of
+<a class="reference internal" href="#virtualenv"><span class="std std-ref">virtualenv</span></a> and <a class="reference internal" href="#buildout"><span class="std std-ref">buildout</span></a>. It is aimed at solving the
+problem of installing scientific software, and making package
+distribution stateless, cached, and branchable. It is used by some
+researchers but has been lacking in maintenance since 2016.</p>
+</section>
+<section id="maturin">
+<span id="id27"></span><h3>Maturin<a class="headerlink" href="#maturin" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://www.maturin.rs">Docs</a> |
+<a class="reference external" href="https://github.com/PyO3/maturin">GitHub</a></p>
+<p>Maturin is a build backend for Rust extension modules, also written in
+Rust. It supports building wheels for python 3.7+ on Windows, Linux, macOS and
+FreeBSD, can upload them to PyPI and has basic PyPy and GraalPy support.</p>
+</section>
+<section id="meson-python">
+<span id="id28"></span><h3>meson-python<a class="headerlink" href="#meson-python" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://meson-python.readthedocs.io/en/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/mesonbuild/meson-python">GitHub</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">meson-python</span></code> is a build backend that uses the <a class="reference external" href="https://github.com/mesonbuild/meson">Meson</a> build system. It enables
+Python package authors to use <a class="reference external" href="https://github.com/mesonbuild/meson">Meson</a> as the build system for their package. It
+supports a wide variety of languages, including C, and is able to fill the needs
+of most complex build configurations.</p>
+</section>
+<section id="multibuild">
+<span id="id29"></span><h3>multibuild<a class="headerlink" href="#multibuild" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/multi-build/multibuild">GitHub</a></p>
+<p>Multibuild is a set of CI scripts for building and testing Python <a class="reference internal" href="glossary.html#term-Wheel"><span class="xref std std-term">wheels</span></a> for
+Linux, macOS, and (less flexibly) Windows. Also see <a class="reference internal" href="#cibuildwheel"><span class="std std-ref">cibuildwheel</span></a>.</p>
+</section>
+<section id="nginx-pypi-cache">
+<span id="id30"></span><h3>nginx_pypi_cache<a class="headerlink" href="#nginx-pypi-cache" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/hauntsaninja/nginx_pypi_cache">GitHub</a></p>
+<p>nginx_pypi_cache is a <a class="reference internal" href="glossary.html#term-Package-Index"><span class="xref std std-term">package index</span></a> caching proxy
+using <a class="reference external" href="https://nginx.org/en/">nginx</a>.</p>
+</section>
+<section id="pdm">
+<span id="id31"></span><h3>pdm<a class="headerlink" href="#pdm" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://pdm.fming.dev/">Docs</a> |
+<a class="reference external" href="https://github.com/pdm-project/pdm/">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/pdm">PyPI</a></p>
+<p>PDM is a modern Python package manager. It uses <a class="reference internal" href="glossary.html#term-pyproject.toml"><span class="xref std std-term">pyproject.toml</span></a> to store
+project metadata as defined in <span class="target" id="index-2"></span><a class="pep reference external" href="https://peps.python.org/pep-0621/"><strong>PEP 621</strong></a>.</p>
+</section>
+<section id="pex">
+<span id="id32"></span><h3>pex<a class="headerlink" href="#pex" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://pex.readthedocs.io/en/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/pantsbuild/pex/">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/pex">PyPI</a></p>
+<p>Pex is a tool for generating <code class="file docutils literal notranslate"><span class="pre">.pex</span></code> (Python EXecutable)
+files, standalone Python environments in the spirit of <a class="reference internal" href="#virtualenv"><span class="std std-ref">virtualenv</span></a>.
+PEX files are <a class="reference external" href="https://docs.python.org/3/library/zipapp.html" title="(in Python v3.14)"><span class="xref std std-doc">zipapps</span></a> that
+make deployment of Python applications as simple as <code class="docutils literal notranslate"><span class="pre">cp</span></code>. A single PEX
+file can support multiple target platforms and can be created from standard
+<a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a>-resolvable requirements, a lockfile generated with <code class="docutils literal notranslate"><span class="pre">pex3</span> <span class="pre">lock</span> <span class="pre">...</span></code>
+or even another PEX. PEX files can optionally have tools embedded that support
+turning the PEX file into a standard venv, graphing dependencies and more.</p>
+</section>
+<section id="pip-tools">
+<span id="id33"></span><h3>pip-tools<a class="headerlink" href="#pip-tools" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://pip-tools.readthedocs.io/en/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/jazzband/pip-tools/">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/pip-tools/">PyPI</a></p>
+<p>pip-tools is a suite of tools meant for Python system administrators
+and release managers who particularly want to keep their builds
+deterministic yet stay up to date with new versions of their
+dependencies. Users can specify particular release of their
+dependencies via hash, conveniently make a properly formatted list of
+requirements from information in other parts of their program, update
+all dependencies (a feature <a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a> currently does not provide), and
+create layers of constraints for the program to obey.</p>
+</section>
+<section id="pip2pi">
+<span id="id34"></span><h3>pip2pi<a class="headerlink" href="#pip2pi" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/wolever/pip2pi">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/pip2pi/">PyPI</a></p>
+<p>pip2pi is a <a class="reference internal" href="glossary.html#term-Package-Index"><span class="xref std std-term">package index</span></a> server where specific
+packages are manually synchronised.</p>
+</section>
+<section id="piwheels">
+<span id="id35"></span><h3>piwheels<a class="headerlink" href="#piwheels" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://www.piwheels.org/">Website</a> |
+<a class="reference external" href="https://piwheels.readthedocs.io/en/latest/index.html" title="(in Piwheels v0.23)"><span class="xref std std-doc">Docs</span></a> |
+<a class="reference external" href="https://github.com/piwheels/piwheels/">GitHub</a></p>
+<p>piwheels is a website, and software underpinning it, that fetches
+source code distribution packages from PyPI and compiles them into
+binary wheels that are optimized for installation onto Raspberry Pi
+computers. Raspberry Pi OS pre-configures pip to use piwheels.org as
+an additional index to PyPI.</p>
+</section>
+<section id="poetry">
+<span id="id36"></span><h3>poetry<a class="headerlink" href="#poetry" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://python-poetry.org/">Docs</a> |
+<a class="reference external" href="https://github.com/python-poetry/poetry">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/poetry/">PyPI</a></p>
+<p>poetry is a command-line tool to handle dependency installation and
+isolation as well as building and packaging of Python packages. It
+uses <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and, instead of depending on the resolver
+functionality within <a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a>, provides its own dependency resolver.
+It attempts to speed users’ experience of installation and dependency
+resolution by locally caching metadata about dependencies.</p>
+</section>
+<section id="proxpi">
+<span id="id37"></span><h3>proxpi<a class="headerlink" href="#proxpi" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/EpicWink/proxpi">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/proxpi/">PyPI</a></p>
+<p>proxpi is a simple <a class="reference internal" href="glossary.html#term-Package-Index"><span class="xref std std-term">package index</span></a> which proxies PyPI
+and other indexes with caching.</p>
+</section>
+<section id="pulp-python">
+<span id="pulppython"></span><h3>Pulp-python<a class="headerlink" href="#pulp-python" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://docs.pulpproject.org/pulp_python/">Docs</a> |
+<a class="reference external" href="https://github.com/pulp/pulp_python">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/pulp-python/">PyPI</a></p>
+<p>Pulp-python is the Python <a class="reference internal" href="glossary.html#term-Package-Index"><span class="xref std std-term">package index</span></a> plugin for
+<a class="reference external" href="https://pulpproject.org/">Pulp</a>. Pulp-python supports mirrors backed by
+local or <a class="reference external" href="https://aws.amazon.com/s3/">AWS S3</a>, package upload, and proxying to multiple package
+indexes.</p>
+</section>
+<section id="pypi-cloud">
+<span id="pypicloud"></span><h3>PyPI Cloud<a class="headerlink" href="#pypi-cloud" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://pypicloud.readthedocs.io/">Docs</a> |
+<a class="reference external" href="https://github.com/stevearc/pypicloud">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/pypicloud/">PyPI</a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Not maintained, project archived</p>
+</div>
+<p>PyPI Cloud is a <a class="reference internal" href="glossary.html#term-Package-Index"><span class="xref std std-term">package index</span></a> server, backed by
+<a class="reference external" href="https://aws.amazon.com/s3/">AWS S3</a> or another cloud storage service, or local files. PyPI Cloud
+supports redirect/cached proxying for PyPI, as well as authentication and
+authorisation.</p>
+</section>
+<section id="pypiprivate">
+<span id="id38"></span><h3>pypiprivate<a class="headerlink" href="#pypiprivate" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/helpshift/pypiprivate">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/pypiprivate/">PyPI</a></p>
+<p>pypiprivate serves a local (or <a class="reference external" href="https://aws.amazon.com/s3/">AWS S3</a>-hosted) directory of packages as a
+<a class="reference internal" href="glossary.html#term-Package-Index"><span class="xref std std-term">package index</span></a>.</p>
+</section>
+<section id="pypiserver">
+<span id="id39"></span><h3>pypiserver<a class="headerlink" href="#pypiserver" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/pypiserver/pypiserver">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/pypiserver/">PyPI</a></p>
+<p>pypiserver is a minimalist application that serves as a private Python
+<a class="reference internal" href="glossary.html#term-Package-Index"><span class="xref std std-term">package index</span></a> (from a local directory) within
+organizations, implementing a simple API and
+browser interface. You can upload private packages using standard
+upload tools, and users can download and install them with <a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a>,
+without publishing them publicly. Organizations who use pypiserver
+usually download packages both from pypiserver and from PyPI.</p>
+</section>
+<section id="pyscaffold">
+<span id="id40"></span><h3>PyScaffold<a class="headerlink" href="#pyscaffold" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://pyscaffold.org">Docs</a> |
+<a class="reference external" href="https://github.com/pyscaffold/pyscaffold">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/pyscaffold/">PyPI</a></p>
+<p>PyScaffold is a project generator for bootstrapping Python packages,
+ready to be shared on PyPI and installable via <a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a>.
+It relies on a set of sane default configurations for established tools
+(such as <a class="reference internal" href="#setuptools"><span class="std std-ref">Setuptools</span></a>, <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> and <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a>) to provide a productive
+environment so developers can start coding right away.
+PyScaffold can also be used with existing projects to make packaging
+easier.</p>
+</section>
+<section id="pywharf">
+<span id="id41"></span><h3>pywharf<a class="headerlink" href="#pywharf" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/pywharf/pywharf">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/pywharf">PyPI</a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Not maintained, project archived</p>
+</div>
+<p>pywharf is a <a class="reference internal" href="glossary.html#term-Package-Index"><span class="xref std std-term">package index</span></a> server, serving files
+locally or from <a class="reference external" href="https://github.com/">GitHub</a>.</p>
+</section>
+<section id="scikit-build">
+<span id="id42"></span><h3>scikit-build<a class="headerlink" href="#scikit-build" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://scikit-build.readthedocs.io/en/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/scikit-build/scikit-build/">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/scikit-build">PyPI</a></p>
+<p>Scikit-build is a <a class="reference internal" href="#setuptools"><span class="std std-ref">Setuptools</span></a> wrapper for CPython that builds
+C/C++/Fortran/Cython extensions It uses
+<a class="reference external" href="https://pypi.org/project/cmake">cmake</a> (available on PyPI) to provide
+better support for additional compilers, build systems, cross compilation, and
+locating dependencies and their associated build requirements. To speed up and
+parallelize the build of large projects, the user can install <a class="reference external" href="https://pypi.org/project/ninja">ninja</a> (also available on PyPI).</p>
+</section>
+<section id="scikit-build-core">
+<span id="id43"></span><h3>scikit-build-core<a class="headerlink" href="#scikit-build-core" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://scikit-build-core.readthedocs.io/en/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/scikit-build/scikit-build-core/">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/scikit-build-core">PyPI</a></p>
+<p>Scikit-build-core is a build backend for CPython C/C++/Fortran/Cython
+extensions.  It enables users to write extensions with <a class="reference external" href="https://pypi.org/project/cmake">cmake</a> (available on PyPI) to provide better
+support for additional compilers, build systems, cross compilation, and
+locating dependencies and their associated build requirements. CMake/Ninja
+are automatically downloaded from PyPI if not available on the system.</p>
+</section>
+<section id="shiv">
+<span id="id44"></span><h3>shiv<a class="headerlink" href="#shiv" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://shiv.readthedocs.io/en/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/linkedin/shiv">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/shiv/">PyPI</a></p>
+<p>shiv is a command line utility for building fully self contained
+Python zipapps as outlined in <span class="target" id="index-3"></span><a class="pep reference external" href="https://peps.python.org/pep-0441/"><strong>PEP 441</strong></a>, but with all their
+dependencies included. Its primary goal is making distributing Python
+applications and command line tools fast &amp; easy.</p>
+</section>
+<section id="simpleindex">
+<span id="id45"></span><h3>simpleindex<a class="headerlink" href="#simpleindex" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/uranusjr/simpleindex">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/simpleindex/">PyPI</a></p>
+<p>simpleindex is a <a class="reference internal" href="glossary.html#term-Package-Index"><span class="xref std std-term">package index</span></a> which routes URLs to
+multiple package indexes (including PyPI), serves local (or cloud-hosted,
+for example <a class="reference external" href="https://aws.amazon.com/s3/">AWS S3</a>, with a custom plugin) directories of packages, and
+supports custom plugins.</p>
+</section>
+<section id="spack">
+<span id="id46"></span><h3>Spack<a class="headerlink" href="#spack" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://spack.readthedocs.io/en/latest/index.html" title="(in Spack v1.2)"><span class="xref std std-doc">Docs</span></a> |
+<a class="reference external" href="https://github.com/spack/spack">GitHub</a> |
+<a class="reference external" href="https://www.computer.org/csdl/proceedings-article/sc/2015/2807623/12OmNBf94Xq">Paper</a> |
+<a class="reference external" href="https://tgamblin.github.io/files/Gamblin-Spack-SC15-Talk.pdf">Slides</a></p>
+<p>A flexible package manager designed to support multiple versions,
+configurations, platforms, and compilers.  Spack is like Homebrew, but
+packages are written in Python and parameterized to allow easy
+swapping of compilers, library versions, build options,
+etc. Arbitrarily many versions of packages can coexist on the same
+system. Spack was designed for rapidly building high performance
+scientific applications on clusters and supercomputers.</p>
+<p>Spack is not in PyPI (yet), but it requires no installation and can be
+used immediately after cloning from GitHub.</p>
+</section>
+<section id="zest-releaser">
+<span id="zestreleaser"></span><h3>zest.releaser<a class="headerlink" href="#zest-releaser" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://zestreleaser.readthedocs.io/en/latest/">Docs</a> |
+<a class="reference external" href="https://github.com/zestsoftware/zest.releaser/">GitHub</a> |
+<a class="reference external" href="https://pypi.org/project/zest.releaser/">PyPI</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">zest.releaser</span></code> is a Python package release tool providing an
+abstraction layer on top of <a class="reference internal" href="#twine"><span class="std std-ref">twine</span></a>. Python developers use
+<code class="docutils literal notranslate"><span class="pre">zest.releaser</span></code> to automate incrementing package version numbers,
+updating changelogs, tagging releases in source control, and uploading
+new packages to PyPI.</p>
+</section>
+</section>
+<section id="standard-library-projects">
+<h2>Standard Library Projects<a class="headerlink" href="#standard-library-projects" title="Link to this heading">¶</a></h2>
+<section id="ensurepip">
+<span id="id47"></span><h3>ensurepip<a class="headerlink" href="#ensurepip" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://docs.python.org/3/library/ensurepip.html">Docs</a> |
+<a class="reference external" href="https://bugs.python.org/">Issues</a></p>
+<p>A package in the Python Standard Library that provides support for bootstrapping
+<a class="reference internal" href="#pip"><span class="std std-ref">pip</span></a> into an existing Python installation or virtual environment.  In most
+cases, end users won’t use this module, but rather it will be used during the
+build of the Python distribution.</p>
+</section>
+<section id="http-server">
+<span id="httpserver"></span><h3>http.server<a class="headerlink" href="#http-server" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://docs.python.org/3/library/http.server.html" title="(in Python v3.14)"><span class="xref std std-doc">Docs</span></a> |
+<a class="reference external" href="https://github.com/python/cpython/issues">Issues</a></p>
+<p>A package and command-line interface which can host a directory as a
+website, for example as a <a class="reference internal" href="glossary.html#term-Package-Index"><span class="xref std std-term">package index</span></a> (see
+<a class="reference internal" href="guides/hosting-your-own-index.html#hosting-your-own-simple-repository"><span class="std std-ref">Hosting your own simple repository</span></a>).</p>
+</section>
+<section id="venv">
+<span id="id48"></span><h3>venv<a class="headerlink" href="#venv" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://docs.python.org/3/library/venv.html">Docs</a> |
+<a class="reference external" href="https://github.com/python/cpython/issues">Issues</a></p>
+<p>A package in the Python Standard Library (starting with Python 3.3) for
+creating <a class="reference internal" href="glossary.html#term-Virtual-Environment"><span class="xref std std-term">Virtual Environments</span></a>.  For more
+information, see the section on <a class="reference internal" href="tutorials/installing-packages.html#creating-and-using-virtual-environments"><span class="std std-ref">Creating Virtual Environments</span></a>.</p>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="glossary.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Glossary</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="specifications/schemas/index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">PyPA schemas</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2013–2020, PyPA
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            <div class="last-updated">
+              Last updated on Feb 21, 2026</div>
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Project Summaries</a><ul>
+<li><a class="reference internal" href="#pypa-projects">PyPA Projects</a><ul>
+<li><a class="reference internal" href="#bandersnatch">bandersnatch</a></li>
+<li><a class="reference internal" href="#build">build</a></li>
+<li><a class="reference internal" href="#cibuildwheel">cibuildwheel</a></li>
+<li><a class="reference internal" href="#distlib">distlib</a></li>
+<li><a class="reference internal" href="#distutils">distutils</a></li>
+<li><a class="reference internal" href="#flit">flit</a></li>
+<li><a class="reference internal" href="#hatch">hatch</a></li>
+<li><a class="reference internal" href="#packaging">packaging</a></li>
+<li><a class="reference internal" href="#pip">pip</a></li>
+<li><a class="reference internal" href="#pipenv">Pipenv</a></li>
+<li><a class="reference internal" href="#pipfile">Pipfile</a></li>
+<li><a class="reference internal" href="#pipx">pipx</a></li>
+<li><a class="reference internal" href="#python-packaging-user-guide">Python Packaging User Guide</a></li>
+<li><a class="reference internal" href="#readme-renderer">readme_renderer</a></li>
+<li><a class="reference internal" href="#easy-install">Setuptools</a></li>
+<li><a class="reference internal" href="#trove-classifiers">trove-classifiers</a></li>
+<li><a class="reference internal" href="#twine">twine</a></li>
+<li><a class="reference internal" href="#virtualenv">virtualenv</a></li>
+<li><a class="reference internal" href="#warehouse">Warehouse</a></li>
+<li><a class="reference internal" href="#wheel">wheel</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#non-pypa-projects">Non-PyPA Projects</a><ul>
+<li><a class="reference internal" href="#buildout">buildout</a></li>
+<li><a class="reference internal" href="#conda">conda</a></li>
+<li><a class="reference internal" href="#devpi">devpi</a></li>
+<li><a class="reference internal" href="#dumb-pypi">dumb-pypi</a></li>
+<li><a class="reference internal" href="#enscons">enscons</a></li>
+<li><a class="reference internal" href="#flask-pypi-proxy">Flask-Pypi-Proxy</a></li>
+<li><a class="reference internal" href="#hashdist">Hashdist</a></li>
+<li><a class="reference internal" href="#maturin">Maturin</a></li>
+<li><a class="reference internal" href="#meson-python">meson-python</a></li>
+<li><a class="reference internal" href="#multibuild">multibuild</a></li>
+<li><a class="reference internal" href="#nginx-pypi-cache">nginx_pypi_cache</a></li>
+<li><a class="reference internal" href="#pdm">pdm</a></li>
+<li><a class="reference internal" href="#pex">pex</a></li>
+<li><a class="reference internal" href="#pip-tools">pip-tools</a></li>
+<li><a class="reference internal" href="#pip2pi">pip2pi</a></li>
+<li><a class="reference internal" href="#piwheels">piwheels</a></li>
+<li><a class="reference internal" href="#poetry">poetry</a></li>
+<li><a class="reference internal" href="#proxpi">proxpi</a></li>
+<li><a class="reference internal" href="#pulp-python">Pulp-python</a></li>
+<li><a class="reference internal" href="#pypi-cloud">PyPI Cloud</a></li>
+<li><a class="reference internal" href="#pypiprivate">pypiprivate</a></li>
+<li><a class="reference internal" href="#pypiserver">pypiserver</a></li>
+<li><a class="reference internal" href="#pyscaffold">PyScaffold</a></li>
+<li><a class="reference internal" href="#pywharf">pywharf</a></li>
+<li><a class="reference internal" href="#scikit-build">scikit-build</a></li>
+<li><a class="reference internal" href="#scikit-build-core">scikit-build-core</a></li>
+<li><a class="reference internal" href="#shiv">shiv</a></li>
+<li><a class="reference internal" href="#simpleindex">simpleindex</a></li>
+<li><a class="reference internal" href="#spack">Spack</a></li>
+<li><a class="reference internal" href="#zest-releaser">zest.releaser</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#standard-library-projects">Standard Library Projects</a><ul>
+<li><a class="reference internal" href="#ensurepip">ensurepip</a></li>
+<li><a class="reference internal" href="#http-server">http.server</a></li>
+<li><a class="reference internal" href="#venv">venv</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="_static/tabs.js?v=3ee01567"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=cb5fb026"></script>
+    </body>
+</html>

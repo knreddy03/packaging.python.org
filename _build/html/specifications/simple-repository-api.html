@@ -1,0 +1,1326 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="File Yanking" href="file-yanking.html" /><link rel="prev" title="The .pypirc file" href="pypirc.html" />
+
+    <link rel="shortcut icon" href="../_static/py.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
+        <title>Simple repository API - Python Packaging User Guide</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Python Packaging User Guide</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">Python Packaging User Guide</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview of Python Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow.html">The Packaging Flow</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/installing-packages.html">Installing Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/managing-dependencies.html">Managing Application Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/packaging-projects.html">Packaging Python Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../guides/index.html">Guides</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../guides/section-install.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-using-pip-and-virtual-environments.html">Install packages in a virtual environment using pip and venv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-using-virtualenv.html">Installing packages using virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-stand-alone-command-line-tools.html">Installing stand alone command line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-using-linux-tools.html">Installing pip/setuptools/wheel with Linux Package Managers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-scientific-packages.html">Installing scientific packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../guides/section-build-and-publish.html">Building and Publishing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Building and Publishing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/writing-pyproject-toml.html">Writing your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/distributing-packages-using-setuptools.html">Packaging and distributing projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/dropping-older-python-versions.html">Dropping support for older Python versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/packaging-binary-extensions.html">Packaging binary extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/packaging-namespace-packages.html">Packaging namespace packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/creating-command-line-tools.html">Creating and packaging command-line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/creating-and-discovering-plugins.html">Creating and discovering plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/using-testpypi.html">Using TestPyPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/making-a-pypi-friendly-readme.html">Making a PyPI-friendly README</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows.html">Publishing package distribution releases using GitHub Actions CI/CD workflows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/modernize-setup-py-project.html">How to modernize a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> based project?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/licensing-examples-and-user-scenarios.html">Licensing examples and user scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../guides/section-hosting.html">Hosting</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Hosting</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/index-mirrors-and-caches.html">Package index mirrors and caches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/hosting-your-own-index.html">Hosting your own simple repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/tool-recommendations.html">Tool recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/analyzing-pypi-package-downloads.html">Analyzing PyPI package downloads</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussions/index.html">Discussions</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Discussions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/deploying-python-applications.html">Deploying Python applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/pip-vs-easy-install.html">pip vs easy_install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/install-requires-vs-requirements.html">install_requires vs requirements files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/distribution-package-vs-import-package.html">Distribution package vs. import package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/package-formats.html">Package Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/src-layout-vs-flat-layout.html">src layout vs flat layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/setup-py-deprecated.html">Is <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> deprecated?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/single-source-version.html">Single-sourcing the Project Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/downstream-packaging.html">Supporting downstream packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">PyPA specifications</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of PyPA specifications</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-distribution-metadata.html">Package Distribution Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Package Distribution Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="name-normalization.html">Names and normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core-metadata.html">Core metadata specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="version-specifiers.html">Version specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dependency-specifiers.html">Dependency specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyproject-toml.html"><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dependency-groups.html">Dependency Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inline-script-metadata.html">Inline script metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="platform-compatibility-tags.html">Platform compatibility tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="well-known-project-urls.html">Well-known Project URLs in Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glob-patterns.html"><code class="docutils literal notranslate"><span class="pre">glob</span></code> patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="license-expression.html">License Expression</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-installation-metadata.html">Package Installation Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Package Installation Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="recording-installed-packages.html">Recording installed projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="entry-points.html">Entry points specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="direct-url.html">Recording the Direct URL Origin of installed distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="direct-url-data-structure.html">Direct URL Data Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtual-environments.html">Python Virtual Environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="externally-managed-environments.html">Externally Managed Environments</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-distribution-formats.html">Package Distribution File Formats</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Package Distribution File Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="source-distribution-format.html">Source distribution format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="binary-distribution-format.html">Binary distribution format</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="section-package-indices.html">Package Index Interfaces</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Package Index Interfaces</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pypirc.html">The <code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Simple repository API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="file-yanking.html">File Yanking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index-hosted-attestations.html">Index hosted attestations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project-status-markers.html">Project Status Markers</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-python-description-formats.html">Python Description Formats</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Python Description Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="build-details/index.html"><code class="file docutils literal notranslate"><span class="pre">build-details.json</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of build-details.json</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="build-details/v1.0.html">v1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="section-reproducible-environments.html">Reproducible Environments</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Reproducible Environments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="pylock-toml.html"><code class="docutils literal notranslate"><span class="pre">pylock.toml</span></code> Specification</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="schemas/index.html">PyPA schemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../key_projects.html">Project Summaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">How to Get Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute to this guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/blob/main/source/specifications/simple-repository-api.rst?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/edit/main/source/specifications/simple-repository-api.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="simple-repository-api">
+<span id="id1"></span><h1>Simple repository API<a class="headerlink" href="#simple-repository-api" title="Link to this heading">¶</a></h1>
+<p>The keywords “<strong>MUST</strong>”, “<strong>MUST NOT</strong>”, “<strong>REQUIRED</strong>”, “<strong>SHALL</strong>”,
+“<strong>SHALL NOT</strong>”, “<strong>SHOULD</strong>”, “<strong>SHOULD NOT</strong>”, “<strong>RECOMMENDED</strong>”, “<strong>MAY</strong>”,
+and “<strong>OPTIONAL</strong>”” in this document are to be interpreted as described in
+<span class="target" id="index-0"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc2119.html"><strong>RFC 2119</strong></a>.</p>
+<p>The interface for querying available package versions and
+retrieving packages from an index server comes in two forms:
+<a class="reference internal" href="#simple-repository-html-serialization"><span class="std std-ref">HTML</span></a> and
+<a class="reference internal" href="#json-serialization"><span class="std std-ref">JSON</span></a>.</p>
+<section id="base-api">
+<span id="simple-repository-api-base"></span><h2>Base API<a class="headerlink" href="#base-api" title="Link to this heading">¶</a></h2>
+<p>A repository that implements the simple API is defined by its base URL. This is
+the top level URL that all additional URLs are below. The API is named the
+“simple” repository due to the fact that PyPI’s base URL is
+<code class="docutils literal notranslate"><span class="pre">https://pypi.org/simple/</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All subsequent URLs in this document will be relative to this base
+URL (so given PyPI’s URL, a URL of <code class="docutils literal notranslate"><span class="pre">/foo/</span></code> would be
+<code class="docutils literal notranslate"><span class="pre">https://pypi.org/simple/foo/</span></code>.</p>
+</div>
+<section id="normalized-names">
+<h3>Normalized Names<a class="headerlink" href="#normalized-names" title="Link to this heading">¶</a></h3>
+<p>This spec references the concept of a “normalized” project name. As per
+<a class="reference internal" href="name-normalization.html#name-normalization"><span class="std std-ref">the name normalization specification</span></a>
+the only valid characters in a name are the ASCII alphabet, ASCII numbers,
+<code class="docutils literal notranslate"><span class="pre">.</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, and <code class="docutils literal notranslate"><span class="pre">_</span></code>. The name should be lowercased with all runs of the
+characters <code class="docutils literal notranslate"><span class="pre">.</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, or <code class="docutils literal notranslate"><span class="pre">_</span></code> replaced with a single <code class="docutils literal notranslate"><span class="pre">-</span></code> character. This
+can be implemented in Python with the <code class="docutils literal notranslate"><span class="pre">re</span></code> module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[-_.]+&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="versioning-pypi-s-simple-api">
+<span id="simple-repository-api-versioning"></span><h3>Versioning PyPI’s Simple API<a class="headerlink" href="#versioning-pypi-s-simple-api" title="Link to this heading">¶</a></h3>
+<p>This spec proposes the inclusion of a meta tag on the responses of every
+successful request to a simple API page, which contains a name attribute
+of <code class="docutils literal notranslate"><span class="pre">pypi:repository-version</span></code>, and a content that is a <a class="reference internal" href="version-specifiers.html#version-specifiers"><span class="std std-ref">version specifiers
+specification</span></a> compatible
+version number, which is further constrained to ONLY be Major.Minor, and
+none of the additional features supported by <a class="reference internal" href="version-specifiers.html#version-specifiers"><span class="std std-ref">the version specifiers
+specification</span></a>.</p>
+<p>This would end up looking like:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;pypi:repository-version&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;1.4&quot;</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>When interpreting the repository version:</p>
+<ul class="simple">
+<li><p>Incrementing the major version is used to signal a backwards
+incompatible change such that existing clients would no longer be
+expected to be able to meaningfully use the API.</p></li>
+<li><p>Incrementing the minor version is used to signal a backwards
+compatible change such that existing clients would still be
+expected to be able to meaningfully use the API.</p></li>
+</ul>
+<p>It is left up to the discretion of any future specs as to what
+specifically constitutes a backwards incompatible vs compatible change
+beyond the broad suggestion that existing clients will be able to
+“meaningfully” continue to use the API, and can include adding,
+modifying, or removing existing features.</p>
+<p>It is expectation of this spec that the major version will never be
+incremented, and any future major API evolutions would utilize a
+different mechanism for API evolution. However the major version
+is included to disambiguate with future versions (e.g. a hypothetical
+simple api v2 that lived at /v2/, but which would be confusing if the
+repository-version was set to a version &gt;= 2).</p>
+<section id="api-version-history">
+<h4>API Version History<a class="headerlink" href="#api-version-history" title="Link to this heading">¶</a></h4>
+<p>This section contains only an abbreviated history of changes,
+as marked by the API version number. For a full history of changes including
+changes made before API versioning, see <a class="reference internal" href="#simple-repository-history"><span class="std std-ref">History</span></a>.</p>
+<ul class="simple">
+<li><p>API version 1.0: Initial version of the API, declared with <span class="target" id="index-1"></span><a class="pep reference external" href="https://peps.python.org/pep-0629/"><strong>PEP 629</strong></a>.</p></li>
+<li><p>API version 1.1: Added <code class="docutils literal notranslate"><span class="pre">versions</span></code>, <code class="docutils literal notranslate"><span class="pre">files[].size</span></code>, and <code class="docutils literal notranslate"><span class="pre">files[].upload-time</span></code> metadata
+to the JSON serialization, declared with <span class="target" id="index-2"></span><a class="pep reference external" href="https://peps.python.org/pep-0700/"><strong>PEP 700</strong></a>.</p></li>
+<li><p>API version 1.2: Added repository “tracks” metadata, declared with <span class="target" id="index-3"></span><a class="pep reference external" href="https://peps.python.org/pep-0708/"><strong>PEP 708</strong></a>.</p></li>
+<li><p>API version 1.3: Added provenance metadata, declared with <span class="target" id="index-4"></span><a class="pep reference external" href="https://peps.python.org/pep-0740/"><strong>PEP 740</strong></a>.</p></li>
+<li><p>API version 1.4: Added status markers, declared with <span class="target" id="index-5"></span><a class="pep reference external" href="https://peps.python.org/pep-0792/"><strong>PEP 792</strong></a>.</p></li>
+</ul>
+</section>
+<section id="clients">
+<h4>Clients<a class="headerlink" href="#clients" title="Link to this heading">¶</a></h4>
+<p>Clients interacting with the simple API <strong>SHOULD</strong> introspect each
+response for the repository version, and if that data does not exist
+<strong>MUST</strong> assume that it is version 1.0.</p>
+<p>When encountering a major version greater than expected, clients
+<strong>MUST</strong> hard fail with an appropriate error message for the user.</p>
+<p>When encountering a minor version greater than expected, clients
+<strong>SHOULD</strong> warn users with an appropriate message.</p>
+<p>Clients <strong>MAY</strong> still continue to use feature detection in order to
+determine what features a repository uses.</p>
+</section>
+</section>
+<section id="html-serialization">
+<span id="simple-repository-html-serialization"></span><h3>HTML Serialization<a class="headerlink" href="#html-serialization" title="Link to this heading">¶</a></h3>
+<p id="simple-repository-html-project-list">The following constraints apply to all HTML serialized responses described in
+this spec:</p>
+<ul class="simple">
+<li><p>All HTML responses <strong>MUST</strong> be a valid HTML5 document.</p></li>
+<li><p>HTML responses <strong>MAY</strong> contain one or more <code class="docutils literal notranslate"><span class="pre">meta</span></code> tags in the
+<code class="docutils literal notranslate"><span class="pre">&lt;head&gt;</span></code> section. The semantics of these tags are defined below.</p></li>
+</ul>
+<section id="project-list">
+<h4>Project List<a class="headerlink" href="#project-list" title="Link to this heading">¶</a></h4>
+<p>Within a repository, the root URL (<code class="docutils literal notranslate"><span class="pre">/</span></code> for this spec which represents the base
+URL) <strong>MUST</strong> be a valid HTML5 page with a single anchor element per project in
+the repository.</p>
+<p>The text of each anchor tag <strong>MUST</strong> be the name of
+the project and the <code class="docutils literal notranslate"><span class="pre">href</span></code> attribute <strong>MUST</strong> link to the URL for that particular
+project. As an example:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/frob/&quot;</span><span class="p">&gt;</span>frob<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/spamspamspam/&quot;</span><span class="p">&gt;</span>spamspamspam<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="project-detail">
+<span id="simple-repository-html-project-detail"></span><h4>Project Detail<a class="headerlink" href="#project-detail" title="Link to this heading">¶</a></h4>
+<p>Below the root URL is another URL for each individual project contained within
+a repository. The format of this URL is <code class="docutils literal notranslate"><span class="pre">/&lt;project&gt;/</span></code>, where the <code class="docutils literal notranslate"><span class="pre">&lt;project&gt;</span></code>
+is replaced by the normalized name for that project.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>For example, a project named “HolyGrail” would have a URL like
+<code class="docutils literal notranslate"><span class="pre">/holygrail/</span></code>.</p>
+</div>
+<p>The project detail URL must respond with a valid HTML5 page with a single
+anchor element per file for the project. The <code class="docutils literal notranslate"><span class="pre">href</span></code> attribute <strong>MUST</strong> be a
+URL that links to the location of the file for download, and the text of the
+anchor tag <strong>MUST</strong> match the final path component (the filename) of the URL.</p>
+<p>Each file URL <strong>SHOULD</strong> include a hash in the
+form of a URL fragment with the following syntax: <code class="docutils literal notranslate"><span class="pre">#&lt;hashname&gt;=&lt;hashvalue&gt;</span></code>,
+where <code class="docutils literal notranslate"><span class="pre">&lt;hashname&gt;</span></code> is the lowercase name of the hash function (such as
+<code class="docutils literal notranslate"><span class="pre">sha256</span></code>) and <code class="docutils literal notranslate"><span class="pre">&lt;hashvalue&gt;</span></code> is the hex encoded digest.</p>
+<p>In addition to the above, the following constraints are placed on the API:</p>
+<ul>
+<li><p>All URLs which respond with an HTML5 page <strong>MUST</strong> end with a <code class="docutils literal notranslate"><span class="pre">/</span></code> and the
+repository <strong>SHOULD</strong> redirect the URLs without a <code class="docutils literal notranslate"><span class="pre">/</span></code> to add a <code class="docutils literal notranslate"><span class="pre">/</span></code> to the
+end.</p></li>
+<li><p>URLs may be either absolute or relative as long as they point to the correct
+location.</p></li>
+<li><p>There are no constraints on where the files must be hosted relative to the
+repository.</p></li>
+<li><p>There may be any other HTML elements on the API pages as long as the required
+anchor elements exist.</p></li>
+<li><p>Repositories <strong>MAY</strong> redirect unnormalized URLs to the canonical normalized
+URL (e.g. <code class="docutils literal notranslate"><span class="pre">/Foobar/</span></code> may redirect to <code class="docutils literal notranslate"><span class="pre">/foobar/</span></code>), however clients
+<strong>MUST NOT</strong> rely on this redirection and <strong>MUST</strong> request the normalized
+URL.</p></li>
+<li><p>Repositories <strong>SHOULD</strong> choose a hash function from one of the ones
+guaranteed to be available via the <a class="reference external" href="https://docs.python.org/3/library/hashlib.html#module-hashlib" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hashlib</span></code></a> module in the Python standard
+library (currently <code class="docutils literal notranslate"><span class="pre">md5</span></code>, <code class="docutils literal notranslate"><span class="pre">sha1</span></code>, <code class="docutils literal notranslate"><span class="pre">sha224</span></code>, <code class="docutils literal notranslate"><span class="pre">sha256</span></code>, <code class="docutils literal notranslate"><span class="pre">sha384</span></code>,
+<code class="docutils literal notranslate"><span class="pre">sha512</span></code>). The current recommendation is to use <code class="docutils literal notranslate"><span class="pre">sha256</span></code>.</p></li>
+<li><p>If there is a GPG signature for a particular distribution file it <strong>MUST</strong>
+live alongside that file with the same name with a <code class="docutils literal notranslate"><span class="pre">.asc</span></code> appended to it.
+So if the file <code class="docutils literal notranslate"><span class="pre">/packages/HolyGrail-1.0.tar.gz</span></code> existed and had an
+associated signature, the signature would be located at
+<code class="docutils literal notranslate"><span class="pre">/packages/HolyGrail-1.0.tar.gz.asc</span></code>.</p></li>
+<li><p>A repository <strong>MAY</strong> include a <code class="docutils literal notranslate"><span class="pre">data-core-metadata</span></code> attribute on a file
+link.</p>
+<p>The repository <strong>SHOULD</strong> provide the hash of the Core Metadata file as the
+<code class="docutils literal notranslate"><span class="pre">data-core-metadata</span></code> attribute’s value using the syntax
+<code class="docutils literal notranslate"><span class="pre">&lt;hashname&gt;=&lt;hashvalue&gt;</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;hashname&gt;</span></code> is the lower cased name of
+the hash function used, and <code class="docutils literal notranslate"><span class="pre">&lt;hashvalue&gt;</span></code> is the hex encoded digest. The
+repository <strong>MAY</strong> use <code class="docutils literal notranslate"><span class="pre">true</span></code> as the attribute’s value if a hash is unavailable.</p>
+</li>
+<li><p>A repository <strong>MAY</strong> include a <code class="docutils literal notranslate"><span class="pre">data-dist-info-metadata</span></code> attribute on a
+file link.</p>
+<p>Index clients <strong>MAY</strong> consume this key if present, as a legacy fallback
+for <code class="docutils literal notranslate"><span class="pre">data-core-metadata</span></code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><code class="docutils literal notranslate"><span class="pre">data-dist-info-metadata</span></code> was standardized with <span class="target" id="index-6"></span><a class="pep reference external" href="https://peps.python.org/pep-0658/"><strong>PEP 658</strong></a> and renamed to
+<code class="docutils literal notranslate"><span class="pre">data-core-metadata</span></code> with <span class="target" id="index-7"></span><a class="pep reference external" href="https://peps.python.org/pep-0714/"><strong>PEP 714</strong></a>.</p>
+</div>
+</li>
+<li><p>A repository <strong>MAY</strong> include a <code class="docutils literal notranslate"><span class="pre">data-gpg-sig</span></code> attribute on a file link with
+a value of either <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code> to indicate whether or not there is a
+GPG signature. Repositories that do this <strong>SHOULD</strong> include it on every link.</p></li>
+<li><p>A repository <strong>MAY</strong> include a <code class="docutils literal notranslate"><span class="pre">data-requires-python</span></code> attribute on a file
+link. This exposes the <a class="reference internal" href="core-metadata.html#core-metadata-requires-python"><span class="std std-ref">Requires-Python</span></a> metadata field
+for the corresponding release. Where this is present, installer tools
+<strong>SHOULD</strong> ignore the download when installing to a Python version that
+doesn’t satisfy the requirement. For example:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;...&quot;</span> <span class="na">data-requires-python</span><span class="o">=</span><span class="s">&quot;&amp;gt;=3&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>In the attribute value, &lt; and &gt; have to be HTML encoded as <code class="docutils literal notranslate"><span class="pre">&amp;lt;</span></code> and
+<code class="docutils literal notranslate"><span class="pre">&amp;gt;</span></code>, respectively.</p>
+</li>
+<li><p>A repository <strong>MAY</strong> include a <code class="docutils literal notranslate"><span class="pre">data-yanked</span></code> attribute on a file link.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">data-yanked</span></code> attribute may have no value, or may have an
+arbitrary string as a value. The presence of a <code class="docutils literal notranslate"><span class="pre">data-yanked</span></code> attribute
+<strong>SHOULD</strong> be interpreted as indicating that the file pointed to by this
+particular link has been “Yanked”, and should not generally be selected by
+an installer, except under specific scenarios.</p>
+<p>The value of the <code class="docutils literal notranslate"><span class="pre">data-yanked</span></code> attribute, if present, is an arbitrary
+string that represents the reason for why the file has been yanked.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The semantics of how tools should handle yanked files is
+described in <a class="reference internal" href="file-yanking.html#file-yanking"><span class="std std-ref">File Yanking</span></a>.</p>
+</div>
+</li>
+<li><p>A repository <strong>MAY</strong> include a <code class="docutils literal notranslate"><span class="pre">data-provenance</span></code> attribute on a file link.
+The value of this attribute <strong>MUST</strong> be a fully qualified URL, signaling that
+the file’s provenance can be found at that URL. This URL <strong>MUST</strong> represent
+a <a class="reference external" href="https://www.chromium.org/Home/chromium-security/prefer-secure-origins-for-powerful-new-features/">secure origin</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">data-provenance</span></code> attribute was added with API version 1.3.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The format of the linked provenance is defined in <a class="reference internal" href="index-hosted-attestations.html#index-hosted-attestations"><span class="std std-ref">Index hosted attestations</span></a>.</p>
+</div>
+</li>
+<li><p>A repository <strong>MAY</strong> include <code class="docutils literal notranslate"><span class="pre">pypi:project-status</span></code> and
+<code class="docutils literal notranslate"><span class="pre">pypi:project-status-reason</span></code> meta tags on the response itself.</p>
+<p>The value of <code class="docutils literal notranslate"><span class="pre">pypi:project-status</span></code> <strong>MUST</strong> be a valid
+project status marker, while the value of
+<code class="docutils literal notranslate"><span class="pre">pypi:project-status-reason</span></code> <strong>MUST</strong> be an arbitrary string if present.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The set of valid project status markers and their semantics is described
+in <a class="reference internal" href="project-status-markers.html#project-status-markers"><span class="std std-ref">Project Status Markers</span></a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pypi:project-status</span></code> and <code class="docutils literal notranslate"><span class="pre">pypi:project-status-reason</span></code> meta tags
+were added with API version 1.4.</p>
+</div>
+</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="serve-distribution-metadata-in-the-simple-repository-api">
+<span id="simple-repository-api-metadata-file"></span><h2>Serve Distribution Metadata in the Simple Repository API<a class="headerlink" href="#serve-distribution-metadata-in-the-simple-repository-api" title="Link to this heading">¶</a></h2>
+<p>In a simple repository’s project page, each anchor tag pointing to a
+distribution <strong>MAY</strong> have a <code class="docutils literal notranslate"><span class="pre">data-dist-info-metadata</span></code> attribute. The
+presence of the attribute indicates the distribution represented by
+the anchor tag <strong>MUST</strong> contain a Core Metadata file that will not be
+modified when the distribution is processed and/or installed.</p>
+<p>If a <code class="docutils literal notranslate"><span class="pre">data-dist-info-metadata</span></code> attribute is present, the repository
+<strong>MUST</strong> serve the distribution’s Core Metadata file alongside the
+distribution with a <code class="docutils literal notranslate"><span class="pre">.metadata</span></code> appended to the distribution’s file
+name. For example, the Core Metadata of a distribution served at
+<code class="docutils literal notranslate"><span class="pre">/files/distribution-1.0-py3.none.any.whl</span></code> would be located at
+<code class="docutils literal notranslate"><span class="pre">/files/distribution-1.0-py3.none.any.whl.metadata</span></code>. This is similar
+to how <a class="reference internal" href="#simple-repository-api-base"><span class="std std-ref">the base HTML API specification</span></a>
+specifies the GPG signature file’s location.</p>
+<p>The repository <strong>SHOULD</strong> provide the hash of the Core Metadata file
+as the <code class="docutils literal notranslate"><span class="pre">data-dist-info-metadata</span></code> attribute’s value using the syntax
+<code class="docutils literal notranslate"><span class="pre">&lt;hashname&gt;=&lt;hashvalue&gt;</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;hashname&gt;</span></code> is the lower cased
+name of the hash function used, and <code class="docutils literal notranslate"><span class="pre">&lt;hashvalue&gt;</span></code> is the hex encoded
+digest. The repository <strong>MAY</strong> use <code class="docutils literal notranslate"><span class="pre">true</span></code> as the attribute’s value
+if a hash is unavailable.</p>
+<section id="backwards-compatibility">
+<h3>Backwards Compatibility<a class="headerlink" href="#backwards-compatibility" title="Link to this heading">¶</a></h3>
+<p>If an anchor tag lacks the <code class="docutils literal notranslate"><span class="pre">data-dist-info-metadata</span></code> attribute,
+tools are expected to revert to their current behaviour of downloading
+the distribution to inspect the metadata.</p>
+<p>Older tools not supporting the new <code class="docutils literal notranslate"><span class="pre">data-dist-info-metadata</span></code>
+attribute are expected to ignore the attribute and maintain their
+current behaviour of downloading the distribution to inspect the
+metadata. This is similar to how prior <code class="docutils literal notranslate"><span class="pre">data-</span></code> attribute additions
+expect existing tools to operate.</p>
+</section>
+</section>
+<section id="json-based-simple-api-for-python-package-indexes">
+<span id="simple-repository-api-json"></span><h2>JSON-based Simple API for Python Package Indexes<a class="headerlink" href="#json-based-simple-api-for-python-package-indexes" title="Link to this heading">¶</a></h2>
+<p>To enable response parsing with only the standard library, this spec specifies that
+all responses (besides the files themselves, and the HTML responses from
+<a class="reference internal" href="#simple-repository-api-base"><span class="std std-ref">the base HTML API specification</span></a>) should be
+serialized using <a class="reference external" href="https://www.json.org/">JSON</a>.</p>
+<p>To enable zero configuration discovery and to minimize the amount of additional HTTP
+requests, this spec extends <a class="reference internal" href="#simple-repository-api-base"><span class="std std-ref">the base HTML API specification</span></a> such that all of the API endpoints (other than the
+files themselves) will utilize HTTP content negotiation to allow client and server to
+select the correct serialization format to serve, i.e. either HTML or JSON.</p>
+<section id="versioning">
+<h3>Versioning<a class="headerlink" href="#versioning" title="Link to this heading">¶</a></h3>
+<p>Versioning will adhere to <a class="reference internal" href="#simple-repository-api-versioning"><span class="std std-ref">the API versioning specification</span></a> format (<code class="docutils literal notranslate"><span class="pre">Major.Minor</span></code>), which has defined the
+existing HTML responses to be <code class="docutils literal notranslate"><span class="pre">1.0</span></code>. Since this spec does not introduce new features
+into the API, rather it describes a different serialization format for the existing
+features, this spec does not change the existing <code class="docutils literal notranslate"><span class="pre">1.0</span></code> version, and instead just
+describes how to serialize that into JSON.</p>
+<p>Similar to <a class="reference internal" href="#simple-repository-api-versioning"><span class="std std-ref">the API versioning specification</span></a>, the major version number <strong>MUST</strong> be
+incremented if any
+changes to the new format would result in no longer being able to expect existing
+clients to meaningfully understand the format.</p>
+<p>Likewise, the minor version <strong>MUST</strong> be incremented if features are
+added or removed from the format, but existing clients would be expected to continue
+to meaningfully understand the format.</p>
+<p>Changes that would not result in existing clients being unable to meaningfully
+understand the format and which do not represent features being added or removed
+may occur without changing the version number.</p>
+<p>This is intentionally vague, as this spec believes it is best left up to future specs
+that make any changes to the API to investigate and decide whether or not that
+change should increment the major or minor version.</p>
+<p>Future versions of the API may add things that can only be represented in a subset
+of the available serializations of that version. All serializations version numbers,
+within a major version, <strong>SHOULD</strong> be kept in sync, but the specifics of how a
+feature serializes into each format may differ, including whether or not that feature
+is present at all.</p>
+<p>It is the intent of this spec that the API should be thought of as URL endpoints that
+return data, whose interpretation is defined by the version of that data, and then
+serialized into the target serialization format.</p>
+</section>
+<section id="json-serialization">
+<span id="id2"></span><h3>JSON Serialization<a class="headerlink" href="#json-serialization" title="Link to this heading">¶</a></h3>
+<p>The URL structure from <a class="reference internal" href="#simple-repository-html-serialization"><span class="std std-ref">the base HTML API specification</span></a> still applies, as this spec only adds
+an additional serialization format for the already existing API.</p>
+<p>The following constraints apply to all JSON serialized responses described in this
+spec:</p>
+<ul class="simple">
+<li><p>All JSON responses will <em>always</em> be a JSON object rather than an array or other
+type.</p></li>
+<li><p>While JSON doesn’t natively support a URL type, any value that represents an
+URL in this API may be either absolute or relative as long as they point to
+the correct location. If relative, they are relative to the current URL as if
+it were HTML.</p></li>
+<li><p>Additional keys may be added to any dictionary objects in the API responses
+and clients <strong>MUST</strong> ignore keys that they don’t understand.</p></li>
+<li><p>All JSON responses will have a <code class="docutils literal notranslate"><span class="pre">meta</span></code> key, which contains information related to
+the response itself, rather than the content of the response.</p></li>
+<li><p>All JSON responses will have a <code class="docutils literal notranslate"><span class="pre">meta.api-version</span></code> key, which will be a string that
+contains the <a class="reference internal" href="#simple-repository-api-versioning"><span class="std std-ref">API versioning specification</span></a> <code class="docutils literal notranslate"><span class="pre">Major.Minor</span></code> version number, with the
+same fail/warn semantics as defined in <a class="reference internal" href="#simple-repository-api-versioning"><span class="std std-ref">the API versioning specification</span></a>.</p></li>
+<li><p>All requirements of <a class="reference internal" href="#simple-repository-api-base"><span class="std std-ref">the base HTML API specification</span></a> that are not HTML specific still apply.</p></li>
+<li><p>Keys (at any level) with a leading underscore are reserved as private for
+index server use. No future standard will assign a meaning to any such key.</p></li>
+</ul>
+<section id="simple-repository-json-project-list">
+<span id="id3"></span><h4>Project List<a class="headerlink" href="#simple-repository-json-project-list" title="Link to this heading">¶</a></h4>
+<p>The root URL <code class="docutils literal notranslate"><span class="pre">/</span></code> for this spec (which represents the base URL) will be a JSON encoded
+dictionary which has a two keys:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">projects</span></code>: An array where each entry is a dictionary with a single key, <code class="docutils literal notranslate"><span class="pre">name</span></code>, which represents string of the project name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">meta</span></code>: The general response metadata as <a class="reference internal" href="#json-serialization">described earlier</a>.</p></li>
+</ul>
+<p>As an example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;api-version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.4&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;projects&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Frob&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;spamspamspam&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">name</span></code> field is the same as the one from <a class="reference internal" href="#simple-repository-api-base"><span class="std std-ref">the base HTML API
+specification</span></a>, which does not specify
+whether it is the non-normalized display name or the normalized name. In practice
+different implementations of these specs are choosing differently here, so relying
+on it being either non-normalized or normalized is relying on an implementation
+detail of the repository in question.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While the <code class="docutils literal notranslate"><span class="pre">projects</span></code> key is an array, and thus is required to be in some kind
+of an order, neither <a class="reference internal" href="#simple-repository-api-base"><span class="std std-ref">the base HTML API specification</span></a> nor this spec requires any specific ordering nor
+that the ordering is consistent from one request to the next. Mentally this is
+best thought of as a set, but both JSON and HTML lack the functionality to have
+sets.</p>
+</div>
+</section>
+<section id="simple-repository-json-project-detail">
+<span id="id4"></span><h4>Project Detail<a class="headerlink" href="#simple-repository-json-project-detail" title="Link to this heading">¶</a></h4>
+<p>The format of this URL is <code class="docutils literal notranslate"><span class="pre">/&lt;project&gt;/</span></code> where the <code class="docutils literal notranslate"><span class="pre">&lt;project&gt;</span></code> is replaced by the
+<a class="reference internal" href="#simple-repository-api-base"><span class="std std-ref">the base HTML API specification</span></a> normalized
+name for that project, so a project named “Silly_Walk” would
+have a URL like <code class="docutils literal notranslate"><span class="pre">/silly-walk/</span></code>.</p>
+<p>This URL must respond with a JSON encoded dictionary that has five keys:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: The normalized name of the project.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project-status</span></code>: An optional dictionary, containing the following:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>: If present, this <strong>MUST</strong> be a valid project status marker.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The set of valid project status markers and their semantics is described
+in <a class="reference internal" href="project-status-markers.html#project-status-markers"><span class="std std-ref">Project Status Markers</span></a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">status</span></code> key was added with API version 1.4.</p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reason</span></code>: If present, this <strong>MUST</strong> be an arbitrary string description
+of the project status.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">reason</span></code> key was added with API version 1.4.</p>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">project-status</span></code> key was added with API version 1.4.</p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">files</span></code>: A list of dictionaries, each one representing an individual file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">meta</span></code>: The general response metadata as <a class="reference internal" href="#json-serialization">described earlier</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">versions</span></code>: A list of version strings specifying all of the project versions
+uploaded for this project. The value of <code class="docutils literal notranslate"><span class="pre">versions</span></code> is logically a set,
+and as such may not contain duplicates, and the order of the versions is
+not significant.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All of the files listed in the <code class="docutils literal notranslate"><span class="pre">files</span></code> key MUST be associated with one of the
+versions in the <code class="docutils literal notranslate"><span class="pre">versions</span></code> key. The <code class="docutils literal notranslate"><span class="pre">versions</span></code> key MAY contain versions with
+no associated files (to represent versions with no files uploaded, if the server
+has such a concept).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because servers may hold “legacy” data from before the adoption of
+<a class="reference internal" href="version-specifiers.html#version-specifiers"><span class="std std-ref">the version specifiers specification (VSS)</span></a>, version
+strings currently cannot be required to be valid VSS versions, and therefore
+cannot be assumed to be orderable using the VSS rules. However, servers <strong>SHOULD</strong>
+use normalized VSS versions where possible.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">versions</span></code> key was added with API version 1.1.</p>
+</div>
+</li>
+</ul>
+<p>Each individual file dictionary has the following keys:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: The filename that is being represented.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">url</span></code>: The URL that the file can be fetched from.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hashes</span></code>: A dictionary mapping a hash name to a hex encoded digest of the file.
+Multiple hashes can be included, and it is up to the client to decide what to do
+with multiple hashes (it may validate all of them or a subset of them, or nothing
+at all). These hash names <strong>SHOULD</strong> always be normalized to be lowercase.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">hashes</span></code> dictionary <strong>MUST</strong> be present, even if no hashes are available
+for the file, however it is <strong>HIGHLY</strong> recommended that at least one secure,
+guaranteed-to-be-available hash is always included.</p>
+<p>By default, any hash algorithm available via <a class="reference external" href="https://docs.python.org/3/library/hashlib.html#module-hashlib" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hashlib</span></code></a> (specifically any that can
+be passed to <a class="reference external" href="https://docs.python.org/3/library/hashlib.html#hashlib.new" title="(in Python v3.14)"><code class="xref py py-func docutils literal notranslate"><span class="pre">hashlib.new()</span></code></a> and do not require additional parameters) can
+be used as a key for the hashes dictionary. At least one secure algorithm from
+<a class="reference external" href="https://docs.python.org/3/library/hashlib.html#hashlib.algorithms_guaranteed" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">hashlib.algorithms_guaranteed</span></code></a> <strong>SHOULD</strong> always be included. At the time
+of this spec, <code class="docutils literal notranslate"><span class="pre">sha256</span></code> specifically is recommended.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">requires-python</span></code>: An <strong>optional</strong> key that exposes the
+<a class="reference internal" href="core-metadata.html#core-metadata-requires-python"><span class="std std-ref">Requires-Python</span></a>
+metadata field. Where this is present, installer tools
+<strong>SHOULD</strong> ignore the download when installing to a Python version that
+doesn’t satisfy the requirement.</p>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">data-requires-python</span></code> in <a class="reference internal" href="#simple-repository-api-base"><span class="std std-ref">the base HTML API specification</span></a>, the <code class="docutils literal notranslate"><span class="pre">requires-python</span></code> key does not
+require any special escaping other than anything JSON does naturally.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">core-metadata</span></code>: An <strong>optional</strong> key that indicates
+that metadata for this file is available, via the same location as specified in
+<a class="reference internal" href="#simple-repository-api-metadata-file"><span class="std std-ref">the API metadata file specification</span></a> (<code class="docutils literal notranslate"><span class="pre">{file_url}.metadata</span></code>). Where this
+is present, it <strong>MUST</strong> be
+either a boolean to indicate if the file has an associated metadata file, or a
+dictionary mapping hash names to a hex encoded digest of the metadata’s hash.</p>
+<p>When this is a dictionary of hashes instead of a boolean, then all the same
+requirements and recommendations as the <code class="docutils literal notranslate"><span class="pre">hashes</span></code> key hold true for this key as
+well.</p>
+<p>If this key is missing then the metadata file may or may not exist. If the key
+value is truthy, then the metadata file is present, and if it is falsey then it
+is not.</p>
+<p>It is recommended that servers make the hashes of the metadata file available if
+possible.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dist-info-metadata</span></code>: An <strong>optional</strong>, deprecated alias for <code class="docutils literal notranslate"><span class="pre">core-metadata</span></code>.</p>
+<p>Index clients <strong>MAY</strong> consume this key if present, as a legacy fallback
+for <code class="docutils literal notranslate"><span class="pre">core-metadata</span></code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><code class="docutils literal notranslate"><span class="pre">dist-info-metadata</span></code> was standardized with <span class="target" id="index-8"></span><a class="pep reference external" href="https://peps.python.org/pep-0658/"><strong>PEP 658</strong></a> and renamed to
+<code class="docutils literal notranslate"><span class="pre">core-metadata</span></code> with <span class="target" id="index-9"></span><a class="pep reference external" href="https://peps.python.org/pep-0714/"><strong>PEP 714</strong></a>.</p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gpg-sig</span></code>: An <strong>optional</strong> key that acts a boolean to indicate if the file has
+an associated GPG signature or not. The URL for the signature file follows what
+is specified in <a class="reference internal" href="#simple-repository-api-base"><span class="std std-ref">the base HTML API specification</span></a> (<code class="docutils literal notranslate"><span class="pre">{file_url}.asc</span></code>). If this key does not exist, then
+the signature may or may not exist.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yanked</span></code>: An <strong>optional</strong> key which may be either a boolean to indicate if the
+file has been yanked, or a non empty, but otherwise arbitrary, string to indicate
+that a file has been yanked with a specific reason. If the <code class="docutils literal notranslate"><span class="pre">yanked</span></code> key is present
+and is a truthy value, then it <strong>SHOULD</strong> be interpreted as indicating that the
+file pointed to by the <code class="docutils literal notranslate"><span class="pre">url</span></code> field has been “Yanked”.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The semantics of how tools should handle yanked files is
+described in <a class="reference internal" href="file-yanking.html#file-yanking"><span class="std std-ref">File Yanking</span></a>.</p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: A <strong>mandatory</strong> key. It <strong>MUST</strong> contain an integer which is the file size in bytes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">size</span></code> key was added with API version 1.1.</p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">upload-time</span></code>: An <strong>optional</strong> key that, if present, <strong>MUST</strong> contain a valid
+ISO 8601 date/time string in the format <code class="docutils literal notranslate"><span class="pre">yyyy-mm-ddThh:mm:ss.ffffffZ</span></code>
+which represents the time the file was uploaded to the index.</p>
+<p>As indicated by the <code class="docutils literal notranslate"><span class="pre">Z</span></code> suffix, the upload time <strong>MUST</strong> use the UTC timezone.
+The fractional seconds part of the timestamp (the <code class="docutils literal notranslate"><span class="pre">.ffffff</span></code> part) is optional,
+and if present may contain up to 6 digits of precision. If a server does not record
+upload time information for a file, it <strong>MAY</strong> omit the <code class="docutils literal notranslate"><span class="pre">upload-time</span></code> key.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">upload-time</span></code> key was added with API version 1.1.</p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">provenance</span></code>: An <strong>optional</strong> key which, if present <strong>MUST</strong> be either a JSON
+string or <code class="docutils literal notranslate"><span class="pre">null</span></code>. If not <code class="docutils literal notranslate"><span class="pre">null</span></code>, it <strong>MUST</strong> be a URL to the file’s
+associated provenance, with the same rules as <code class="docutils literal notranslate"><span class="pre">data-provenance</span></code> in the
+<a class="reference internal" href="#simple-repository-api-base"><span class="std std-ref">base HTML API specification</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">provenance</span></code> field was added with API version 1.3.</p>
+</div>
+</li>
+</ul>
+<p>As an example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;api-version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.4&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;project-status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;project-status-reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;this project is not yet haunted&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;holygrail&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;holygrail-1.0.tar.gz&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/files/holygrail-1.0.tar.gz&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;hashes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;sha256&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;blake2b&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;requires-python&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&gt;=3.7&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;yanked&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Had a vulnerability&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123456</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;holygrail-1.0-py3-none-any.whl&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/files/holygrail-1.0-py3-none-any.whl&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;hashes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;sha256&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;blake2b&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;requires-python&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&gt;=3.7&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;dist-info-metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;provenance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/files/holygrail-1.0-py3-none-any.whl.provenance&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1337</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;versions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;1.0&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While the <code class="docutils literal notranslate"><span class="pre">files</span></code> key is an array, and thus is required to be in some kind
+of an order, neither <a class="reference internal" href="#simple-repository-api-base"><span class="std std-ref">the base HTML API specification</span></a> nor this spec requires any specific ordering nor
+that the ordering is consistent from one request to the next. Mentally this is
+best thought of as a set, but both JSON and HTML lack the functionality to have
+sets.</p>
+</div>
+</section>
+</section>
+<section id="content-types">
+<h3>Content-Types<a class="headerlink" href="#content-types" title="Link to this heading">¶</a></h3>
+<p>This spec proposes that all responses from the Simple API will have a standard
+content type that describes what the response is (a Simple API response), what
+version of the API it represents, and what serialization format has been used.</p>
+<p>The structure of this content type will be:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>application/vnd.pypi.simple.$version+format
+</pre></div>
+</div>
+<p>Since only major versions should be disruptive to clients attempting to
+understand one of these API responses, only the major version will be included
+in the content type, and will be prefixed with a <code class="docutils literal notranslate"><span class="pre">v</span></code> to clarify that it is a
+version number.</p>
+<p>Which means that for the existing 1.0 API, the content types would be:</p>
+<ul class="simple">
+<li><p><strong>JSON:</strong> <code class="docutils literal notranslate"><span class="pre">application/vnd.pypi.simple.v1+json</span></code></p></li>
+<li><p><strong>HTML:</strong> <code class="docutils literal notranslate"><span class="pre">application/vnd.pypi.simple.v1+html</span></code></p></li>
+</ul>
+<p>In addition to the above, a special “meta” version is supported named <code class="docutils literal notranslate"><span class="pre">latest</span></code>,
+whose purpose is to allow clients to request the absolute latest version, without
+having to know ahead of time what that version is. It is recommended however,
+that clients be explicit about what versions they support.</p>
+<p>To support existing clients which expect the existing <a class="reference internal" href="#simple-repository-api-base"><span class="std std-ref">the base HTML API
+specification</span></a> API responses to
+use the <code class="docutils literal notranslate"><span class="pre">text/html</span></code> content type, this spec further defines <code class="docutils literal notranslate"><span class="pre">text/html</span></code> as an alias
+for the <code class="docutils literal notranslate"><span class="pre">application/vnd.pypi.simple.v1+html</span></code> content type.</p>
+</section>
+<section id="version-format-selection">
+<h3>Version + Format Selection<a class="headerlink" href="#version-format-selection" title="Link to this heading">¶</a></h3>
+<p>Now that there is multiple possible serializations, we need a mechanism to allow
+clients to indicate what serialization formats they’re able to understand. In
+addition, it would be beneficial if any possible new major version to the API can
+be added without disrupting existing clients expecting the previous API version.</p>
+<p>To enable this, this spec standardizes on the use of HTTP’s
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation">Server-Driven Content Negotiation</a>.</p>
+<p>While this spec won’t fully describe the entirety of server-driven content
+negotiation, the flow is roughly:</p>
+<ol class="arabic simple">
+<li><p>The client makes an HTTP request containing an <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header listing all
+of the version+format content types that they are able to understand.</p></li>
+<li><p>The server inspects that header, selects one of the listed content types,
+then returns a response using that content type (treating the absence of
+an <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header as <code class="docutils literal notranslate"><span class="pre">Accept:</span> <span class="pre">*/*</span></code>).</p></li>
+<li><p>If the server does not support any of the content types in the <code class="docutils literal notranslate"><span class="pre">Accept</span></code>
+header then they are able to choose between 3 different options for how to
+respond:</p>
+<ol class="loweralpha simple">
+<li><p>Select a default content type other than what the client has requested
+and return a response with that.</p></li>
+<li><p>Return a HTTP <code class="docutils literal notranslate"><span class="pre">406</span> <span class="pre">Not</span> <span class="pre">Acceptable</span></code> response to indicate that none of
+the requested content types were available, and the server was unable
+or unwilling to select a default content type to respond with.</p></li>
+<li><p>Return a HTTP <code class="docutils literal notranslate"><span class="pre">300</span> <span class="pre">Multiple</span> <span class="pre">Choices</span></code> response that contains a list of
+all of the possible responses that could have been chosen.</p></li>
+</ol>
+</li>
+<li><p>The client interprets the response, handling the different types of responses
+that the server may have responded with.</p></li>
+</ol>
+<p>This spec does not specify which choices the server makes in regards to handling
+a content type that it isn’t able to return, and clients <strong>SHOULD</strong> be prepared
+to handle all of the possible responses in whatever way makes the most sense for
+that client.</p>
+<p>However, as there is no standard format for how a <code class="docutils literal notranslate"><span class="pre">300</span> <span class="pre">Multiple</span> <span class="pre">Choices</span></code>
+response can be interpreted, this spec highly discourages servers from utilizing
+that option, as clients will have no way to understand and select a different
+content-type to request. In addition, it’s unlikely that the client <em>could</em>
+understand a different content type anyways, so at best this response would
+likely just be treated the same as a <code class="docutils literal notranslate"><span class="pre">406</span> <span class="pre">Not</span> <span class="pre">Acceptable</span></code> error.</p>
+<p>This spec <strong>does</strong> require that if the meta version <code class="docutils literal notranslate"><span class="pre">latest</span></code> is being used, the
+server <strong>MUST</strong> respond with the content type for the actual version that is
+contained in the response
+(i.e. an <code class="docutils literal notranslate"><span class="pre">Accept:</span> <span class="pre">application/vnd.pypi.simple.latest+json</span></code> request that returns
+a <code class="docutils literal notranslate"><span class="pre">v1.x</span></code> response should have a <code class="docutils literal notranslate"><span class="pre">Content-Type</span></code> of
+<code class="docutils literal notranslate"><span class="pre">application/vnd.pypi.simple.v1+json</span></code>).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header is a comma separated list of content types that the client
+understands and is able to process. It supports three different formats for each
+content type that is being requested:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">$type/$subtype</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$type/*</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*/*</span></code></p></li>
+</ul>
+<p>For the use of selecting a version+format, the most useful of these is
+<code class="docutils literal notranslate"><span class="pre">$type/$subtype</span></code>, as that is the only way to actually specify the version
+and format you want.</p>
+<p>The order of the content types listed in the <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header does not have any
+specific meaning, and the server <strong>SHOULD</strong> consider all of them to be equally
+valid to respond with. If a client wishes to specify that they prefer a specific
+content type over another, they may use the <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header’s
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Glossary/Quality_values">quality value</a>
+syntax.</p>
+<p>This allows a client to specify a priority for a specific entry in their
+<code class="docutils literal notranslate"><span class="pre">Accept</span></code> header, by appending a <code class="docutils literal notranslate"><span class="pre">;q=</span></code> followed by a value between <code class="docutils literal notranslate"><span class="pre">0</span></code> and
+<code class="docutils literal notranslate"><span class="pre">1</span></code> inclusive, with up to 3 decimal digits. When interpreting this value,
+an entry with a higher quality has priority over an entry with a lower quality,
+and any entry without a quality present will default to a quality of <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+<p>However, clients should keep in mind that a server is free to select <strong>any</strong> of
+the content types they’ve asked for, regardless of their requested priority, and
+it may even return a content type that they did <strong>not</strong> ask for.</p>
+<p>To aid clients in determining the content type of the response that they have
+received from an API request, this spec requires that servers always include a
+<code class="docutils literal notranslate"><span class="pre">Content-Type</span></code> header indicating the content type of the response. This is
+technically a backwards incompatible change, however in practice
+<a class="reference external" href="https://github.com/pypa/pip/blob/cf3696a81b341925f82f20cb527e656176987565/src/pip/_internal/index/collector.py#L123-L150">pip has been enforcing this requirement</a>
+so the risks for actual breakages is low.</p>
+<p>An example of how a client can operate would look like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">email.message</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="k">def</span> <span class="nf">parse_content_type</span><span class="p">(</span><span class="n">header</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">Message</span><span class="p">()</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;content-type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">header</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">get_content_type</span><span class="p">()</span>
+
+<span class="c1"># Construct our list of acceptable content types, we want to prefer</span>
+<span class="c1"># that we get a v1 response serialized using JSON, however we also</span>
+<span class="c1"># can support a v1 response serialized using HTML. For compatibility</span>
+<span class="c1"># we also request text/html, but we prefer it least of all since we</span>
+<span class="c1"># don&#39;t know if it&#39;s actually a Simple API response, or just some</span>
+<span class="c1"># random HTML page that we&#39;ve gotten due to a misconfiguration.</span>
+<span class="n">CONTENT_TYPES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;application/vnd.pypi.simple.v1+json&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;application/vnd.pypi.simple.v1+html;q=0.2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;text/html;q=0.01&quot;</span><span class="p">,</span>  <span class="c1"># For legacy compatibility</span>
+<span class="p">]</span>
+<span class="n">ACCEPT</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CONTENT_TYPES</span><span class="p">)</span>
+
+
+<span class="c1"># Actually make our request to the API, requesting all of the content</span>
+<span class="c1"># types that we find acceptable, and letting the server select one of</span>
+<span class="c1"># them out of the list.</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://pypi.org/simple/&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="n">ACCEPT</span><span class="p">})</span>
+
+<span class="c1"># If the server does not support any of the content types you requested,</span>
+<span class="c1"># AND it has chosen to return a HTTP 406 error instead of a default</span>
+<span class="c1"># response then this will raise an exception for the 406 error.</span>
+<span class="n">resp</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+
+<span class="c1"># Determine what kind of response we&#39;ve gotten to ensure that it is one</span>
+<span class="c1"># that we can support, and if it is, dispatch to a function that will</span>
+<span class="c1"># understand how to interpret that particular version+serialization. If</span>
+<span class="c1"># we don&#39;t understand the content type we&#39;ve gotten, then we&#39;ll raise</span>
+<span class="c1"># an exception.</span>
+<span class="n">content_type</span> <span class="o">=</span> <span class="n">parse_content_type</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content-type&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+<span class="k">match</span> <span class="n">content_type</span><span class="p">:</span>
+    <span class="k">case</span> <span class="s2">&quot;application/vnd.pypi.simple.v1+json&quot;</span><span class="p">:</span>
+        <span class="n">handle_v1_json</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+    <span class="k">case</span> <span class="s2">&quot;application/vnd.pypi.simple.v1+html&quot;</span> <span class="o">|</span> <span class="s2">&quot;text/html&quot;</span><span class="p">:</span>
+        <span class="n">handle_v1_html</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+    <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown content type: </span><span class="si">{</span><span class="n">content_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If a client wishes to only support HTML or only support JSON, then they would
+just remove the content types that they do not want from the <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header,
+and turn receiving them into an error.</p>
+<section id="alternative-negotiation-mechanisms">
+<h4>Alternative Negotiation Mechanisms<a class="headerlink" href="#alternative-negotiation-mechanisms" title="Link to this heading">¶</a></h4>
+<p>While using HTTP’s Content negotiation is considered the standard way for a client
+and server to coordinate to ensure that the client is getting an HTTP response that
+it is able to understand, there are situations where that mechanism may not be
+sufficient. For those cases this spec has alternative negotiation mechanisms that
+may <em>optionally</em> be used instead.</p>
+<section id="url-parameter">
+<h5>URL Parameter<a class="headerlink" href="#url-parameter" title="Link to this heading">¶</a></h5>
+<p>Servers that implement the Simple API may choose to support a URL parameter named
+<code class="docutils literal notranslate"><span class="pre">format</span></code> to allow the clients to request a specific version of the URL.</p>
+<p>The value of the <code class="docutils literal notranslate"><span class="pre">format</span></code> parameter should be <strong>one</strong> of the valid content types.
+Passing multiple content types, wild cards, quality values, etc… is <strong>not</strong>
+supported.</p>
+<p>Supporting this parameter is optional, and clients <strong>SHOULD NOT</strong> rely on it for
+interacting with the API. This negotiation mechanism is intended to allow for easier
+human based exploration of the API within a browser, or to allow documentation or
+notes to link to a specific version+format.</p>
+<p>Servers that do not support this parameter may choose to return an error when it is
+present, or they may simple ignore its presence.</p>
+<p>When a server does implement this parameter, it <strong>SHOULD</strong> take precedence over any
+values in the client’s <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header, and if the server does not support the
+requested format, it may choose to fall back to the <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header, or choose any
+of the error conditions that standard server-driven content negotiation typically
+has (e.g. <code class="docutils literal notranslate"><span class="pre">406</span> <span class="pre">Not</span> <span class="pre">Available</span></code>, <code class="docutils literal notranslate"><span class="pre">303</span> <span class="pre">Multiple</span> <span class="pre">Choices</span></code>, or selecting a default
+type to return).</p>
+</section>
+<section id="endpoint-configuration">
+<h5>Endpoint Configuration<a class="headerlink" href="#endpoint-configuration" title="Link to this heading">¶</a></h5>
+<p>This option technically is not a special option at all, it is just a natural
+consequence of using content negotiation and allowing servers to select which of the
+available content types is their default.</p>
+<p>If a server is unwilling or unable to implement the server-driven content negotiation,
+and would instead rather require users to explicitly configure their client to select
+the version they want, then that is a supported configuration.</p>
+<p>To enable this, a server should make multiple endpoints (for instance,
+<code class="docutils literal notranslate"><span class="pre">/simple/v1+html/</span></code> and/or <code class="docutils literal notranslate"><span class="pre">/simple/v1+json/</span></code>) for each version+format that they
+wish to support. Under that endpoint, they can host a copy of their repository that
+only supports one (or a subset) of the content-types. When a client makes a request
+using the <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header, the server can ignore it and return the content type
+that corresponds to that endpoint.</p>
+<p>For clients that wish to require specific configuration, they can keep track of
+which version+format a specific repository URL was configured for, and when making
+a request to that server, emit an <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header that <em>only</em> includes the correct
+content type.</p>
+</section>
+</section>
+</section>
+<section id="recommendations">
+<h3>Recommendations<a class="headerlink" href="#recommendations" title="Link to this heading">¶</a></h3>
+<p>This section is non-normative, and represents what the spec authors believe to be
+the best default implementation decisions for something implementing this spec, but
+it does <strong>not</strong> represent any sort of requirement to match these decisions.</p>
+<p>These decisions have been chosen to maximize the number of requests that can be
+moved onto the newest version of an API, while maintaining the greatest amount
+of compatibility. In addition, they’ve also tried to make using the API provide
+guardrails that attempt to push clients into making the best choices it can.</p>
+<p>It is recommended that servers:</p>
+<ul class="simple">
+<li><p>Support all 3 content types described in this spec, using server-driven
+content negotiation, for as long as they reasonably can, or at least as
+long as they’re receiving non trivial traffic that uses the HTML responses.</p></li>
+<li><p>When encountering an <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header that does not contain any content types
+that it knows how to work with, the server should not ever return a
+<code class="docutils literal notranslate"><span class="pre">300</span> <span class="pre">Multiple</span> <span class="pre">Choice</span></code> response, and instead return a <code class="docutils literal notranslate"><span class="pre">406</span> <span class="pre">Not</span> <span class="pre">Acceptable</span></code>
+response.</p>
+<ul>
+<li><p>However, if choosing to use the endpoint configuration, you should prefer to
+return a <code class="docutils literal notranslate"><span class="pre">200</span> <span class="pre">OK</span></code> response in the expected content type for that endpoint.</p></li>
+</ul>
+</li>
+<li><p>When selecting an acceptable version, the server should choose the highest version
+that the client supports, with the most expressive/featureful serialization format,
+taking into account the specificity of the client requests as well as any
+quality priority values they have expressed, and it should only use the
+<code class="docutils literal notranslate"><span class="pre">text/html</span></code> content type as a last resort.</p></li>
+</ul>
+<p>It is recommended that clients:</p>
+<ul>
+<li><p>Support all 3 content types described in this spec, using server-driven
+content negotiation, for as long as they reasonably can.</p></li>
+<li><p>When constructing an <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header, include all of the content types
+that you support.</p>
+<p>You should generally <em>not</em> include a quality priority value for your content
+types, unless you have implementation specific reasons that you want the
+server to take into account (for example, if you’re using the standard library
+HTML parser and you’re worried that there may be some kinds of HTML responses
+that you’re unable to parse in some edge cases).</p>
+<p>The one exception to this recommendation is that it is recommended that you
+<em>should</em> include a <code class="docutils literal notranslate"><span class="pre">;q=0.01</span></code> value on the legacy <code class="docutils literal notranslate"><span class="pre">text/html</span></code> content type,
+unless it is the only content type that you are requesting.</p>
+</li>
+<li><p>Explicitly select what versions they are looking for, rather than using the
+<code class="docutils literal notranslate"><span class="pre">latest</span></code> meta version during normal operation.</p></li>
+<li><p>Check the <code class="docutils literal notranslate"><span class="pre">Content-Type</span></code> of the response and ensure it matches something
+that you were expecting.</p></li>
+</ul>
+</section>
+</section>
+<section id="history">
+<span id="simple-repository-history"></span><h2>History<a class="headerlink" href="#history" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>September 2015: initial form of the HTML format, in <span class="target" id="index-10"></span><a class="pep reference external" href="https://peps.python.org/pep-0503/"><strong>PEP 503</strong></a></p></li>
+<li><p>July 2016: Requires-Python metadata, in an update to <span class="target" id="index-11"></span><a class="pep reference external" href="https://peps.python.org/pep-0503/"><strong>PEP 503</strong></a></p></li>
+<li><p>May 2019: “yank” support, in <span class="target" id="index-12"></span><a class="pep reference external" href="https://peps.python.org/pep-0592/"><strong>PEP 592</strong></a></p></li>
+<li><p>July 2020: API versioning convention and metadata, and declaring the HTML
+format as API v1, in <span class="target" id="index-13"></span><a class="pep reference external" href="https://peps.python.org/pep-0629/"><strong>PEP 629</strong></a></p></li>
+<li><p>May 2021: providing package metadata independently from a package, in
+<span class="target" id="index-14"></span><a class="pep reference external" href="https://peps.python.org/pep-0658/"><strong>PEP 658</strong></a></p></li>
+<li><p>May 2022: initial form of the JSON format, with a mechanism for clients to
+choose between them, and declaring both formats as API v1, in <span class="target" id="index-15"></span><a class="pep reference external" href="https://peps.python.org/pep-0691/"><strong>PEP 691</strong></a></p></li>
+<li><p>October 2022: project versions and file size and upload-time in the JSON
+format, in <span class="target" id="index-16"></span><a class="pep reference external" href="https://peps.python.org/pep-0700/"><strong>PEP 700</strong></a></p></li>
+<li><p>June 2023: renaming the field which provides package metadata independently
+from a package, in <span class="target" id="index-17"></span><a class="pep reference external" href="https://peps.python.org/pep-0714/"><strong>PEP 714</strong></a></p></li>
+<li><p>November 2024: provenance metadata in the HTML and JSON formats, in <span class="target" id="index-18"></span><a class="pep reference external" href="https://peps.python.org/pep-0740/"><strong>PEP 740</strong></a></p></li>
+<li><p>July 2025: project status markers in the HTML and JSON formats, in <span class="target" id="index-19"></span><a class="pep reference external" href="https://peps.python.org/pep-0792/"><strong>PEP 792</strong></a></p></li>
+<li><p>July 2025: layout changes (dedicated page for file yanking, introduce concepts before API details)</p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="file-yanking.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">File Yanking</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="pypirc.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">The <code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2013–2020, PyPA
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            <div class="last-updated">
+              Last updated on Feb 21, 2026</div>
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Simple repository API</a><ul>
+<li><a class="reference internal" href="#base-api">Base API</a><ul>
+<li><a class="reference internal" href="#normalized-names">Normalized Names</a></li>
+<li><a class="reference internal" href="#versioning-pypi-s-simple-api">Versioning PyPI’s Simple API</a><ul>
+<li><a class="reference internal" href="#api-version-history">API Version History</a></li>
+<li><a class="reference internal" href="#clients">Clients</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#html-serialization">HTML Serialization</a><ul>
+<li><a class="reference internal" href="#project-list">Project List</a></li>
+<li><a class="reference internal" href="#project-detail">Project Detail</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#serve-distribution-metadata-in-the-simple-repository-api">Serve Distribution Metadata in the Simple Repository API</a><ul>
+<li><a class="reference internal" href="#backwards-compatibility">Backwards Compatibility</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#json-based-simple-api-for-python-package-indexes">JSON-based Simple API for Python Package Indexes</a><ul>
+<li><a class="reference internal" href="#versioning">Versioning</a></li>
+<li><a class="reference internal" href="#json-serialization">JSON Serialization</a><ul>
+<li><a class="reference internal" href="#simple-repository-json-project-list">Project List</a></li>
+<li><a class="reference internal" href="#simple-repository-json-project-detail">Project Detail</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#content-types">Content-Types</a></li>
+<li><a class="reference internal" href="#version-format-selection">Version + Format Selection</a><ul>
+<li><a class="reference internal" href="#alternative-negotiation-mechanisms">Alternative Negotiation Mechanisms</a><ul>
+<li><a class="reference internal" href="#url-parameter">URL Parameter</a></li>
+<li><a class="reference internal" href="#endpoint-configuration">Endpoint Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#recommendations">Recommendations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#history">History</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=cb5fb026"></script>
+    </body>
+</html>

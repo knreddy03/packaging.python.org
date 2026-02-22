@@ -1,0 +1,851 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="PyPA specifications" href="../specifications/index.html" /><link rel="prev" title="Single-sourcing the Project Version" href="single-source-version.html" />
+
+    <link rel="shortcut icon" href="../_static/py.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
+        <title>Supporting downstream packaging - Python Packaging User Guide</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Python Packaging User Guide</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">Python Packaging User Guide</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview of Python Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow.html">The Packaging Flow</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/installing-packages.html">Installing Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/managing-dependencies.html">Managing Application Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/packaging-projects.html">Packaging Python Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../guides/index.html">Guides</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../guides/section-install.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-using-pip-and-virtual-environments.html">Install packages in a virtual environment using pip and venv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-using-virtualenv.html">Installing packages using virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-stand-alone-command-line-tools.html">Installing stand alone command line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-using-linux-tools.html">Installing pip/setuptools/wheel with Linux Package Managers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/installing-scientific-packages.html">Installing scientific packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../guides/section-build-and-publish.html">Building and Publishing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Building and Publishing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/writing-pyproject-toml.html">Writing your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/distributing-packages-using-setuptools.html">Packaging and distributing projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/dropping-older-python-versions.html">Dropping support for older Python versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/packaging-binary-extensions.html">Packaging binary extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/packaging-namespace-packages.html">Packaging namespace packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/creating-command-line-tools.html">Creating and packaging command-line tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/creating-and-discovering-plugins.html">Creating and discovering plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/using-testpypi.html">Using TestPyPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/making-a-pypi-friendly-readme.html">Making a PyPI-friendly README</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows.html">Publishing package distribution releases using GitHub Actions CI/CD workflows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/modernize-setup-py-project.html">How to modernize a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> based project?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/licensing-examples-and-user-scenarios.html">Licensing examples and user scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../guides/section-hosting.html">Hosting</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Hosting</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/index-mirrors-and-caches.html">Package index mirrors and caches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/hosting-your-own-index.html">Hosting your own simple repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/tool-recommendations.html">Tool recommendations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/analyzing-pypi-package-downloads.html">Analyzing PyPI package downloads</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Discussions</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Discussions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploying-python-applications.html">Deploying Python applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip-vs-easy-install.html">pip vs easy_install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install-requires-vs-requirements.html">install_requires vs requirements files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distribution-package-vs-import-package.html">Distribution package vs. import package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package-formats.html">Package Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src-layout-vs-flat-layout.html">src layout vs flat layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-py-deprecated.html">Is <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> deprecated?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single-source-version.html">Single-sourcing the Project Version</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Supporting downstream packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../specifications/index.html">PyPA specifications</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of PyPA specifications</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specifications/section-distribution-metadata.html">Package Distribution Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Package Distribution Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/name-normalization.html">Names and normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/core-metadata.html">Core metadata specifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/version-specifiers.html">Version specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/dependency-specifiers.html">Dependency specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/pyproject-toml.html"><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/dependency-groups.html">Dependency Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/inline-script-metadata.html">Inline script metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/platform-compatibility-tags.html">Platform compatibility tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/well-known-project-urls.html">Well-known Project URLs in Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/glob-patterns.html"><code class="docutils literal notranslate"><span class="pre">glob</span></code> patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/license-expression.html">License Expression</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specifications/section-installation-metadata.html">Package Installation Metadata</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Package Installation Metadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/recording-installed-packages.html">Recording installed projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/entry-points.html">Entry points specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/direct-url.html">Recording the Direct URL Origin of installed distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/direct-url-data-structure.html">Direct URL Data Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/virtual-environments.html">Python Virtual Environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/externally-managed-environments.html">Externally Managed Environments</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specifications/section-distribution-formats.html">Package Distribution File Formats</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Package Distribution File Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/source-distribution-format.html">Source distribution format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/binary-distribution-format.html">Binary distribution format</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specifications/section-package-indices.html">Package Index Interfaces</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Package Index Interfaces</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/pypirc.html">The <code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/simple-repository-api.html">Simple repository API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/file-yanking.html">File Yanking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/index-hosted-attestations.html">Index hosted attestations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/project-status-markers.html">Project Status Markers</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specifications/section-python-description-formats.html">Python Description Formats</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Python Description Formats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../specifications/build-details/index.html"><code class="file docutils literal notranslate"><span class="pre">build-details.json</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of build-details.json</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../specifications/build-details/v1.0.html">v1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specifications/section-reproducible-environments.html">Reproducible Environments</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Reproducible Environments</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specifications/pylock-toml.html"><code class="docutils literal notranslate"><span class="pre">pylock.toml</span></code> Specification</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../specifications/schemas/index.html">PyPA schemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../key_projects.html">Project Summaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">How to Get Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute to this guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">News</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/blob/main/source/discussions/downstream-packaging.rst?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/pypa/packaging.python.org/edit/main/source/discussions/downstream-packaging.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="supporting-downstream-packaging">
+<span id="downstream-packaging"></span><h1>Supporting downstream packaging<a class="headerlink" href="#supporting-downstream-packaging" title="Link to this heading">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Page Status<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Draft</p>
+</dd>
+<dt class="field-even">Last Reviewed<span class="colon">:</span></dt>
+<dd class="field-even"><p>2025-?</p>
+</dd>
+</dl>
+<p>While PyPI and the Python packaging tools such as <a class="reference internal" href="../key_projects.html#pip"><span class="std std-ref">pip</span></a> are the primary
+means of distributing Python packages, they are also often made available as part
+of other packaging ecosystems. These repackaging efforts are collectively called
+<em>downstream</em> packaging (your own efforts are called <em>upstream</em> packaging),
+and include such projects as Linux distributions, Conda, Homebrew and MacPorts.
+They generally aim to provide improved support for use cases that cannot be handled
+via Python packaging tools alone, such as native integration with a specific operating
+system, or assured compatibility with specific versions of non-Python software.</p>
+<p>This discussion attempts to explain how downstream packaging is usually done,
+and what additional challenges downstream packagers typically face. It aims
+to provide some optional guidelines that project maintainers may choose to
+follow which help make downstream packaging <em>significantly</em> easier
+(without imposing any major maintenance hassles on the upstream project).
+Note that this is not an all-or-nothing proposal — anything that upstream
+maintainers can do is useful, even if it’s only a small part. Downstream
+maintainers are also willing to prepare patches to resolve these issues.
+Having these patches merged can be very helpful, since it removes the need
+for different downstreams to carry and keep rebasing the same patches,
+and the risk of applying inconsistent solutions to the same problem.</p>
+<p>Establishing a good relationship between software maintainers and downstream
+packagers can bring mutual benefits. Downstreams are often willing to share
+their experience, time and hardware to improve your package. They are
+sometimes in a better position to see how your package is used in practice,
+and to provide information about its relationships with other packages that
+would otherwise require significant effort to obtain.
+Packagers can often find bugs before your users hit them in production,
+provide bug reports of good quality, and supply patches whenever they can.
+For example, they are regularly active in ensuring the packages they redistribute
+are updated for any compatibility issues that arise when a new Python version
+is released.</p>
+<p>Please note that downstream builds include not only binary redistribution,
+but also source builds done on user systems (in source-first distributions
+such as Gentoo Linux, for example).</p>
+<section id="provide-complete-source-distributions">
+<span id="id1"></span><h2>Provide complete source distributions<a class="headerlink" href="#provide-complete-source-distributions" title="Link to this heading">¶</a></h2>
+<section id="why">
+<h3>Why?<a class="headerlink" href="#why" title="Link to this heading">¶</a></h3>
+<p>The vast majority of downstream packagers prefer to build packages from source,
+rather than use the upstream-provided binary packages. In some cases, using
+sources is actually required for the package to be included in the distribution.
+This is also true of pure Python packages that provide universal wheels.
+The reasons for using source distributions may include:</p>
+<ul class="simple">
+<li><p>Being able to audit the source code of all packages.</p></li>
+<li><p>Being able to run the test suite and build documentation.</p></li>
+<li><p>Being able to easily apply patches, including backporting commits
+from the project’s repository and sending patches back to the project.</p></li>
+<li><p>Being able to build on a specific platform that is not covered
+by upstream builds.</p></li>
+<li><p>Being able to build against specific versions of system libraries.</p></li>
+<li><p>Having a consistent build process across all Python packages.</p></li>
+</ul>
+<p>While it is usually possible to build packages from a Git repository, there are
+a few important reasons to provide a static archive file instead:</p>
+<ul class="simple">
+<li><p>Fetching a single file is often more efficient, more reliable and better
+supported than e.g. using a Git clone. This can help users with poor
+Internet connectivity.</p></li>
+<li><p>Downstreams often use hashes to verify the authenticity of source files
+on subsequent builds, which require that they remain bitwise identical over
+time. For example, automatically generated Git archives do not guarantee
+this, as the compressed data may change if gzip is upgraded on the server.</p></li>
+<li><p>Archive files can be mirrored, reducing both upstream and downstream
+bandwidth use. The actual builds can afterwards be performed in firewalled
+or offline environments, that can only access source files provided
+by the local mirror or redistributed earlier.</p></li>
+<li><p>Explicitly publishing archive files can ensure that any dependencies on version control
+system metadata are resolved when creating the source archive. For example, automatically
+generated Git archives omit all of the commit tag information, potentially resulting in
+incorrect version details in the resulting builds.</p></li>
+</ul>
+</section>
+<section id="how">
+<h3>How?<a class="headerlink" href="#how" title="Link to this heading">¶</a></h3>
+<p>Ideally, <strong>a source distribution archive published on PyPI should include all the files
+from the package’s Git repository</strong> that are necessary to build the package
+itself, run its test suite, build and install its documentation, and any other
+files that may be useful to end users, such as shell completions, editor
+support files, and so on.</p>
+<p>This point applies only to the files belonging to the package itself.
+The downstream packaging process, much like Python package managers, will
+provision the necessary Python dependencies, system tools and external
+libraries that are needed by your package and its build scripts. However,
+the files listing these dependencies (for example, <code class="docutils literal notranslate"><span class="pre">requirements*.txt</span></code> files)
+should also be included, to help downstreams determine the needed dependencies,
+and check for changes in them.</p>
+<p>Some projects have concerns related to Python package managers using source
+distributions from PyPI. They do not wish to increase their size with files
+that are not used by these tools, or they do not wish to publish source
+distributions at all, as they enable a problematic or outright nonfunctional
+fallback to building the particular project from source. In these cases, a good
+compromise may be to publish a separate source archive for downstream use
+elsewhere, for example by attaching it to a GitHub release. Alternatively,
+large files, such as test data, can be split into separate archives.</p>
+<p>On the other hand, some projects (<a class="reference external" href="https://numpy.org/">NumPy</a>, for instance) decide to include tests
+in their installed packages. This has the added advantage of permitting users to
+run tests after installing them, for example to check for regressions
+after upgrading a dependency. Yet another approach is to split tests or test
+data into a separate Python package. Such an approach was taken by
+the <a class="reference external" href="https://pypi.org/project/cryptography/">cryptography</a> project, with the large test vectors being split
+to <a class="reference external" href="https://pypi.org/project/cryptography-vectors/">cryptography-vectors</a> package.</p>
+<p>A good idea is to use your source distribution in the release workflow.
+For example, the <a class="reference internal" href="../key_projects.html#build"><span class="std std-ref">build</span></a> tool does exactly that — it first builds a source
+distribution, and then uses it to build a wheel. This ensures that the source
+distribution actually works, and that it won’t accidentally install fewer files
+than the official wheels.</p>
+<p>Ideally, also use the source distribution to run tests, build documentation,
+and so on, or add specific tests to make sure that all necessary files were
+actually included. Understandably, this requires more effort, so it’s fine
+not do that — downstream packagers will report any missing files promptly.</p>
+</section>
+</section>
+<section id="do-not-use-the-internet-during-the-build-process">
+<span id="no-internet-access-in-builds"></span><h2>Do not use the Internet during the build process<a class="headerlink" href="#do-not-use-the-internet-during-the-build-process" title="Link to this heading">¶</a></h2>
+<section id="id2">
+<h3>Why?<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Downstream builds are frequently done in sandboxed environments that cannot
+access the Internet. The package sources are unpacked into this environment,
+and all the necessary dependencies are installed.</p>
+<p>Even if this is not the case, and assuming that you took sufficient care to
+properly authenticate downloads, using the Internet is discouraged for a number
+of reasons:</p>
+<ul class="simple">
+<li><p>The Internet connection may be unstable (e.g. due to poor reception)
+or suffer from temporary problems that could cause the process to fail
+or hang.</p></li>
+<li><p>The remote resources may become temporarily or even permanently
+unavailable, making the build no longer possible. This is especially
+problematic when someone needs to build an old package version.</p></li>
+<li><p>The remote resources may change, making the build not reproducible.</p></li>
+<li><p>Accessing remote servers poses a privacy issue and a potential
+security issue, as it exposes information about the system building
+the package.</p></li>
+<li><p>The user may be using a service with a limited data plan, in which
+uncontrolled Internet access may result in additional charges or other
+inconveniences.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>How?<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>If the package is implementing any custom build <em>backend</em> actions that use
+the Internet, for example by automatically downloading vendored dependencies
+or fetching Git submodules, its source distribution should either include all
+of these files or allow provisioning them externally, and the Internet must not
+be used if the files are already present.</p>
+<p>Note that this point does not apply to Python dependencies that are specified
+in the package metadata, and are fetched during the build and installation
+process by <em>frontends</em> (such as <a class="reference internal" href="../key_projects.html#build"><span class="std std-ref">build</span></a> or <a class="reference internal" href="../key_projects.html#pip"><span class="std std-ref">pip</span></a>). Downstreams use
+frontends that use local provisioning for Python dependencies.</p>
+<p>Ideally, custom build scripts should not even attempt to access the Internet
+at all, unless explicitly requested to. If any resources are missing and need
+to be fetched, they should ask the user for permission first. If that is not
+feasible, the next best thing is to provide an opt-out switch to disable
+all Internet access. This could be done e.g. by checking whether
+a <code class="docutils literal notranslate"><span class="pre">NO_NETWORK</span></code> environment variable is set to a non-empty value.</p>
+<p>Since downstreams frequently also run tests and build documentation, the above
+should ideally extend to these processes as well.</p>
+<p>Please also remember that if you are fetching remote resources, you absolutely
+must <em>verify their authenticity</em> (usually against a hash), to protect against
+the file being substituted by a malicious party.</p>
+</section>
+</section>
+<section id="support-building-against-system-dependencies">
+<span id="support-system-dependencies-in-builds"></span><h2>Support building against system dependencies<a class="headerlink" href="#support-building-against-system-dependencies" title="Link to this heading">¶</a></h2>
+<section id="id4">
+<h3>Why?<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>Some Python projects have non-Python dependencies, such as libraries written
+in C or C++. Trying to use the system versions of these dependencies
+in upstream packaging may cause a number of problems for end users:</p>
+<ul class="simple">
+<li><p>The published wheels require a binary-compatible version of the used
+library to be present on the user’s system. If the library is missing
+or an incompatible version is installed, the Python package may fail with errors
+that are not clear to inexperienced users, or even misbehave at runtime.</p></li>
+<li><p>Building from a source distribution requires a source-compatible version
+of the dependency to be present, along with its development headers
+and other auxiliary files that some systems package separately
+from the library itself.</p></li>
+<li><p>Even for an experienced user, installing a compatible dependency version
+may be very hard. For example, the used Linux distribution may not provide
+the required version, or some other package may require an incompatible
+version.</p></li>
+<li><p>The linkage between the Python package and its system dependency is not
+recorded by the packaging system. The next system update may upgrade
+the library to a newer version that breaks binary compatibility with
+the Python package, and requires user intervention to fix.</p></li>
+</ul>
+<p>For these reasons, you may reasonably decide to either statically link
+your dependencies, or to provide local copies in the installed package.
+You may also vendor the dependency in your source distribution. Sometimes
+these dependencies are also repackaged on PyPI, and can be declared as
+project dependencies like any other Python package.</p>
+<p>However, none of these issues apply to downstream packaging, and downstreams
+have good reasons to prefer dynamically linking to system dependencies.
+In particular:</p>
+<ul class="simple">
+<li><p>In many cases, reliably sharing dynamic dependencies between components is a large part
+of the <em>purpose</em> of a downstream packaging ecosystem. Helping to support that makes it
+easier for users of those systems to access upstream projects in their preferred format.</p></li>
+<li><p>Static linking and vendoring obscures the use of external dependencies,
+making source auditing harder.</p></li>
+<li><p>Dynamic linking makes it possible to quickly and systematically replace the used
+libraries across an entire downstream packaging ecosystem, which can be particularly
+important when they turn out to contain a security vulnerability or critical bug.</p></li>
+<li><p>Using system dependencies makes the package benefit from downstream
+customization that can improve the user experience on a particular platform,
+without the downstream maintainers having to consistently patch
+the dependencies vendored in different packages. This can include
+compatibility improvements and security hardening.</p></li>
+<li><p>Static linking and vendoring can result in multiple different versions of the
+same library being loaded in the same process (for example, attempting to
+import two Python packages that link to different versions of the same library).
+This sometimes works without incident, but it can also lead to anything from library
+loading errors, to subtle runtime bugs, to catastrophic failures (like suddenly
+crashing and losing data).</p></li>
+<li><p>Last but not least, static linking and vendoring results in duplication,
+and may increase the use of both disk space and memory.</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>How?<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<p>A good compromise between the needs of both parties is to provide a switch
+between using vendored and system dependencies. Ideally, if the package has
+multiple vendored dependencies, it should provide both individual switches
+for each dependency, and a general switch to control the default for them,
+e.g. via a <code class="docutils literal notranslate"><span class="pre">USE_SYSTEM_DEPS</span></code> environment variable.</p>
+<p>If the user requests using system dependencies, and a particular dependency
+is either missing or incompatible, the build should fail with an explanatory
+message rather than fall back to a vendored version. This gives the packager
+the opportunity to notice their mistake and a chance to consciously decide
+how to solve it.</p>
+<p>It is reasonable for upstream projects to leave <em>testing</em> of building with
+system dependencies to their downstream repackagers. The goal of these guidelines
+is to facilitate more effective collaboration between upstream projects and downstream
+repackagers, not to suggest upstream projects take on tasks that downstream repackagers
+are better equipped to handle.</p>
+</section>
+</section>
+<section id="support-downstream-testing">
+<span id="id6"></span><h2>Support downstream testing<a class="headerlink" href="#support-downstream-testing" title="Link to this heading">¶</a></h2>
+<section id="id7">
+<h3>Why?<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<p>A variety of downstream projects run some degree of testing on the packaged
+Python projects. Depending on the particular case, this can range from minimal
+smoke testing to comprehensive runs of the complete test suite. There can
+be various reasons for doing this, for example:</p>
+<ul class="simple">
+<li><p>Verifying that the downstream packaging did not introduce any bugs.</p></li>
+<li><p>Testing on additional platforms that are not covered by upstream testing.</p></li>
+<li><p>Finding subtle bugs that can only be reproduced with particular hardware,
+system package versions, and so on.</p></li>
+<li><p>Testing the released package against newer (or older) dependency versions than
+the ones present during upstream release testing.</p></li>
+<li><p>Testing the package in an environment closely resembling the production
+setup. This can detect issues caused by non-trivial interactions between
+different installed packages, including packages that are not dependencies
+of your package, but nevertheless can cause issues.</p></li>
+<li><p>Testing the released package against newer Python versions (including
+newer point releases), or less tested Python implementations such as PyPy.</p></li>
+</ul>
+<p>Admittedly, sometimes downstream testing may yield false positives or bug
+reports about scenarios the upstream project is not interested in supporting.
+However, perhaps even more often it does provide early notice of problems,
+or find non-trivial bugs that would otherwise cause issues for the upstream
+project’s users. While mistakes do happen, the majority of downstream packagers
+are doing their best to double-check their results, and help upstream
+maintainers triage and fix the bugs that they reported.</p>
+</section>
+<section id="id8">
+<h3>How?<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<p>There are a number of things that upstream projects can do to help downstream
+repackagers test their packages efficiently and effectively, including some of the suggestions
+already mentioned above. These are typically improvements that make the test suite more
+reliable and easier to use for everyone, not just downstream packagers.
+Some specific suggestions are:</p>
+<ul class="simple">
+<li><p>Include the test files and fixtures in the source distribution, or make it
+possible to easily download them separately.</p></li>
+<li><p>Do not write to the package directories during testing. Downstream test
+setups sometimes run tests on top of the installed package, and modifications
+performed during testing and temporary test files may end up being part
+of the installed package!</p></li>
+<li><p>Make the test suite work offline. Mock network interactions, using
+packages such as <a class="reference external" href="https://pypi.org/project/responses/">responses</a> or <a class="reference external" href="https://pypi.org/project/vcrpy/">vcrpy</a>. If that is not possible, make it
+possible to easily disable the tests using Internet access, e.g. via a <a class="reference external" href="https://pytest.org/">pytest</a>
+marker. Use <a class="reference external" href="https://pypi.org/project/pytest-socket/">pytest-socket</a> to verify that your tests work offline. This
+often makes your own test workflows faster and more reliable as well.</p></li>
+<li><p>Make your tests work without a specialized setup, or perform the necessary
+setup as part of test fixtures. Do not ever assume that you can connect
+to system services such as databases — in an extreme case, you could crash
+a production service!</p></li>
+<li><p>If your package has optional dependencies, make their tests optional as
+well. Either skip them if the needed packages are not installed, or add
+markers to make deselecting easy.</p></li>
+<li><p>More generally, add markers to tests with special requirements. These can
+include e.g. significant space usage, significant memory usage, long runtime,
+incompatibility with parallel testing.</p></li>
+<li><p>Do not assume that the test suite will be run with <code class="docutils literal notranslate"><span class="pre">-Werror</span></code>. Downstreams
+often need to disable that, as it causes false positives, e.g. due to newer
+dependency versions. Assert for warnings using <code class="docutils literal notranslate"><span class="pre">pytest.warns()</span></code> rather
+than <code class="docutils literal notranslate"><span class="pre">pytest.raises()</span></code>!</p></li>
+<li><p>Aim to make your test suite reliable and reproducible. Avoid flaky tests.
+Avoid depending on specific platform details, don’t rely on exact results
+of floating-point computation, or timing of operations, and so on. Fuzzing
+has its advantages, but you want to have static test cases for completeness
+as well.</p></li>
+<li><p>Split tests by their purpose, and make it easy to skip categories that are
+irrelevant or problematic. Since the primary purpose of downstream testing
+is to ensure that the package itself works, downstreams are not generally interested
+in tasks such as checking code coverage, code formatting, typechecking or running
+benchmarks. These tests can fail as dependencies are upgraded or the system
+is under load, without actually affecting the package itself.</p></li>
+<li><p>If your test suite takes significant time to run, support testing
+in parallel. Downstreams often maintain a large number of packages,
+and testing them all takes a lot of time. Using <a class="reference external" href="https://pypi.org/project/pytest-xdist/">pytest-xdist</a> can help them
+avoid bottlenecks.</p></li>
+<li><p>Ideally, support running your test suite via <code class="docutils literal notranslate"><span class="pre">pytest</span></code>. <a class="reference external" href="https://pytest.org/">pytest</a> has many
+command-line arguments that are truly helpful to downstreams, such as
+the ability to conveniently deselect tests, rerun flaky tests
+(via <a class="reference external" href="https://pypi.org/project/pytest-rerunfailures/">pytest-rerunfailures</a>), add a timeout to prevent tests from hanging
+(via <a class="reference external" href="https://pypi.org/project/pytest-timeout/">pytest-timeout</a>) or run tests in parallel (via <a class="reference external" href="https://pypi.org/project/pytest-xdist/">pytest-xdist</a>).
+Note that test suites don’t need to be <em>written</em> with <code class="docutils literal notranslate"><span class="pre">pytest</span></code> to be
+<em>executed</em> with <code class="docutils literal notranslate"><span class="pre">pytest</span></code>: <code class="docutils literal notranslate"><span class="pre">pytest</span></code> is able to find and execute almost
+all test cases that are compatible with the standard library’s <code class="docutils literal notranslate"><span class="pre">unittest</span></code>
+test discovery.</p></li>
+</ul>
+</section>
+</section>
+<section id="aim-for-stable-releases">
+<span id="id9"></span><h2>Aim for stable releases<a class="headerlink" href="#aim-for-stable-releases" title="Link to this heading">¶</a></h2>
+<section id="id10">
+<h3>Why?<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<p>Many downstreams provide stable release channels in addition to the main
+package streams. The goal of these channels is to provide more conservative
+upgrades to users with higher stability needs. These users often prefer
+to trade having the newest features available for lower risk of issues.</p>
+<p>While the exact policies differ, an important criterion for including a new
+package version in a stable release channel is for it to be available in testing
+for some time already, and have no known major regressions. For example,
+in Gentoo Linux a package is usually marked stable after being available
+in testing for a month, and being tested against the versions of its
+dependencies that are marked stable at the time.</p>
+<p>However, there are circumstances which demand more prompt action. For example,
+if a security vulnerability or a major bug is found in the version that is
+currently available in the stable channel, the downstream is facing a need
+to resolve it. In this case, they need to consider various options, such as:</p>
+<ul class="simple">
+<li><p>putting a new version in the stable channel early,</p></li>
+<li><p>adding patches to the version currently published,</p></li>
+<li><p>or even downgrading the stable channel to an earlier release.</p></li>
+</ul>
+<p>Each of these options involves certain risks and a certain amount of work,
+and packagers needs to weigh them to determine the course of action.</p>
+</section>
+<section id="id11">
+<h3>How?<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<p>There are some things that upstreams can do to tailor their workflow to stable
+release channels. These actions often are beneficial to the package’s users
+as well. Some specific suggestions are:</p>
+<ul class="simple">
+<li><p>Adjust the release frequency to the rate of code changes. Packages that
+are released rarely often bring significant changes with every release,
+and a higher risk of accidental regressions.</p></li>
+<li><p>Avoid mixing bug fixes and new features, if possible. In particular, if there
+are known bug fixes merged already, consider making a new release before
+merging feature branches.</p></li>
+<li><p>Consider making prereleases after major changes, to provide more testing
+opportunities for users and downstreams willing to opt-in.</p></li>
+<li><p>If your project is subject to very intense development, consider splitting
+one or more branches that include a more conservative subset of commits,
+and are released separately. For example, <a class="reference external" href="https://www.djangoproject.com/">Django</a> currently maintains three
+release branches in addition to main.</p></li>
+<li><p>Even if you don’t wish to maintain additional branches permanently, consider
+making additional patch releases with minimal changes to the previous
+version, especially when a security vulnerability is discovered.</p></li>
+<li><p>Split your changes into focused commits that address one problem at a time,
+to make it easier to cherry-pick changes to earlier releases when necessary.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../specifications/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">PyPA specifications</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="single-source-version.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Single-sourcing the Project Version</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2013–2020, PyPA
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            <div class="last-updated">
+              Last updated on Feb 21, 2026</div>
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Supporting downstream packaging</a><ul>
+<li><a class="reference internal" href="#provide-complete-source-distributions">Provide complete source distributions</a><ul>
+<li><a class="reference internal" href="#why">Why?</a></li>
+<li><a class="reference internal" href="#how">How?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#do-not-use-the-internet-during-the-build-process">Do not use the Internet during the build process</a><ul>
+<li><a class="reference internal" href="#id2">Why?</a></li>
+<li><a class="reference internal" href="#id3">How?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#support-building-against-system-dependencies">Support building against system dependencies</a><ul>
+<li><a class="reference internal" href="#id4">Why?</a></li>
+<li><a class="reference internal" href="#id5">How?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#support-downstream-testing">Support downstream testing</a><ul>
+<li><a class="reference internal" href="#id7">Why?</a></li>
+<li><a class="reference internal" href="#id8">How?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#aim-for-stable-releases">Aim for stable releases</a><ul>
+<li><a class="reference internal" href="#id10">Why?</a></li>
+<li><a class="reference internal" href="#id11">How?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=cb5fb026"></script>
+    </body>
+</html>
